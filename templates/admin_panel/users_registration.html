@@ -1,0 +1,15 @@
+{% extends "admin_panel/base_admin.html" %}
+
+{% block title %}Create an account{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <h1 class="h2">Регистрация пользователя</h1>
+    </div>
+    <p>Пожалуйста, зарегистрируйтесь, используя следующую форму:</p>
+    <form method="post" class="my-4 chartjs-render-monitor">
+        {{ user_form.as_p }}
+        {% csrf_token %}
+        <p><input class="btn btn-primary" type="submit" value="Регистрация"></p>
+    </form>
+{% endblock %}

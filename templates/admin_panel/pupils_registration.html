@@ -1,0 +1,18 @@
+{% extends 'admin_panel/base_admin.html' %}
+
+{% block content%}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <h1 class="h2">Регистрация ученика</h1>
+    </div>
+    <div class="form-group">
+        <form method="post" class="my-4 chartjs-render-monitor">
+            {% csrf_token %}
+                {{ pupil_registration_form.as_p }}
+                <p><input class="btn btn-primary" type="submit" value="Регистрация"></p>
+        </form>
+    </div>
+    {% for pupil in pupils%}
+        <p>{{pupil.title}}</p>
+    {% endfor %}
+
+{% endblock %}
