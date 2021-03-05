@@ -45,7 +45,7 @@ def pupils(request):
                 new_pupil = pupil_form.save(commit=False)
                 new_pupil.save()
                 new_pupil_form = PupilRegistrationForm()
-                return render(request, 'admin_panel/pupils_registration.html', {'new_pupil': new_pupil, 'pupil_registration_form': new_pupil_form, 'pupils': list_pupils})
+                return render(request, 'admin_panel/pupils_registration.html', {'new_pupil': new_pupil, 'pupil_registration_form': new_pupil_form, "contacts": contacts, 'page_obj': page_obj})
         else:
             pupil_form = PupilRegistrationForm()
         return render(request, 'admin_panel/pupils_registration.html', {'pupil_registration_form': pupil_form, 'pupils': list_pupils, "contacts": contacts, 'page_obj': page_obj})
