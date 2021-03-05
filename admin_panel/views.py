@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import UserRegistrationForm, PupilRegistrationForm
 from .models import Pupil
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 
 
@@ -27,6 +28,16 @@ def users(request):
 
 def pupils(request):
     list_pupils = Pupil.objects.all().order_by('last_name')
+    paginator = Paginator(list_pupils, 5)
+    page = request.GET.get('page')
+    page_obj = paginator.get_page(page)
+    try:
+        contacts = paginator.page(page)
+    except PageNotAnInteger:
+        contacts = paginator.page(1)
+    except EmptyPage:
+        contacts = paginator.page(paginator.num_pages)
+
     if request.user.is_staff:
         if request.method == "POST":
             pupil_form = PupilRegistrationForm(request.POST)
@@ -37,7 +48,7 @@ def pupils(request):
                 return render(request, 'admin_panel/pupils_registration.html', {'new_pupil': new_pupil, 'pupil_registration_form': new_pupil_form, 'pupils': list_pupils})
         else:
             pupil_form = PupilRegistrationForm()
-        return render(request, 'admin_panel/pupils_registration.html', {'pupil_registration_form': pupil_form, 'pupils': list_pupils})
+        return render(request, 'admin_panel/pupils_registration.html', {'pupil_registration_form': pupil_form, 'pupils': list_pupils, "contacts": contacts, 'page_obj': page_obj})
     else:
         return redirect('/')
 
