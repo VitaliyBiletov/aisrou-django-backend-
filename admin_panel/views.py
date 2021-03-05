@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import UserRegistrationForm, PupilRegistrationForm
-from main.models import Pupil
+from .models import Pupil
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 
 
 # Create your views here.
@@ -25,17 +26,23 @@ def users(request):
 
 
 def pupils(request):
+    list_pupils = Pupil.objects.all().order_by('last_name')
     if request.user.is_staff:
-        list_pupils = Pupil.objects.all()
         if request.method == "POST":
             pupil_form = PupilRegistrationForm(request.POST)
             if pupil_form.is_valid():
                 new_pupil = pupil_form.save(commit=False)
                 new_pupil.save()
                 new_pupil_form = PupilRegistrationForm()
-                return render(request, 'admin_panel/pupils_registration.html', {'new_pupil': new_pupil, 'pupil_registration_form': new_pupil_form,})
+                return render(request, 'admin_panel/pupils_registration.html', {'new_pupil': new_pupil, 'pupil_registration_form': new_pupil_form, 'pupils': list_pupils})
         else:
             pupil_form = PupilRegistrationForm()
         return render(request, 'admin_panel/pupils_registration.html', {'pupil_registration_form': pupil_form, 'pupils': list_pupils})
     else:
         return redirect('/')
+
+
+def delete(request, id):
+    pupil = Pupil.objects.get(id=id)
+    pupil.delete()
+    return redirect('/admin_panel/pupils_registration/')

@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from main.models import Pupil
+from .models import Pupil
 
 
 class UserRegistrationForm(forms.ModelForm):

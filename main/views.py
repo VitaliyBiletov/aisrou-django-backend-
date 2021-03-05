@@ -15,9 +15,5 @@ def index(request):
     return render(request, 'main/index.html')
 
 
-def about_as(request):
-    return render(request, 'main/about.html')
-
-
 def login(request):
     return render(request, 'registration/login.html')

@@ -11,8 +11,27 @@
                 <p><input class="btn btn-primary" type="submit" value="Регистрация"></p>
         </form>
     </div>
-    {% for pupil in pupils%}
-        <p>{{pupil.title}}</p>
-    {% endfor %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">id</th>
+          <th scope="col">Фамилия</th>
+          <th scope="col">Имя</th>
+          <th scope="col">Дата регистрации</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+            {% for pupil in pupils%}
+            <tr>
+              <th scope="row">{{pupil.id}}</th>
+              <td>{{pupil.last_name}}</td>
+              <td>{{pupil.first_name}}</td>
+              <td>{{pupil.date}}</td>
+              <td><a class="text-danger" href="delete/{{pupil.id}}">Удалить</a></td>
+            </tr>
+            {% endfor %}
+      </tbody>
+    </table>
 
 {% endblock %}

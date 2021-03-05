@@ -1,5 +1,5 @@
 from django.contrib import admin
-from main.models import Pupil
+from .models import Pupil
 # Register your models here.
 
 
