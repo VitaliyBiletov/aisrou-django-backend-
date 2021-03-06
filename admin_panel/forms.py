@@ -29,7 +29,8 @@ class PupilRegistrationForm(forms.ModelForm):
             self.fields[field].widget.attrs.update({
                 'class': 'form-control col-md-5'
         })
+            self.fields['teacher'].queryset = User.objects.filter(groups__name__in=['Логопеды'])
 
     class Meta:
         model = Pupil
-        fields = ('first_name', 'last_name')
+        fields = ('first_name', 'last_name', 'teacher')
