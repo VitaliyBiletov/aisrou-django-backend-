@@ -6,13 +6,23 @@
 
 {% block content %}
 
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-        <h1 class="h2">Группы</h1>
-    </div>
-    <form class="my-4 chartjs-render-monitor" method="post">
+<div id="tabs">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" href="#tabs-1">Просмотр</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#tabs-2">Прикрепление</a>
+      </li>
+    </ul>
+  <div class="tab-pane" id="tabs-1">
+<!--    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">-->
+<!--        <h1 class="h2">Группы</h1>-->
+<!--    </div>-->
+    <form id="group_view_form" class="my-4 chartjs-render-monitor" method="post">
         {% csrf_token %}
         {{ logo_groups_form }}
-        <button type="submit" class="btn btn-primary mt-3">Показать</button>
+        <button type="submit" id="button_view" class="btn btn-primary mt-3">Показать</button>
     </form>
     <table class="table mt-3">
       <thead>
@@ -32,5 +42,14 @@
         {% endfor %}
       </tbody>
     </table>
+  </div>
+  <div class="tab-pane" id="tabs-2">
+      <form class="my-4 chartjs-render-monitor" method="post">
+        {% csrf_token %}
+        {{ logo_groups_form }}
+        <button type="submit" id="button_attachment" class="btn btn-primary mt-3">Показать</button>
+      </form>
+  </div>
+</div>
 
 {% endblock %}
