@@ -1,0 +1,36 @@
+{% extends 'admin_panel/base_admin.html' %}
+
+{% block title %}
+    Группы
+{% endblock %}
+
+{% block content %}
+
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <h1 class="h2">Группы</h1>
+    </div>
+    <form class="my-4 chartjs-render-monitor" method="post">
+        {% csrf_token %}
+        {{ logo_groups_form }}
+        <button type="submit" class="btn btn-primary mt-3">Показать</button>
+    </form>
+    <table class="table mt-3">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Имя</th>
+          <th scope="col">Фамилия</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for record in logo_groups_filtered %}
+        <tr>
+          <th scope="row">{{ record.pupil.id }}</th>
+          <td>{{ record.pupil.first_name }}</td>
+          <td>{{ record.pupil.last_name }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+{% endblock %}

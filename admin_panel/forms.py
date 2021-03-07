@@ -1,19 +1,27 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Pupil
+from .models import Pupil, LogoGroups
 
 
 class UserRegistrationForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(UserRegistrationForm, self).__init__(*args, **kwargs)
         for field in iter(self.fields):
-            self.fields[field].widget.attrs.update({
-                'class': 'form-control col-md-5'
-        })
+            self.fields[field].widget.attrs.update(
+                {
+                    'class': 'form-control col-md-5'
+                }
+            )
 
     class Meta:
         model = User
-        fields = ('username', 'password', 'first_name', 'last_name', 'groups')
+        fields = (
+            'username',
+            'password',
+            'first_name',
+            'last_name',
+            'groups'
+        )
 
     # def clean_password2(self):
     #     cd = self.cleaned_data
@@ -26,11 +34,28 @@ class PupilRegistrationForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(PupilRegistrationForm, self).__init__(*args, **kwargs)
         for field in iter(self.fields):
-            self.fields[field].widget.attrs.update({
-                'class': 'form-control col-md-5'
-        })
-            self.fields['teacher'].queryset = User.objects.filter(groups__name__in=['Логопеды'])
+            self.fields[field].widget.attrs.update(
+                {
+                    'class': 'form-control col-md-5'
+                }
+            )
 
     class Meta:
         model = Pupil
-        fields = ('first_name', 'last_name', 'teacher')
+        fields = ('first_name', 'last_name', 'middle_name')
+
+
+class LogoGroupsForm(forms.ModelForm):
+    class Meta:
+        model = LogoGroups
+        fields = ('teacher',)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in iter(self.fields):
+            self.fields[field].widget.attrs.update(
+                {
+                    'class': 'form-control col-md-5'
+                }
+            )
+        self.fields['teacher'].queryset = User.objects.filter(groups__name='Логопеды')

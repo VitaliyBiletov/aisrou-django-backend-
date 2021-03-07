@@ -1,5 +1,7 @@
 {% extends 'admin_panel/base_admin.html' %}
 
+{% block title %}Регистрация ученика{% endblock %}
+
 {% block content %}
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
         <h1 class="h2">Регистрация ученика</h1>
@@ -17,6 +19,7 @@
           <th scope="col">id</th>
           <th scope="col">Фамилия</th>
           <th scope="col">Имя</th>
+          <th scope="col">Отчество</th>
           <th scope="col">Дата регистрации</th>
           <th scope="col"></th>
         </tr>
@@ -27,6 +30,7 @@
               <th scope="row">{{pupil.id}}</th>
               <td>{{pupil.last_name}}</td>
               <td>{{pupil.first_name}}</td>
+              <td>{{pupil.middle_name}}</td>
               <td>{{pupil.date}}</td>
               <td><a class="text-danger" href="delete/{{pupil.id}}">Удалить</a></td>
             </tr>
@@ -34,23 +38,23 @@
       </tbody>
     </table>
 
-{% if contacts.has_other_pages %}
+{% if list_pupils.has_other_pages %}
     <nav aria-label="Page navigation">
       <ul class="pagination justify-content-center">
-        {% if users.has_previous %}
-            <li class="page-item "><a class="page-link" href="?page={{ contacts.previous_page_number }}">&laquo;</a></li>
+        {% if list_pupils.has_previous %}
+            <li class="page-item "><a class="page-link" href="?page={{ list_pupils.previous_page_number }}">&laquo;</a></li>
         {% else %}
             <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
         {% endif %}
-        {% for i in contacts.paginator.page_range %}
-            {% if contacts.number == i %}
-                <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+        {% for i in list_pupils.paginator.page_range %}
+            {% if list_pupils.number == i %}
+                <li class="page-item active"><span class="page-link">{{ i }}<span class="sr-only">(current)</span></span></li>
             {% else %}
                 <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
             {% endif %}
         {% endfor %}
-        {% if contacts.has_next %}
-          <li class="page-item"><a class="page-link" href="?page={{ contacts.next_page_number }}">&raquo;</a></li>
+        {% if list_pupils.has_next %}
+          <li class="page-item"><a class="page-link" href="?page={{ list_pupils.next_page_number }}">&raquo;</a></li>
         {% else %}
           <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
         {% endif %}
