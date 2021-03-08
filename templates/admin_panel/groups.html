@@ -6,37 +6,38 @@
 
 {% block content %}
 
-<div id="tabs">
-    <ul class="nav nav-tabs">
-      <li class="nav-item">
-        <a class="nav-link active" href="#tabs-1">Просмотр</a>
-      </li>
-    </ul>
-  <div class="tab-pane" id="tabs-1">
-<!--    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">-->
-<!--        <h1 class="h2">Группы</h1>-->
-<!--    </div>-->
-    <form id="group_view_form" class="my-4" method="post">
-        {% csrf_token %}
-        <div class="form-row">
-                <div class="form-group col-md-3">
-                    {{ logo_groups_form.teacher.label_tag }}
-                    {{ logo_groups_form.teacher }}
+    <div id="tabs">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" href="#tabs-1">Просмотр</a>
+          </li>
+        </ul>
+      <div class="tab-pane" id="tabs-1">
+    <!--    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">-->
+    <!--        <h1 class="h2">Группы</h1>-->
+    <!--    </div>-->
+        <form id="group_view_form" class="my-4" method="post">
+            {% csrf_token %}
+            <div class="form-row">
+                    <div class="form-group col-md-3">
+                        {{ logo_groups_form.teacher.label_tag }}
+                        {{ logo_groups_form.teacher }}
+                    </div>
+                    <div class="form-group col-md-3">
+                        {{ logo_groups_form.pupil.label_tag }}
+                        {{ logo_groups_form.pupil }}
+                    </div>
+            </div>
+            <div class="row">
+                <div class="button_attachment offset-md-3 px-2">
+                    <button type="submit" id="button_attachment" class="btn btn-primary disabled" disabled>Прикрепить</button>
                 </div>
-                <div class="form-group col-md-3">
-                    {{ logo_groups_form.pupil.label_tag }}
-                    {{ logo_groups_form.pupil }}
-                </div>
-        </div>
-        <button type="button" id="button_attachment" class="btn btn-primary disabled" disabled>Прикрепить</button>
-<!--        <button type="submit" id="button_view" class="btn btn-primary mt-3">Показать</button>-->
-    </form>
+                <p id='group_message' style="display: none"></p>
+            </div>
 
-    <div id="table">
-
-
+        </form>
+        <div id="table"></div>
+      </div>
     </div>
-  </div>
-</div>
 
 {% endblock %}

@@ -9,12 +9,12 @@ $(document).ready(function(){
         $(this).addClass('active')
     })
 
-    $('#group_view_form').change(function(e){
+    $('#id_teacher').change(function(e){
         e.preventDefault()
         $.ajax({
-            url: $(this).url,
+            url: $(this).parents('form').url,
             type: "POST",
-            data: $(this).serialize(),
+            data: $(this).parents('form').serialize(),
             cache: false,
             success: function(data){
                 $('#table').empty()
@@ -25,7 +25,27 @@ $(document).ready(function(){
 
     $('#group_view_form').submit(function(e){
         e.preventDefault()
+        $.ajax({
+            url: $(this).url,
+            type: "POST",
+            data: $(this).serialize(),
+            cache: false,
+            success: function(data, textStatus){
+                $('#table').empty()
+                $('#table').append(data)
+                $('#id_pupil').val(null).trigger('change')
+                if (textStatus == "success"){
+                    $('#group_message').addClass('text-success').fadeIn(1000).text('Ученик успешно прикреплен!')
+                    setTimeout(function () {
+                        $('#group_message').fadeOut(1000)
+                        setTimeout(function () {
+                            $('#group_message').remove()
+                        }, 1000)
+                    }, 2000)
 
+                }
+            }
+        })
     })
 
     $('#id_teacher').change(function(){
@@ -46,4 +66,13 @@ $(document).ready(function(){
             $("#button_attachment").addClass('disabled')
         };
     })
+
+    $('.js-select2').select2({
+		placeholder: 'Выбрать',
+		maximumSelectionLength: 2,
+		language: "ru",
+        style: {
+		    width: 'resolve'
+        }
+ 	});
 })

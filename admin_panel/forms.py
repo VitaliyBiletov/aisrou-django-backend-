@@ -55,7 +55,7 @@ class LogoGroupsForm(forms.ModelForm):
         for field in iter(self.fields):
             self.fields[field].widget.attrs.update(
                 {
-                    'class': 'form-control'
+                    'class': 'js-select2  form-control',
                 }
             )
         self.fields['teacher'].queryset = User.objects.filter(groups__name='Логопеды')
