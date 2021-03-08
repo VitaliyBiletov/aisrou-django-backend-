@@ -26,7 +26,7 @@ class Pupil(models.Model):
     )
 
     def __str__(self):
-        return get_name
+        return self.last_name
 
     class Meta:
         verbose_name = 'Ученик'

@@ -89,17 +89,19 @@ def delete(request, id):
 
 
 def groups(request):
+    logo_group_form = LogoGroupsForm()
+    print(LogoGroupsForm(request.POST))
     if request.method == "POST":
         logo_group_form = LogoGroupsForm(request.POST)
-        if logo_group_form.is_valid():
-            teacher_id = logo_group_form['teacher'].value()
-            logo_groups_filtered = LogoGroups.objects.filter(teacher=teacher_id)
-            return render(
-                request,
-                'admin_panel/groups.html',
-                {
-                    'logo_groups_form': LogoGroupsForm(request.POST),
-                    'logo_groups_filtered': logo_groups_filtered
-                }
-            )
-    return render(request, 'admin_panel/groups.html', {'logo_groups_form': LogoGroupsForm})
+        # if logo_group_form.is_valid():
+        teacher_id = logo_group_form['teacher'].value()
+        logo_groups_filtered = LogoGroups.objects.filter(teacher=teacher_id)
+        return render(
+            request,
+            'admin_panel/result_table.html',
+            {
+                'logo_groups_form': LogoGroupsForm(request.POST),
+                'logo_groups_filtered': logo_groups_filtered
+            }
+        )
+    return render(request, 'admin_panel/groups.html', {'logo_groups_form': logo_group_form})

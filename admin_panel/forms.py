@@ -48,14 +48,14 @@ class PupilRegistrationForm(forms.ModelForm):
 class LogoGroupsForm(forms.ModelForm):
     class Meta:
         model = LogoGroups
-        fields = ('teacher',)
+        fields = ('teacher', 'pupil')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in iter(self.fields):
             self.fields[field].widget.attrs.update(
                 {
-                    'class': 'form-control col-md-5'
+                    'class': 'form-control'
                 }
             )
         self.fields['teacher'].queryset = User.objects.filter(groups__name='Логопеды')

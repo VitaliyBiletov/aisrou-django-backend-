@@ -1,0 +1,19 @@
+<p class="mt-3">Группа учеников:</p>
+<table class="table col-md-6 mt-3">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Имя</th>
+          <th scope="col">Фамилия</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for record in logo_groups_filtered %}
+        <tr>
+          <th scope="row">{{ record.pupil.id }}</th>
+          <td>{{ record.pupil.first_name }}</td>
+          <td>{{ record.pupil.last_name }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+</table>
