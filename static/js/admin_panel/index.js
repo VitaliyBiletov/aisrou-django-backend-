@@ -1,22 +1,17 @@
 $(document).ready(function(){
+
     $('#id_pupil').attr('disabled', true)
 
     $( "#tabs" ).tabs();
 
-    $('#tabs a').on('click', function (e) {
+    $('#tabs .nav-link').on('click', function (e) {
         e.preventDefault()
-        $('#tabs a').removeClass('active')
+        $('#tabs .nav-link').removeClass('active')
         $(this).addClass('active')
     })
 
     $('#id_teacher').change(function(e){
         e.preventDefault()
-        const teacher_value = $(this).val();
-        if (teacher_value){
-            $('#id_pupil').attr('disabled', false)
-        }else {
-            $('#id_pupil').attr('disabled', true)
-        }
         $.ajax({
             url: 'view/',
             type: "POST",
@@ -27,6 +22,13 @@ $(document).ready(function(){
                 $('#table').append(data)
             }
         })
+        const teacher_value = $(this).val();
+        console.log(teacher_value)
+        if (teacher_value){
+            $('#id_pupil').attr('disabled', false)
+        }else {
+            $('#id_pupil').attr('disabled', true)
+        }
     })
 
     $('#group_view_form').submit(function(e){

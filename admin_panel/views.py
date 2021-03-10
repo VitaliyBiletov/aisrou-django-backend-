@@ -89,20 +89,18 @@ def delete(request, id):
 
 
 def unpin(request, id):
-    if request.method == "GET":
-        logo_group = LogoGroups.objects.get(id=id)
-        logo_group.delete()
-        teacher_id = request.GET.get('id_teacher')
-        print(teacher_id)
-        logo_groups_filtered = LogoGroups.objects.filter(teacher=teacher_id)
-        print(logo_groups_filtered)
-        return render(
-            request,
-            'admin_panel/result_table.html',
-            {
-                'logo_groups_filtered': logo_groups_filtered
-            }
-        )
+    logo_group = LogoGroups.objects.get(id=id)
+    logo_group.delete()
+    teacher_id = request.GET.get('id_teacher')
+    logo_groups_filtered = LogoGroups.objects.filter(teacher=teacher_id)
+    return render(
+        request,
+        'admin_panel/result_table.html',
+        {
+            'logo_groups_filtered': logo_groups_filtered,
+            'logo_groups_form': LogoGroupsForm(request.GET),
+        }
+    )
 
 
 def groups(request):
@@ -115,7 +113,6 @@ def groups_view(request):
         logo_group_form = LogoGroupsForm(request.POST)
         teacher_id = logo_group_form['teacher'].value()
         logo_groups_filtered = LogoGroups.objects.filter(teacher=teacher_id)
-        print(logo_groups_filtered)
         return render(
             request,
             'admin_panel/result_table.html',
