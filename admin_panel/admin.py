@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Pupil, LogoGroups
+from .models import Pupil, LogoGroups, Profile
 # Register your models here.
 
 
@@ -25,3 +25,5 @@ class ClassLogoGroups(admin.ModelAdmin):
 
 
 admin.site.register(LogoGroups, ClassLogoGroups)
+
+admin.site.register(Profile)

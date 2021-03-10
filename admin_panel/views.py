@@ -1,5 +1,7 @@
+from django.contrib.auth.decorators import login_required
+from django.db import transaction
 from django.shortcuts import render, redirect
-from .forms import UserRegistrationForm, PupilRegistrationForm, LogoGroupsForm
+from .forms import UserForm, PupilRegistrationForm, LogoGroupsForm, ProfileForm
 from .models import Pupil, LogoGroups
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -15,24 +17,30 @@ def index(request):
     )
 
 
+@login_required
+@transaction.atomic
 def users(request):
     if request.user.is_staff:
         if request.method == "POST":
-            user_form = UserRegistrationForm(request.POST)
-            if user_form.is_valid():
-                new_user = user_form.save(commit=False)
-                new_user.set_password(user_form.cleaned_data['password'])
-                new_user.save()
+            user_form = UserForm(request.POST)
+            profile_form = ProfileForm(request.POST)
+            if user_form.is_valid() and profile_form.is_valid():
+                user = user_form.save()
+                profile = profile_form.save(commit=False)
+                profile.user = user
+                profile.save()
                 return render(
                     request,
-                    'main/register_done.html', {'new_user': new_user})
+                    'main/register_done.html', {'new_user': user_form})
         else:
-            user_form = UserRegistrationForm()
+            user_form = UserForm()
+            profile_form = ProfileForm()
         return render(
             request,
             'admin_panel/users_registration.html',
             {
                 'user_form': user_form,
+                'profile_form': profile_form
              }
         )
     else:
