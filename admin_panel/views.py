@@ -88,8 +88,45 @@ def delete(request, id):
     return redirect('/admin_panel/pupils_registration/')
 
 
+def unpin(request, id):
+    if request.method == "GET":
+        logo_group = LogoGroups.objects.get(id=id)
+        logo_group.delete()
+        teacher_id = request.GET.get('id_teacher')
+        print(teacher_id)
+        logo_groups_filtered = LogoGroups.objects.filter(teacher=teacher_id)
+        print(logo_groups_filtered)
+        return render(
+            request,
+            'admin_panel/result_table.html',
+            {
+                'logo_groups_filtered': logo_groups_filtered
+            }
+        )
+
+
 def groups(request):
     logo_group_form = LogoGroupsForm()
+    return render(request, 'admin_panel/groups.html', {'logo_groups_form': logo_group_form})
+
+
+def groups_view(request):
+    if request.method == "POST":
+        logo_group_form = LogoGroupsForm(request.POST)
+        teacher_id = logo_group_form['teacher'].value()
+        logo_groups_filtered = LogoGroups.objects.filter(teacher=teacher_id)
+        print(logo_groups_filtered)
+        return render(
+            request,
+            'admin_panel/result_table.html',
+            {
+                'logo_groups_form': LogoGroupsForm(request.POST),
+                'logo_groups_filtered': logo_groups_filtered
+            }
+        )
+
+
+def groups_attachment(request):
     if request.method == "POST":
         logo_group_form = LogoGroupsForm(request.POST)
         teacher_id = logo_group_form['teacher'].value()
@@ -104,13 +141,3 @@ def groups(request):
                     'logo_groups_filtered': logo_groups_filtered,
                 }
             )
-        else:
-            return render(
-                request,
-                'admin_panel/result_table.html',
-                {
-                    'logo_groups_form': LogoGroupsForm(request.POST),
-                    'logo_groups_filtered': logo_groups_filtered
-                }
-            )
-    return render(request, 'admin_panel/groups.html', {'logo_groups_form': logo_group_form})

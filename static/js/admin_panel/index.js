@@ -11,8 +11,14 @@ $(document).ready(function(){
 
     $('#id_teacher').change(function(e){
         e.preventDefault()
+        const teacher_value = $(this).val();
+        if (teacher_value){
+            $('#id_pupil').attr('disabled', false)
+        }else {
+            $('#id_pupil').attr('disabled', true)
+        }
         $.ajax({
-            url: $(this).parents('form').url,
+            url: 'view/',
             type: "POST",
             data: $(this).parents('form').serialize(),
             cache: false,
@@ -26,7 +32,7 @@ $(document).ready(function(){
     $('#group_view_form').submit(function(e){
         e.preventDefault()
         $.ajax({
-            url: $(this).url,
+            url: 'attachment/',
             type: "POST",
             data: $(this).serialize(),
             cache: false,
@@ -36,25 +42,10 @@ $(document).ready(function(){
                 $('#id_pupil').val(null).trigger('change')
                 if (textStatus == "success"){
                     $('#group_message').addClass('text-success').fadeIn(1000).text('Ученик успешно прикреплен!')
-                    setTimeout(function () {
-                        $('#group_message').fadeOut(1000)
-                        setTimeout(function () {
-                            $('#group_message').remove()
-                        }, 1000)
-                    }, 2000)
-
+                    $('#group_message').fadeOut(1000)
                 }
             }
         })
-    })
-
-    $('#id_teacher').change(function(){
-        const teacher_value = $(this).val();
-        if (teacher_value){
-            $('#id_pupil').attr('disabled', false)
-        }else {
-            $('#id_pupil').attr('disabled', true)
-        }
     })
 
     $('#id_pupil').change(function() {

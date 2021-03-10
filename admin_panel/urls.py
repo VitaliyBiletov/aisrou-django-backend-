@@ -6,6 +6,9 @@ urlpatterns = [
     path('admin_panel/', views.index, name='admin_panel'),
     path('users_registration/', views.users, name='users'),
     path('pupils_registration/', views.pupils, name='pupils'),
+    path('pupils_registration/delete/<int:id>/', views.delete),
     path('groups/', views.groups, name='groups'),
-    path('pupils_registration/delete/<int:id>/', views.delete)
+    path('groups/view/', views.groups_view, name='view'),
+    path('groups/attachment/', views.groups_attachment, name='attachment'),
+    path('groups/unpin/<int:id>/', views.unpin),
 ]
