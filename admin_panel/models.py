@@ -1,9 +1,7 @@
 from django.db import models
 from datetime import datetime
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from .functions import get_name
-
-User.add_to_class("__str__", get_name)
 
 
 class Pupil(models.Model):

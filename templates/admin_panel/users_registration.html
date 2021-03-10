@@ -8,8 +8,8 @@
     </div>
     <p>Пожалуйста, зарегистрируйтесь, используя следующую форму:</p>
     <form method="post" class="my-4 chartjs-render-monitor">
-        {{ user_form.as_p }}
         {% csrf_token %}
+        {{ user_form.as_p }}
         <p><input class="btn btn-primary" type="submit" value="Регистрация"></p>
     </form>
 {% endblock %}

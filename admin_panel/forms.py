@@ -7,6 +7,7 @@ class UserRegistrationForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(UserRegistrationForm, self).__init__(*args, **kwargs)
         for field in iter(self.fields):
+            print(field)
             self.fields[field].widget.attrs.update(
                 {
                     'class': 'form-control col-md-5'
@@ -17,11 +18,13 @@ class UserRegistrationForm(forms.ModelForm):
         model = User
         fields = (
             'username',
-            'password',
-            'first_name',
             'last_name',
+            'first_name',
+            'password',
+            'is_staff',
             'groups'
         )
+
 
     # def clean_password2(self):
     #     cd = self.cleaned_data

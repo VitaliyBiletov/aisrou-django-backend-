@@ -31,7 +31,9 @@ def users(request):
         return render(
             request,
             'admin_panel/users_registration.html',
-            {'user_form': user_form}
+            {
+                'user_form': user_form,
+             }
         )
     else:
         return redirect('/')
