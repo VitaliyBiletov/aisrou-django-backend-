@@ -23,6 +23,7 @@ def users(request):
     if request.user.is_staff:
         if request.method == "POST":
             user_form = UserForm(request.POST)
+            print(user_form)
             profile_form = ProfileForm(request.POST)
             if user_form.is_valid() and profile_form.is_valid():
                 user = user_form.save()
@@ -31,17 +32,17 @@ def users(request):
                 profile.save()
                 return render(
                     request,
-                    'main/register_done.html', {'new_user': user_form})
+                    'main/register_done.html', {'new_user': user.username})
         else:
             user_form = UserForm()
             profile_form = ProfileForm()
-        return render(
-            request,
-            'admin_panel/users_registration.html',
-            {
-                'user_form': user_form,
-                'profile_form': profile_form
-             }
+            return render(
+                request,
+                'admin_panel/users_registration.html',
+                {
+                    'user_form': user_form,
+                    'profile_form': profile_form
+                 }
         )
     else:
         return redirect('/')
