@@ -25,15 +25,35 @@ from .models import Pupil, LogoGroups, Profile
 #             'groups'
 #         )
 class UserForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(UserForm, self).__init__(*args, **kwargs)
+        for field in iter(self.fields):
+            self.fields[field].widget.attrs.update(
+                {
+                    'class': 'form-control'
+                }
+            )
+
     class Meta:
         model = User
-        fields = ('username','password','first_name', 'last_name', 'email')
+        fields = (
+            'username',
+            'password',
+            'groups',
+            'first_name',
+            'last_name',
+        )
 
 
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('birth_date', 'location', 'bio')
+        fields = (
+            'patronymic',
+        )
+        widgets = {
+            'patronymic': forms.TextInput(attrs={'class': 'form-control'})
+        }
 
     # def clean_password2(self):
     #     cd = self.cleaned_data

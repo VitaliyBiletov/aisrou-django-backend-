@@ -10,10 +10,13 @@ from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 
 # Create your views here.
 def index(request):
+    print(request.user)
     return render(
         request,
         'admin_panel/index.html',
-        {'title': 'Администратор'}
+        {
+            'title': 'Администратор'
+        }
     )
 
 
@@ -30,16 +33,17 @@ def users(request):
                 profile = profile_form.save(commit=False)
                 profile.user = user
                 profile.save()
-                return render(
-                    request,
-                    'main/register_done.html', {'new_user': user.username})
+                return redirect('/admin_panel/users_registration/')
         else:
             user_form = UserForm()
             profile_form = ProfileForm()
+            list_users = User.objects.all()
+            print(list_users)
             return render(
                 request,
                 'admin_panel/users_registration.html',
                 {
+                    'list_users': list_users,
                     'user_form': user_form,
                     'profile_form': profile_form
                  }
@@ -94,9 +98,13 @@ def pupils(request):
 
 
 def delete(request, id):
-    pupil = Pupil.objects.get(id=id)
-    pupil.delete()
-    return redirect('/admin_panel/pupils_registration/')
+    # pupil = Pupil.objects.get(id=id)
+    # pupil.delete()
+    print(request.GET['type'])
+    url = request.path
+    url_parts = url.split('/')
+    redirect_url = '/'.join(url_parts[0:3])
+    return redirect(redirect_url)
 
 
 def unpin(request, id):

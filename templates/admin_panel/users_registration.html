@@ -3,14 +3,46 @@
 {% block title %}Регистрация пользователя{% endblock %}
 
 {% block content %}
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-        <h1 class="h2">Регистрация пользователя</h1>
+    <h1>Пользователи</h1>
+    <div class="row">
+        <div class="col-sm">
+            <form method="post">
+                {% csrf_token %}
+                {% for field in user_form %}
+                    <div class="form-group">
+                        {{ field.label_tag }}
+                        {{ field }}
+                    </div>
+                {% endfor %}
+                {{ profile_form.as_p }}
+                <p><input class="btn btn-primary" type="submit" value="Регистрация"></p>
+            </form>
+        </div>
+        <div class="col-sm">
+            <table class="table table-sm my-4">
+              <thead>
+                <tr>
+                  <th scope="col">Логин</th>
+                  <th scope="col">Фамилия</th>
+                  <th scope="col">Имя</th>
+                  <th scope="col">Отчество</th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for user in list_users %}
+                <tr>
+                  <td>{{ user.username}}</td>
+                  <td>{{ user.last_name}}</td>
+                  <td>{{ user.first_name }}</td>
+                  <td>{{ user.profile.patronymic }}</td>
+                  <td><a href="#"><img alt="Изменить" width="15" src="https://img.icons8.com/cotton/64/000000/create-new--v2.png"/></a></td>
+                  <td><a href="delete/{{user.id}}/?type=User"><img alt="Удалить" width="15" src="https://img.icons8.com/cotton/64/000000/delete.png"/></a></td>
+                </tr>
+              </tbody>
+              {% endfor %}
+            </table>
+        </div>
     </div>
-    <p>Пожалуйста, зарегистрируйтесь, используя следующую форму:</p>
-    <form method="post" class="my-4 chartjs-render-monitor">
-        {% csrf_token %}
-        {{ user_form.as_p }}
-        {{ profile_form.as_p }}
-        <p><input class="btn btn-primary" type="submit" value="Регистрация"></p>
-    </form>
 {% endblock %}
