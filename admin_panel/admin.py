@@ -26,4 +26,10 @@ class ClassLogoGroups(admin.ModelAdmin):
 
 admin.site.register(LogoGroups, ClassLogoGroups)
 
-admin.site.register(Profile)
+
+class ClassProfile(admin.ModelAdmin):
+    list_display = (
+        'user',
+    )
+
+admin.site.register(Profile, ClassProfile)

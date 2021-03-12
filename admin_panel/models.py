@@ -2,16 +2,24 @@ from django.db import models
 from datetime import datetime
 from django.contrib.auth.models import User, Group
 from .functions import get_name
-from django.db.models.signals import post_save
-from django.dispatch import receiver
+
+
+User.add_to_class("__str__", get_name)
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Пользователь')
     patronymic = models.CharField(
         verbose_name='Отчество',
         max_length=30,
     )
+
+    def __str__(self):
+        return "{} {}".format(self.user, self.patronymic)
+
+    class Meta:
+        verbose_name = 'Профиль'
+        verbose_name_plural = 'Профили'
 
 
 class Pupil(models.Model):
@@ -42,13 +50,11 @@ class Pupil(models.Model):
 
 
 class LogoGroups(models.Model):
-
     teacher = models.ForeignKey(
-        User,
+        Profile,
         verbose_name='Учитель',
         on_delete=models.SET_NULL,
         null=True,
-        limit_choices_to={'groups__name': "Логопеды"}
     )
 
     pupil = models.ForeignKey(
