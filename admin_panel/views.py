@@ -5,6 +5,7 @@ from .forms import UserForm, PupilRegistrationForm, LogoGroupsForm, ProfileForm
 from .models import Pupil, LogoGroups
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.apps import apps
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 
 
@@ -38,14 +39,13 @@ def users(request):
             user_form = UserForm()
             profile_form = ProfileForm()
             list_users = User.objects.all()
-            print(list_users)
             return render(
                 request,
                 'admin_panel/users_registration.html',
                 {
                     'list_users': list_users,
                     'user_form': user_form,
-                    'profile_form': profile_form
+                    'profile_form': profile_form,
                  }
         )
     else:
@@ -78,7 +78,7 @@ def pupils(request):
                         'new_pupil': new_pupil,
                         'pupil_registration_form': new_pupil_form,
                         'list_pupils': list_pupils,
-                        'page_obj': page_obj
+                        'page_obj': page_obj,
                     }
                 )
         else:
@@ -90,17 +90,32 @@ def pupils(request):
                 'pupil_registration_form': pupil_form,
                 'pupils': list_pupils,
                 'list_pupils': list_pupils,
-                'page_obj': page_obj
+                'page_obj': page_obj,
+                'type': Pupil.__name__,
             }
         )
     else:
         return redirect('/')
 
 
+def delete_user(request, id):
+    user = User.objects.get(id=id)
+    user.delete()
+    return redirect('/admin_panel/users_registration')
+
+
 def delete(request, id):
-    # pupil = Pupil.objects.get(id=id)
-    # pupil.delete()
-    print(request.GET['type'])
+    # user = User.objects.get(id=id)
+    # user.delete()
+    type_object = request.GET['type']
+    print(request.GET)
+    print('type_object ', type_object)
+    apps_models = apps.get_app_config('admin_panel').get_models()
+    for model in apps_models:
+        print(model.__name__)
+        if model.__name__ == type_object:
+            delete_model = model.objects.get(id=id)
+            delete_model.delete()
     url = request.path
     url_parts = url.split('/')
     redirect_url = '/'.join(url_parts[0:3])

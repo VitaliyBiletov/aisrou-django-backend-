@@ -32,7 +32,7 @@
               <td>{{pupil.first_name}}</td>
               <td>{{pupil.middle_name}}</td>
               <td>{{pupil.date}}</td>
-              <td><a class="text-danger" href="delete/{{pupil.id}}">Удалить</a></td>
+              <td><a class="text-danger" href="delete/{{pupil.id}}/?type={{ type }}">Удалить</a></td>
             </tr>
             {% endfor %}
       </tbody>

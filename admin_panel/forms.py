@@ -43,6 +43,10 @@ class UserForm(forms.ModelForm):
             'first_name',
             'last_name',
         )
+        widgets = {
+            'first_name': forms.TextInput(attrs={'required': 'True'}),
+            'last_name': forms.TextInput(attrs={'required': 'True'})
+        }
 
 
 class ProfileForm(forms.ModelForm):
