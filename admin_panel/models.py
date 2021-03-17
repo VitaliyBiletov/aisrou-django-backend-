@@ -51,13 +51,6 @@ class Profile(models.Model):
         max_length=30,
         blank=True
     )
-    pupils = models.ManyToManyField('Pupil')
-
-    def pupils_name(self):
-        result = []
-        for pupil_name in self.pupils.all():
-            result.append(pupil_name.last_name)
-        return ", ".join(result)
 
     def __str__(self):
         return '{} {} {}'.format(self.last_name, self.first_name, self.patronymic)

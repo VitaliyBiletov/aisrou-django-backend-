@@ -33,7 +33,6 @@ def users(request):
                 new_profile = profile_form.save(commit=False)
                 new_profile.user = user
                 new_profile.save()
-                profile_form.save_m2m()
                 return redirect('/admin_panel/users_registration/')
         else:
             user_form = UserForm()

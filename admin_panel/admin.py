@@ -31,7 +31,6 @@ class ClassProfile(admin.ModelAdmin):
     list_display = (
         'id',
         'user',
-        'pupils_name'
     )
 
 

@@ -58,7 +58,6 @@ class ProfileForm(forms.ModelForm):
             'last_name',
             'first_name',
             'patronymic',
-            'pupils',
         )
         widgets = {
             'patronymic': forms.TextInput(attrs={'class': 'form-control'})
