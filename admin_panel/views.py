@@ -25,7 +25,6 @@ def users(request):
     if request.user.is_staff:
         if request.method == "POST":
             user_form = UserForm(request.POST)
-            print(user_form)
             profile_form = ProfileForm(request.POST)
             if user_form.is_valid() and profile_form.is_valid():
                 user = user_form.save()
@@ -52,44 +51,31 @@ def users(request):
 
 def pupils(request):
     list_pupils = Pupil.objects.all()
+    page = request.GET.get('page', 1)
+
     paginator = Paginator(list_pupils, 5)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    # try:
-    #     pupils = paginator.page(page)
-    # except PageNotAnInteger:
-    #     pupils = paginator.page(1)
-    # except EmptyPage:
-    #     pupils = paginator.page(paginator.num_pages)
+    try:
+        pupils = paginator.page(page)
+    except PageNotAnInteger:
+        pupils = paginator.page(1)
+    except EmptyPage:
+        pupils = paginator.page(paginator.num_pages)
 
     if request.user.is_staff:
         if request.method == "POST":
             pupil_form = PupilRegistrationForm(request.POST)
             if pupil_form.is_valid():
-                new_pupil = pupil_form.save()
-                new_pupil.save()
-                new_pupil_form = PupilRegistrationForm()
-                return render(
-                    request,
-                    'admin_panel/pupils_registration.html',
-                    {
-                        'pupil_registration_form': new_pupil_form,
-                        'list_pupils': page_obj,
-                        # 'page_obj': page_obj,
-                    }
-                )
+                pupil_form.save()
+                return redirect('/admin_panel/pupils_registration/')
         else:
-            pupil_form = PupilRegistrationForm()
-        return render(
-            request,
-            'admin_panel/pupils_registration.html',
-            {
-                'pupil_registration_form': pupil_form,
-                # 'pupils': list_pupils,
-                'list_pupils': page_obj,
-                # 'page_obj': page_obj,
-            }
-        )
+            return render(
+                request,
+                'admin_panel/pupils_registration.html',
+                {
+                    'pupil_registration_form': PupilRegistrationForm(),
+                    'list_pupils': pupils,
+                }
+            )
     else:
         return redirect('/')
 
