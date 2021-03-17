@@ -2,8 +2,9 @@ from django.db import models
 from datetime import datetime
 from django.contrib.auth.models import User, Group
 from .functions import get_name
-from django.db.models.signals import post_save
-from django.dispatch import receiver
+
+
+User.add_to_class("__str__", get_name)
 
 
 class Pupil(models.Model):
@@ -57,13 +58,11 @@ class Profile(models.Model):
 
 
 class LogoGroups(models.Model):
-
-    teacher = models.ForeignKey(
-        User,
+    profile = models.ForeignKey(
+        'Profile',
         verbose_name='Учитель',
         on_delete=models.SET_NULL,
         null=True,
-        limit_choices_to={'groups__name': "Логопеды"}
     )
 
     pupil = models.ForeignKey(

@@ -25,14 +25,14 @@
         </tr>
       </thead>
       <tbody>
-            {% for pupil in page_obj %}
+            {% for pupil in list_pupils %}
             <tr>
               <th scope="row">{{pupil.id}}</th>
               <td>{{pupil.last_name}}</td>
               <td>{{pupil.first_name}}</td>
               <td>{{pupil.middle_name}}</td>
               <td>{{pupil.date}}</td>
-              <td><a class="text-danger" href="delete/{{pupil.id}}">Удалить</a></td>
+              <td><a class="text-danger" href="delete/{{pupil.id}}/">Удалить</a></td>
             </tr>
             {% endfor %}
       </tbody>

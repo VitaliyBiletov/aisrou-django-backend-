@@ -41,6 +41,10 @@ class UserForm(forms.ModelForm):
             'password',
             'groups',
         )
+        widgets = {
+            'first_name': forms.TextInput(attrs={'required': 'True'}),
+            'last_name': forms.TextInput(attrs={'required': 'True'})
+        }
 
 
 class ProfileForm(forms.ModelForm):
@@ -88,7 +92,7 @@ class PupilRegistrationForm(forms.ModelForm):
 class LogoGroupsForm(forms.ModelForm):
     class Meta:
         model = LogoGroups
-        fields = ('teacher', 'pupil')
+        fields = ('profile', 'pupil')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -98,4 +102,4 @@ class LogoGroupsForm(forms.ModelForm):
                     'class': 'js-select2  form-control',
                 }
             )
-        self.fields['teacher'].queryset = User.objects.filter(groups__name='Логопеды')
+        #self.fields['profile'].queryset = User.objects.filter(groups__name='Логопеды')

@@ -19,7 +19,7 @@ admin.site.register(Pupil, ClassPupil)
 class ClassLogoGroups(admin.ModelAdmin):
     list_display = (
         'id',
-        'teacher',
+        'profile',
         'pupil'
     )
 
