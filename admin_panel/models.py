@@ -6,15 +6,6 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    patronymic = models.CharField(
-        verbose_name='Отчество',
-        max_length=30,
-        blank=True
-    )
-
-
 class Pupil(models.Model):
     last_name = models.CharField(
         'Фамилия',
@@ -40,6 +31,36 @@ class Pupil(models.Model):
     class Meta:
         verbose_name = 'Ученик'
         verbose_name_plural = 'Ученики'
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.PROTECT)
+
+    last_name = models.CharField(
+        verbose_name='Фамилия',
+        max_length=30,
+        blank=True
+    )
+    first_name = models.CharField(
+        verbose_name='Имя',
+        max_length=30,
+        blank=True
+    )
+    patronymic = models.CharField(
+        verbose_name='Отчество',
+        max_length=30,
+        blank=True
+    )
+    pupils = models.ManyToManyField('Pupil')
+
+    def pupils_name(self):
+        result = []
+        for pupil_name in self.pupils.all():
+            result.append(pupil_name.last_name)
+        return ", ".join(result)
+
+    def __str__(self):
+        return '{} {} {}'.format(self.last_name, self.first_name, self.patronymic)
 
 
 class LogoGroups(models.Model):

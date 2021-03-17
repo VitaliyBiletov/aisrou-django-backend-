@@ -40,16 +40,25 @@ class UserForm(forms.ModelForm):
             'username',
             'password',
             'groups',
-            'first_name',
-            'last_name',
         )
 
 
 class ProfileForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ProfileForm, self).__init__(*args, **kwargs)
+        for field in iter(self.fields):
+            self.fields[field].widget.attrs.update(
+                {
+                    'class': 'form-control'
+                }
+            )
     class Meta:
         model = Profile
         fields = (
+            'last_name',
+            'first_name',
             'patronymic',
+            'pupils',
         )
         widgets = {
             'patronymic': forms.TextInput(attrs={'class': 'form-control'})

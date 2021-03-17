@@ -30,9 +30,10 @@ def users(request):
             profile_form = ProfileForm(request.POST)
             if user_form.is_valid() and profile_form.is_valid():
                 user = user_form.save()
-                profile = profile_form.save(commit=False)
-                profile.user = user
-                profile.save()
+                new_profile = profile_form.save(commit=False)
+                new_profile.user = user
+                new_profile.save()
+                profile_form.save_m2m()
                 return redirect('/admin_panel/users_registration/')
         else:
             user_form = UserForm()

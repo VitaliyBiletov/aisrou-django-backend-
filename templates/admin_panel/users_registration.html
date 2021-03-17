@@ -34,8 +34,8 @@
               {% for user in list_users %}
                 <tr>
                   <td>{{ user.username}}</td>
-                  <td>{{ user.last_name}}</td>
-                  <td>{{ user.first_name }}</td>
+                  <td>{{ user.profile.last_name}}</td>
+                  <td>{{ user.profile.first_name }}</td>
                   <td>{{ user.profile.patronymic }}</td>
                   <td><a href="#"><img alt="Изменить" width="15" src="https://img.icons8.com/cotton/64/000000/create-new--v2.png"/></a></td>
                   <td><a href="delete/{{user.id}}/?type=User"><img alt="Удалить" width="15" src="https://img.icons8.com/cotton/64/000000/delete.png"/></a></td>
