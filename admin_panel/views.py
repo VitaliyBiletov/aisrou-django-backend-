@@ -5,8 +5,6 @@ from .forms import UserForm, PupilRegistrationForm, LogoGroupsForm, ProfileForm
 from .models import Pupil, LogoGroups
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.apps import apps
-from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 
 
 # Create your views here.
@@ -53,32 +51,31 @@ def users(request):
 
 
 def pupils(request):
-    list_pupils = Pupil.objects.all().order_by('last_name')
+    list_pupils = Pupil.objects.all()
     paginator = Paginator(list_pupils, 5)
-    page = request.GET.get('page')
-    page_obj = paginator.get_page(page)
-    try:
-        list_pupils = paginator.page(page)
-    except PageNotAnInteger:
-        list_pupils = paginator.page(1)
-    except EmptyPage:
-        list_pupils = paginator.page(paginator.num_pages)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    # try:
+    #     pupils = paginator.page(page)
+    # except PageNotAnInteger:
+    #     pupils = paginator.page(1)
+    # except EmptyPage:
+    #     pupils = paginator.page(paginator.num_pages)
 
     if request.user.is_staff:
         if request.method == "POST":
             pupil_form = PupilRegistrationForm(request.POST)
             if pupil_form.is_valid():
-                new_pupil = pupil_form.save(commit=False)
+                new_pupil = pupil_form.save()
                 new_pupil.save()
                 new_pupil_form = PupilRegistrationForm()
                 return render(
                     request,
                     'admin_panel/pupils_registration.html',
                     {
-                        'new_pupil': new_pupil,
                         'pupil_registration_form': new_pupil_form,
-                        'list_pupils': list_pupils,
-                        'page_obj': page_obj,
+                        'list_pupils': page_obj,
+                        # 'page_obj': page_obj,
                     }
                 )
         else:
@@ -88,10 +85,9 @@ def pupils(request):
             'admin_panel/pupils_registration.html',
             {
                 'pupil_registration_form': pupil_form,
-                'pupils': list_pupils,
-                'list_pupils': list_pupils,
-                'page_obj': page_obj,
-                'type': Pupil.__name__,
+                # 'pupils': list_pupils,
+                'list_pupils': page_obj,
+                # 'page_obj': page_obj,
             }
         )
     else:
@@ -105,28 +101,16 @@ def delete_user(request, id):
 
 
 def delete(request, id):
-    # user = User.objects.get(id=id)
-    # user.delete()
-    type_object = request.GET['type']
-    print(request.GET)
-    print('type_object ', type_object)
-    apps_models = apps.get_app_config('admin_panel').get_models()
-    for model in apps_models:
-        print(model.__name__)
-        if model.__name__ == type_object:
-            delete_model = model.objects.get(id=id)
-            delete_model.delete()
-    url = request.path
-    url_parts = url.split('/')
-    redirect_url = '/'.join(url_parts[0:3])
-    return redirect(redirect_url)
+    pupil = Pupil.objects.get(id=id)
+    pupil.delete()
+    return redirect('/admin_panel/pupils_registration')
 
 
 def unpin(request, id):
     logo_group = LogoGroups.objects.get(id=id)
     logo_group.delete()
-    teacher_id = request.GET.get('id_teacher')
-    logo_groups_filtered = LogoGroups.objects.filter(teacher=teacher_id)
+    profile_id = request.GET.get('profile_id')
+    logo_groups_filtered = LogoGroups.objects.filter(profile=profile_id)
     return render(
         request,
         'admin_panel/result_table.html',
@@ -145,8 +129,8 @@ def groups(request):
 def groups_view(request):
     if request.method == "POST":
         logo_group_form = LogoGroupsForm(request.POST)
-        teacher_id = logo_group_form['teacher'].value()
-        logo_groups_filtered = LogoGroups.objects.filter(teacher=teacher_id)
+        profile_id = logo_group_form['profile'].value()
+        logo_groups_filtered = LogoGroups.objects.filter(profile=profile_id)
         return render(
             request,
             'admin_panel/result_table.html',
@@ -160,11 +144,10 @@ def groups_view(request):
 def groups_attachment(request):
     if request.method == "POST":
         logo_group_form = LogoGroupsForm(request.POST)
-        teacher_id = logo_group_form['teacher'].value()
-        logo_groups_filtered = LogoGroups.objects.filter(teacher=teacher_id)
+        profile_id = logo_group_form['profile'].value()
+        logo_groups_filtered = LogoGroups.objects.filter(profile=profile_id)
         if logo_group_form.is_valid():
-            new_logo_group = logo_group_form.save(commit=False)
-            new_logo_group.save()
+            logo_group_form.save()
             return render(
                 request,
                 'admin_panel/result_table.html',

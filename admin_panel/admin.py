@@ -19,7 +19,7 @@ admin.site.register(Pupil, ClassPupil)
 class ClassLogoGroups(admin.ModelAdmin):
     list_display = (
         'id',
-        'teacher',
+        'profile',
         'pupil'
     )
 
@@ -31,5 +31,6 @@ class ClassProfile(admin.ModelAdmin):
     list_display = (
         'user',
     )
+
 
 admin.site.register(Profile, ClassProfile)

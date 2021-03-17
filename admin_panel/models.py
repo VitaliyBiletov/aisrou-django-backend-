@@ -50,8 +50,8 @@ class Pupil(models.Model):
 
 
 class LogoGroups(models.Model):
-    teacher = models.ForeignKey(
-        Profile,
+    profile = models.ForeignKey(
+        'Profile',
         verbose_name='Учитель',
         on_delete=models.SET_NULL,
         null=True,

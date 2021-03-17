@@ -10,7 +10,7 @@ $(document).ready(function(){
         $(this).addClass('active')
     })
 
-    $('#id_teacher').change(function(e){
+    $('#id_profile').change(function(e){
         e.preventDefault()
         $.ajax({
             url: 'view/',
