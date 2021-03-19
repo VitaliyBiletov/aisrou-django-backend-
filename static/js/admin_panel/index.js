@@ -23,7 +23,6 @@ $(document).ready(function(){
             }
         })
         const teacher_value = $(this).val();
-        console.log(teacher_value)
         if (teacher_value){
             $('#id_pupil').attr('disabled', false)
         }else {
@@ -31,24 +30,24 @@ $(document).ready(function(){
         }
     })
 
-    $('#group_view_form').submit(function(e){
-        e.preventDefault()
-        $.ajax({
-            url: 'attachment/',
-            type: "POST",
-            data: $(this).serialize(),
-            cache: false,
-            success: function(data, textStatus){
-                $('#table').empty()
-                $('#table').append(data)
-                $('#id_pupil').val(null).trigger('change')
-                if (textStatus == "success"){
-                    $('#group_message').addClass('text-success').fadeIn(1000).text('Ученик успешно прикреплен!')
-                    $('#group_message').fadeOut(1000)
-                }
-            }
-        })
-    })
+    // $('#group_view_form').submit(function(e){
+    //     e.preventDefault()
+    //     // $.ajax({
+    //     //     url: 'attachment/',
+    //     //     type: "POST",
+    //     //     data: $(this).serialize(),
+    //     //     cache: false,
+    //     //     success: function(data, textStatus){
+    //     //         $('#table').empty()
+    //     //         $('#table').append(data)
+    //     //         $('#id_pupil').val(null).trigger('change')
+    //     //         if (textStatus == "success"){
+    //     //             $('#group_message').addClass('text-success').fadeIn(1000).text('Ученик успешно прикреплен!')
+    //     //             $('#group_message').fadeOut(1000)
+    //     //         }
+    //     //     }
+    //     // })
+    // })
 
     $('#id_pupil').change(function() {
         if (this.value){

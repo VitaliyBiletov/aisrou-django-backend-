@@ -35,7 +35,7 @@ class Pupil(models.Model):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.PROTECT)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     last_name = models.CharField(
         verbose_name='Фамилия',

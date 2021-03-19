@@ -8,7 +8,6 @@ class ClassPupil(admin.ModelAdmin):
         'id',
         'last_name',
         'first_name',
-        'middle_name',
         'date'
     )
 
@@ -30,6 +29,8 @@ admin.site.register(LogoGroups, ClassLogoGroups)
 class ClassProfile(admin.ModelAdmin):
     list_display = (
         'id',
+        'last_name',
+        'first_name',
         'user',
     )
 

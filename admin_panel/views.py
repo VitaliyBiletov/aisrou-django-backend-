@@ -9,7 +9,6 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 def index(request):
-    print(request.user)
     return render(
         request,
         'admin_panel/index.html',
@@ -22,31 +21,78 @@ def index(request):
 @login_required
 @transaction.atomic
 def users(request):
-    if request.user.is_staff:
-        if request.method == "POST":
-            user_form = UserForm(request.POST)
-            profile_form = ProfileForm(request.POST)
-            if user_form.is_valid() and profile_form.is_valid():
-                user = user_form.save()
-                new_profile = profile_form.save(commit=False)
-                new_profile.user = user
-                new_profile.save()
-                return redirect('/admin_panel/users_registration/')
-        else:
-            user_form = UserForm()
-            profile_form = ProfileForm()
+    list_users = User.objects.all()
+    return render(
+        request,
+        'admin_panel/users.html',
+        {
+            'list_users': list_users,
+         }
+    )
+    # else:
+    #     return redirect('/')
+
+
+def add_user(request):
+    if request.method == "POST":
+        user_form = UserForm(request.POST)
+        profile_form = ProfileForm(request.POST)
+        if user_form.is_valid() and profile_form.is_valid():
+            user = user_form.save()
+            new_profile = profile_form.save(commit=False)
+            new_profile.user = user
+            new_profile.save()
             list_users = User.objects.all()
             return render(
                 request,
-                'admin_panel/users_registration.html',
+                'admin_panel/users.html',
                 {
                     'list_users': list_users,
-                    'user_form': user_form,
-                    'profile_form': profile_form,
-                 }
-        )
+                }
+            )
     else:
-        return redirect('/')
+        user_form = UserForm()
+        profile_form = ProfileForm()
+        return render(
+            request,
+            'admin_panel/user_form_add.html',
+            {
+                'user_form': user_form,
+                'profile_form': profile_form,
+            }
+        )
+
+
+def edit_user(request, id):
+    if request.method == "POST":
+        user = User.objects.get(pk=id)
+        profile = Profile.objects.get(user_id=id)
+        user_form = UserForm(request.POST, instance=user)
+        profile_form = ProfileForm(request.POST, instance=profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+        return redirect('/admin_panel/users/')
+    else:
+        user = User.objects.get(id=id)
+        user_form = UserForm(instance=user)
+        profile = Profile.objects.get(user_id=id)
+        profile_form = ProfileForm(instance=profile)
+        return render(
+            request,
+            'admin_panel/user_form_edit.html',
+            {
+                'user_form': user_form,
+                'profile_form': profile_form,
+                'id': id
+            }
+        )
+
+
+def delete_user(request, id):
+    user = User.objects.get(id=id)
+    user.delete()
+    return redirect('/admin_panel/users')
 
 
 def pupils(request):
@@ -78,23 +124,6 @@ def pupils(request):
             )
     else:
         return redirect('/')
-
-
-def edit_user(request, id):
-    user = User.objects.get(id=id)
-    user_form = UserForm(instance=user)
-    profile = Profile.objects.get(user_id=id)
-    profile_form = ProfileForm(instance=profile)
-    return render(request, 'admin_panel/users_registration.html', {
-        'user_form': user_form,
-        'profile_form': profile_form
-    })
-
-
-def delete_user(request, id):
-    user = User.objects.get(id=id)
-    user.delete()
-    return redirect('/admin_panel/users_registration')
 
 
 def delete(request, id):
