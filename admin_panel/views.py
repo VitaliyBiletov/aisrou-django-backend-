@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.shortcuts import render, redirect
 from .forms import UserForm, PupilRegistrationForm, LogoGroupsForm, ProfileForm
-from .models import Pupil, LogoGroups
+from .models import Pupil, LogoGroups, Profile
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -78,6 +78,17 @@ def pupils(request):
             )
     else:
         return redirect('/')
+
+
+def edit_user(request, id):
+    user = User.objects.get(id=id)
+    user_form = UserForm(instance=user)
+    profile = Profile.objects.get(user_id=id)
+    profile_form = ProfileForm(instance=profile)
+    return render(request, 'admin_panel/users_registration.html', {
+        'user_form': user_form,
+        'profile_form': profile_form
+    })
 
 
 def delete_user(request, id):

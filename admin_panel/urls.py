@@ -7,6 +7,7 @@ urlpatterns = [
     path('admin_panel/', views.index, name='admin_panel'),
     path('users_registration/', views.users, name='users'),
     path('pupils_registration/', views.pupils, name='pupils'),
+    path('users_registration/edit/<int:id>/', views.edit_user),
     path('users_registration/delete/<int:id>/', views.delete_user),
     path('pupils_registration/delete/<int:id>/', views.delete),
     path('groups/', views.groups, name='groups'),
