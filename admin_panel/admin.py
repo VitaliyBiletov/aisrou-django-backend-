@@ -32,6 +32,7 @@ class ClassProfile(admin.ModelAdmin):
         'last_name',
         'first_name',
         'user',
+        'date'
     )
 
 

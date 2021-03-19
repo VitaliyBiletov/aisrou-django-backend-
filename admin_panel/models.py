@@ -27,7 +27,7 @@ class Pupil(models.Model):
     )
 
     def __str__(self):
-        return get_name(self)
+        return "{} {}".format(self.last_name, self.first_name)
 
     class Meta:
         verbose_name = 'Ученик'
@@ -51,6 +51,10 @@ class Profile(models.Model):
         verbose_name='Отчество',
         max_length=30,
         blank=True
+    )
+    date = models.DateField(
+        'Дата регистрации',
+        default=datetime.now
     )
 
     def __str__(self):
