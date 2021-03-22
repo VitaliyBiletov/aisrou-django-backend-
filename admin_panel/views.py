@@ -34,7 +34,6 @@ def users(request):
 
 
 def add_user(request):
-    heading = "Добавить"
     if request.method == "POST":
         user_form = UserForm(request.POST)
         profile_form = ProfileForm(request.POST)
@@ -58,7 +57,6 @@ def add_user(request):
             request,
             'admin_panel/user_form_add.html',
             {
-                'heading': heading,
                 'user_form': user_form,
                 'profile_form': profile_form,
             }
@@ -66,7 +64,6 @@ def add_user(request):
 
 
 def edit_user(request, id):
-    heading = "Изменить"
     if request.method == "POST":
         user = User.objects.get(pk=id)
         profile = Profile.objects.get(user_id=id)
@@ -85,7 +82,6 @@ def edit_user(request, id):
             request,
             'admin_panel/user_form_edit.html',
             {
-                'heading': heading,
                 'user_form': user_form,
                 'profile_form': profile_form,
                 'id': id
@@ -102,6 +98,7 @@ def delete_user(request, id):
 def pupils(request):
     list_pupils = Pupil.objects.all()
     page = request.GET.get('page', 1)
+
     paginator = Paginator(list_pupils, 5)
     try:
         pupils = paginator.page(page)
