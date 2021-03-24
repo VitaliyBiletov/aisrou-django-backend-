@@ -38,7 +38,9 @@ def add_user(request):
         user_form = UserForm(request.POST)
         profile_form = ProfileForm(request.POST)
         if user_form.is_valid() and profile_form.is_valid():
-            user = user_form.save()
+            user = user_form.save(commit=False)
+            user.set_password(user_form.cleaned_data['password'])
+            user.save()
             new_profile = profile_form.save(commit=False)
             new_profile.user = user
             new_profile.save()
