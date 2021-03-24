@@ -25,8 +25,8 @@ from .models import Pupil, LogoGroups, Profile
 #             'groups'
 #         )
 class UserForm(forms.ModelForm):
-    password = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Repeat password', widget=forms.PasswordInput)
+    password = forms.CharField(label='Пароль', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Повторите пароль', widget=forms.PasswordInput)
 
     def __init__(self, *args, **kwargs):
         super(UserForm, self).__init__(*args, **kwargs)
@@ -41,6 +41,8 @@ class UserForm(forms.ModelForm):
         model = User
         fields = (
             'username',
+            'password',
+            'password2',
             'groups',
         )
         widgets = {
