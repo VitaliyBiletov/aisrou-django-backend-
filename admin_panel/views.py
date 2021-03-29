@@ -33,49 +33,8 @@ def users(request):
     #     return redirect('/')
 
 
-def add_user(request):
-    if request.method == "POST":
-        user_form = UserForm(request.POST)
-        profile_form = ProfileForm(request.POST)
-        if user_form.is_valid() and profile_form.is_valid():
-            user = user_form.save(commit=False)
-            user.set_password(user_form.cleaned_data['password'])
-            user.save()
-            new_profile = profile_form.save(commit=False)
-            new_profile.user = user
-            new_profile.save()
-            list_users = User.objects.all()
-            return render(
-                request,
-                'admin_panel/users.html',
-                {
-                    'list_users': list_users,
-                }
-            )
-    else:
-        user_form = UserForm()
-        profile_form = ProfileForm()
-        return render(
-            request,
-            'admin_panel/user_form_add.html',
-            {
-                'user_form': user_form,
-                'profile_form': profile_form,
-            }
-        )
-
-
-def edit_user(request, id):
-    if request.method == "POST":
-        user = User.objects.get(pk=id)
-        profile = Profile.objects.get(user_id=id)
-        user_form = UserForm(request.POST, instance=user)
-        profile_form = ProfileForm(request.POST, instance=profile)
-        if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
-            profile_form.save()
-        return redirect('/admin_panel/users/')
-    else:
+def add_user(request, id=None):
+    if id:
         user = User.objects.get(id=id)
         user_form = UserForm(instance=user)
         profile = Profile.objects.get(user_id=id)
@@ -89,6 +48,63 @@ def edit_user(request, id):
                 'id': id
             }
         )
+    else:
+        user_form = UserForm()
+        profile_form = ProfileForm()
+        return render(
+            request,
+            'admin_panel/user_form_add.html',
+            {
+                'user_form': user_form,
+                'profile_form': profile_form,
+            }
+        )
+    #
+    # if request.method == "POST":
+    #     user_form = UserForm(request.POST)
+    #     profile_form = ProfileForm(request.POST)
+    #     if user_form.is_valid() and profile_form.is_valid():
+    #         user = user_form.save(commit=False)
+    #         user.set_password(user_form.cleaned_data['password'])
+    #         user.save()
+    #         new_profile = profile_form.save(commit=False)
+    #         new_profile.user = user
+    #         new_profile.save()
+    #         list_users = User.objects.all()
+    #         return render(
+    #             request,
+    #             'admin_panel/users.html',
+    #             {
+    #                 'list_users': list_users,
+    #             }
+    #         )
+
+
+
+# def edit_user(request, id):
+#     if request.method == "POST":
+#         user = User.objects.get(pk=id)
+#         profile = Profile.objects.get(user_id=id)
+#         user_form = UserForm(request.POST, instance=user)
+#         profile_form = ProfileForm(request.POST, instance=profile)
+#         if user_form.is_valid() and profile_form.is_valid():
+#             user_form.save()
+#             profile_form.save()
+#         return redirect('/admin_panel/users/')
+#     else:
+#         user = User.objects.get(id=id)
+#         user_form = UserForm(instance=user)
+#         profile = Profile.objects.get(user_id=id)
+#         profile_form = ProfileForm(instance=profile)
+#         return render(
+#             request,
+#             'admin_panel/user_form_edit.html',
+#             {
+#                 'user_form': user_form,
+#                 'profile_form': profile_form,
+#                 'id': id
+#             }
+#         )
 
 
 def delete_user(request, id):
