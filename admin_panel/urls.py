@@ -2,12 +2,16 @@ from django.urls import path, include
 from django.conf.urls import url
 from . import views
 
+forms_template = {
+    'add': 'admin_panel/user_form_add.html',
+    'edit': 'admin_panel/user_form_edit.html',
+}
 
 urlpatterns = [
     path('admin_panel/', views.index, name='admin_panel'),
     path('users/', views.users, name='users'),
-    path('users/add', views.add_user, name='add_user'),
-    path('users/edit/<int:id>/', views.add_user, name='edit_user'),
+    path('users/add/', views.edit_user, {'tmplt_name': forms_template['add']}, name='add_user'),
+    path('users/edit/<int:id>/', views.edit_user, {'tmplt_name': forms_template['edit']}, name='edit_user'),
     path('users/delete/<int:id>/', views.delete_user, name='delete_user'),
     path('pupils_registration/', views.pupils, name='pupils'),
     path('pupils_registration/delete/<int:id>/', views.delete),

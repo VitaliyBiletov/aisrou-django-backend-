@@ -1,10 +1,13 @@
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.shortcuts import render, redirect
+from django.urls import reverse
+
 from .forms import UserForm, PupilRegistrationForm, LogoGroupsForm, ProfileForm
 from .models import Pupil, LogoGroups, Profile
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import HttpResponse
 
 
 # Create your views here.
@@ -32,79 +35,90 @@ def users(request):
     # else:
     #     return redirect('/')
 
+@transaction.atomic
+def edit_user(request, tmplt_name='admin_panel/users.html', id=None):
+    print(id)
 
-def add_user(request, id=None):
     if id:
         user = User.objects.get(id=id)
-        user_form = UserForm(instance=user)
         profile = Profile.objects.get(user_id=id)
-        profile_form = ProfileForm(instance=profile)
-        return render(
-            request,
-            'admin_panel/user_form_edit.html',
-            {
-                'user_form': user_form,
-                'profile_form': profile_form,
-                'id': id
-            }
-        )
     else:
-        user_form = UserForm()
-        profile_form = ProfileForm()
-        return render(
-            request,
-            'admin_panel/user_form_add.html',
-            {
-                'user_form': user_form,
-                'profile_form': profile_form,
-            }
-        )
-    #
-    # if request.method == "POST":
-    #     user_form = UserForm(request.POST)
-    #     profile_form = ProfileForm(request.POST)
-    #     if user_form.is_valid() and profile_form.is_valid():
-    #         user = user_form.save(commit=False)
-    #         user.set_password(user_form.cleaned_data['password'])
-    #         user.save()
-    #         new_profile = profile_form.save(commit=False)
-    #         new_profile.user = user
-    #         new_profile.save()
-    #         list_users = User.objects.all()
+        user = User()
+        profile = Profile()
+
+    user_form = UserForm(request.POST or None, instance=user)
+    profile_form = ProfileForm(request.POST or None, instance=profile)
+
+    # print(user_form.clean_password2())
+
+    if request.POST:
+        if user_form.is_valid() and profile_form.is_valid():
+            user = user_form.save(commit=False)
+            user.set_password(user_form.cleaned_data['password'])
+            user.save()
+            profile = profile_form.save(commit=False)
+            profile.user = user
+            profile.save()
+            return redirect('/admin_panel/users/')
+        else:
+            print(user_form.errors.as_data())
+            return redirect('/admin_panel/users/')
+
+    return render(
+        request,
+        tmplt_name,
+        {
+            'user_form': user_form,
+            'profile_form': profile_form,
+            'id': id,
+        }
+    )
+    # if id:
+    #     user = User.objects.get(id=id)
+    #     user_form = UserForm(instance=user)
+    #     profile = Profile.objects.get(user_id=id)
+    #     profile_form = ProfileForm(instance=profile)
+    #     if request.method == "POST":
+    #         # user = User.objects.get(pk=id)
+    #         # profile = Profile.objects.get(user_id=id)
+    #         user_form = UserForm(request.POST, instance=user)
+    #         profile_form = ProfileForm(request.POST, instance=profile)
+    #         if user_form.is_valid() and profile_form.is_valid():
+    #             user_form.save()
+    #             profile_form.save()
+    #             return redirect('/admin_panel/users/')
+    #     return render(
+    #         request,
+    #         'admin_panel/user_form_edit.html',
+    #         {
+    #             'user_form': user_form,
+    #             'profile_form': profile_form,
+    #             'id': id
+    #         }
+    #     )
+    # else:
+    #     if request.method == "POST":
+    #         user_form = UserForm(request.POST)
+    #         profile_form = ProfileForm(request.POST)
+    #         if user_form.is_valid() and profile_form.is_valid():
+    #             user = user_form.save(commit=False)
+    #             user.set_password(user_form.cleaned_data['password'])
+    #             user.save()
+    #             profile = profile_form.save(commit=False)
+    #             profile.user = user
+    #             profile.save()
+    #             return redirect('/admin_panel/users/')
+    #     else:
+    #         user_form = UserForm()
+    #         profile_form = ProfileForm()
     #         return render(
     #             request,
-    #             'admin_panel/users.html',
+    #             'admin_panel/user_form_add.html',
     #             {
-    #                 'list_users': list_users,
+    #                 'user_form': user_form,
+    #                 'profile_form': profile_form,
     #             }
     #         )
-
-
-
-# def edit_user(request, id):
-#     if request.method == "POST":
-#         user = User.objects.get(pk=id)
-#         profile = Profile.objects.get(user_id=id)
-#         user_form = UserForm(request.POST, instance=user)
-#         profile_form = ProfileForm(request.POST, instance=profile)
-#         if user_form.is_valid() and profile_form.is_valid():
-#             user_form.save()
-#             profile_form.save()
-#         return redirect('/admin_panel/users/')
-#     else:
-#         user = User.objects.get(id=id)
-#         user_form = UserForm(instance=user)
-#         profile = Profile.objects.get(user_id=id)
-#         profile_form = ProfileForm(instance=profile)
-#         return render(
-#             request,
-#             'admin_panel/user_form_edit.html',
-#             {
-#                 'user_form': user_form,
-#                 'profile_form': profile_form,
-#                 'id': id
-#             }
-#         )
 
 
 def delete_user(request, id):
