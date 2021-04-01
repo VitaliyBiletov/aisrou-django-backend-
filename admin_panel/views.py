@@ -1,13 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.shortcuts import render, redirect
-from django.urls import reverse
-
 from .forms import UserForm, PupilRegistrationForm, LogoGroupsForm, ProfileForm
 from .models import Pupil, LogoGroups, Profile
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 
 # Create your views here.
@@ -35,10 +33,8 @@ def users(request):
     # else:
     #     return redirect('/')
 
-@transaction.atomic
-def edit_user(request, tmplt_name='admin_panel/users.html', id=None):
-    print(id)
 
+def edit_user(request, tmplt_name='admin_panel/users.html', id=None):
     if id:
         user = User.objects.get(id=id)
         profile = Profile.objects.get(user_id=id)
@@ -50,7 +46,6 @@ def edit_user(request, tmplt_name='admin_panel/users.html', id=None):
     profile_form = ProfileForm(request.POST or None, instance=profile)
 
     # print(user_form.clean_password2())
-
     if request.POST:
         if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save(commit=False)
@@ -61,8 +56,12 @@ def edit_user(request, tmplt_name='admin_panel/users.html', id=None):
             profile.save()
             return redirect('/admin_panel/users/')
         else:
-            print(user_form.errors.as_data())
-            return redirect('/admin_panel/users/')
+            print(profile_form.errors)
+            # print(user_form.errors)
+            return JsonResponse({
+                'user_form': user_form.errors,
+                'profile_form': profile_form.errors,
+            })
 
     return render(
         request,

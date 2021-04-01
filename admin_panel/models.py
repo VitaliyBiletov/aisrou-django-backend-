@@ -2,6 +2,7 @@ from django.db import models
 from datetime import datetime
 from django.contrib.auth.models import User, Group
 from .functions import get_name
+from django.core.validators import RegexValidator
 
 
 User.add_to_class("__str__", get_name)
@@ -35,22 +36,31 @@ class Pupil(models.Model):
 
 
 class Profile(models.Model):
+    validator = RegexValidator(
+            '^[А-Яа-я]+$',
+            message='Некорректное имя пользователя',
+            code='invalid_lastName'
+        )
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     last_name = models.CharField(
         verbose_name='Фамилия',
         max_length=30,
-        blank=True
+        blank=False,
+        validators=[validator]
     )
     first_name = models.CharField(
         verbose_name='Имя',
         max_length=30,
-        blank=True
+        blank=False,
+        validators=[validator]
     )
     patronymic = models.CharField(
         verbose_name='Отчество',
         max_length=30,
-        blank=True
+        blank=False,
+        validators=[validator]
     )
     date = models.DateField(
         'Дата регистрации',

@@ -1,5 +1,6 @@
-<!DOCTYPE html>
 {% load static %}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,6 +12,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block script %}{% endblock %}
 <body style="overflow: hidden;">
 
 <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">

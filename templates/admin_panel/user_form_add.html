@@ -1,8 +1,12 @@
+{% load static %}
+
+<script type="application/javascript" src="{% static 'js/admin_panel/form.js' %}" ></script>
+
 <div>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
         <h1 class="h2">Добавить</h1>
     </div>
-    <form method="post" action="{% url 'add_user' %}">
+    <form id="user-form-add" class="user-form" method="post" action="{% url 'add_user' %}">
         {% csrf_token %}
         {% for field in user_form %}
             <div class="form-group">
@@ -11,7 +15,7 @@
             </div>
         {% endfor %}
         {{ profile_form.as_p }}
-
-        <p><input class="btn btn-primary" type="submit" value="Сохранить"></p>
+        <button form="user-form-add" class="btn-send btn btn-primary" type="submit">Сохранить</button>
+{#        <input class="btn btn-primary" type="submit" value="Сохранить">#}
     </form>
 </div>
