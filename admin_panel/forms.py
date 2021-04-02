@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from .models import Pupil, LogoGroups, Profile
 
 
-
 class UserForm(forms.ModelForm):
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Повторите пароль', widget=forms.PasswordInput)

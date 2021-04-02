@@ -20,7 +20,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7230acd5-6974-473e-801a-58a92a5993cb" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/mysite.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/mysite.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin_panel/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin_panel/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/admin_panel/form.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/admin_panel/form.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin_panel/base_admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin_panel/base_admin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin_panel/user_form_add.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin_panel/user_form_add.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin_panel/user_form_edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin_panel/user_form_edit.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +47,12 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
   <component name="ProjectId" id="1q6Lx8IgNXD9qW5fzL6paA1IR2K" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -51,7 +64,8 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.django.DjangoModulesConfigurable" />
   </component>
   <component name="RunManager">
     <configuration name="mysite" type="Python.DjangoServer" factoryName="Django server">
@@ -100,6 +114,7 @@
       <workItem from="1617189395561" duration="14396000" />
       <workItem from="1617255732322" duration="8598000" />
       <workItem from="1617277891038" duration="4839000" />
+      <workItem from="1617363004473" duration="9144000" />
     </task>
     <servers />
   </component>
@@ -123,9 +138,17 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="137" y="39" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.768@0.0.1366.768" timestamp="1616579234378" />
-    <state x="184" y="29" key="SettingsEditor" timestamp="1616398771162">
+    <state x="413" y="164" key="#com.intellij.ide.scriptingContext.ui.PerFileMappingsDialogWrapper" timestamp="1617370369724">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="184" y="29" key="SettingsEditor/0.0.1366.768@0.0.1366.768" timestamp="1616398771162" />
+    <state x="413" y="164" key="#com.intellij.ide.scriptingContext.ui.PerFileMappingsDialogWrapper/0.0.1366.768@0.0.1366.768" timestamp="1617370369724" />
+    <state x="463" y="139" key="FileChooserDialogImpl" timestamp="1617370369223">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="463" y="139" key="FileChooserDialogImpl/0.0.1366.768@0.0.1366.768" timestamp="1617370369223" />
+    <state x="184" y="29" key="SettingsEditor" timestamp="1617371196567">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="184" y="29" key="SettingsEditor/0.0.1366.768@0.0.1366.768" timestamp="1617371196567" />
   </component>
 </project>
