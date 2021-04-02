@@ -38,7 +38,7 @@ class Pupil(models.Model):
 class Profile(models.Model):
     validator = RegexValidator(
             '^[А-Яа-я]+$',
-            message='Некорректное имя пользователя',
+            message='Недопустимые символы',
             code='invalid_lastName'
         )
 

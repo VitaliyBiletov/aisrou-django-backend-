@@ -11,13 +11,17 @@ $(document).ready(function (e) {
                 type: method,
                 url: action,
                 success: function (response, textStatus) {
-                    const form_errs = Object.assign(response.user_form, response.profile_form);
-                    const err_keys = Object.keys(form_errs)
-                    for(err in err_keys){
-                        console.log($(`[name=${err_keys[err]}]`))
-                        $(`[name=${err_keys[err]}]`).css('border-color','red')
+                    const formErrs = Object.assign(response.user_form, response.profile_form);
+                    const errKeys = Object.keys(formErrs)
+                    $('input').removeClass('invalid-input')
+                    $('.invalid-feedback').remove()
+                    for(let err in errKeys){
+                        const formFieldErr = $(`[name=${errKeys[err]}]`)
+                        formFieldErr
+                            .addClass('invalid-input')
+                            .after(`<div class="invalid-feedback">${formErrs[errKeys[err]]}</div>`)
+                        $('.invalid-feedback').fadeIn()
                     }
-                    console.log(err_keys)
                 },
             }
         )

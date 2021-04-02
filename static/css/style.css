@@ -9,6 +9,10 @@
     height: 20px;
 }
 
+.invalid-input {
+    border-color: red;
+}
+
 .blocker {
     z-index: 1100;
 }
