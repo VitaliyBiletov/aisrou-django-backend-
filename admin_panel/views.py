@@ -45,8 +45,9 @@ def edit_user(request, tmplt_name='admin_panel/users.html', id=None):
     user_form = UserForm(request.POST or None, instance=user)
     profile_form = ProfileForm(request.POST or None, instance=profile)
 
-    # print(user_form.clean_password2())
+
     if request.POST:
+        print(request.POST)
         if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save(commit=False)
             user.set_password(user_form.cleaned_data['password'])
@@ -54,13 +55,16 @@ def edit_user(request, tmplt_name='admin_panel/users.html', id=None):
             profile = profile_form.save(commit=False)
             profile.user = user
             profile.save()
-            return redirect('/admin_panel/users/')
+            return JsonResponse({
+                'user_form_errors': '',
+                'profile_form_errors': ''
+            })
         else:
             print(profile_form.errors)
             # print(user_form.errors)
             return JsonResponse({
-                'user_form': user_form.errors,
-                'profile_form': profile_form.errors,
+                'user_form_errors': user_form.errors,
+                'profile_form_errors': profile_form.errors,
             })
 
     return render(
