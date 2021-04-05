@@ -1,10 +1,17 @@
 $(document).ready(function (e) {
     $('.btn-send').on('click', function (e) {
         e.preventDefault()
+        const fields = $('.user-form').serializeArray()
+        for (let {value} of fields){
+            if (value.trim() == ''){
+                console.log('Есть пустые')
+                return;
+            }
+        }
         const action = $('.user-form').attr('action')
         const method = $('.user-form').attr('method')
         console.log(action)
-        console.log(method)
+        console.log($('.user-form').serializeArray())
         $.ajax(
             {
                 data: $(this).parent('form').serialize(),
