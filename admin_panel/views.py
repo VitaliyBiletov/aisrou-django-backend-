@@ -20,7 +20,6 @@ def index(request):
 
 
 @login_required
-@transaction.atomic
 def users(request):
     list_users = User.objects.all()
     return render(
