@@ -11,6 +11,8 @@ forms_template = {
     'edit': 'admin_panel/user_form_edit.html',
 }
 
+app_name = 'admin_panel'
+
 urlpatterns = [
     path('admin_panel/', views.index, name='admin_panel'),
     path('users/', views.users, name='users'),

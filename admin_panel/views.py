@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.db import transaction
+from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
 from .forms import UserForm, PupilRegistrationForm, LogoGroupsForm, ProfileForm
 from .models import Pupil, LogoGroups, Profile
