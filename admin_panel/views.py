@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import PasswordChangeView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
@@ -12,6 +13,7 @@ from main.models import CustomUser
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
+@login_required
 def index(request):
     return render(
         request,
@@ -19,7 +21,6 @@ def index(request):
     )
 
 
-@login_required
 def users(request):
     list_users = CustomUser.objects.all()
     return render(
@@ -29,11 +30,9 @@ def users(request):
             'list_users': list_users,
          }
     )
-    # else:
-    #     return redirect('/')
 
 
-class ChangeUserInfoView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+class SDChangeUserInfoView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = CustomUser
     template_name = 'admin_panel/change_user_info.html'
     form_class = ChangeUserInfoForm
@@ -49,101 +48,17 @@ class ChangeUserInfoView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
             queryset = self.get_queryset()
         return get_object_or_404(queryset, pk=self.kwargs['id'])
 
-# def edit_user(request, tmplt_name='admin_panel/users.html', id=None):
-#     if id:
-#         user = User.objects.get(id=id)
-#         profile = Profile.objects.get(user_id=id)
-#     else:
-#         user = User()
-#         profile = Profile()
-#
-#     user_form = UserForm(request.POST or None, instance=user)
-#     profile_form = ProfileForm(request.POST or None, instance=profile)
-#
-#
-#     if request.POST:
-#         print(request.POST)
-#         if user_form.is_valid() and profile_form.is_valid():
-#             user = user_form.save(commit=False)
-#             user.set_password(user_form.cleaned_data['password'])
-#             user.save()
-#             profile = profile_form.save(commit=False)
-#             profile.user = user
-#             profile.save()
-#             return JsonResponse({
-#                 'user_form_errors': '',
-#                 'profile_form_errors': ''
-#             })
-#         else:
-#             print(profile_form.errors)
-#             # print(user_form.errors)
-#             return JsonResponse({
-#                 'user_form_errors': user_form.errors,
-#                 'profile_form_errors': profile_form.errors,
-#             })
-#
-#     return render(
-#         request,
-#         tmplt_name,
-#         {
-#             'user_form': user_form,
-#             'profile_form': profile_form,
-#             'id': id,
-#         }
-#     )
 
-    # if id:
-    #     user = User.objects.get(id=id)
-    #     user_form = UserForm(instance=user)
-    #     profile = Profile.objects.get(user_id=id)
-    #     profile_form = ProfileForm(instance=profile)
-    #     if request.method == "POST":
-    #         # user = User.objects.get(pk=id)
-    #         # profile = Profile.objects.get(user_id=id)
-    #         user_form = UserForm(request.POST, instance=user)
-    #         profile_form = ProfileForm(request.POST, instance=profile)
-    #         if user_form.is_valid() and profile_form.is_valid():
-    #             user_form.save()
-    #             profile_form.save()
-    #             return redirect('/admin_panel/users/')
-    #     return render(
-    #         request,
-    #         'admin_panel/user_form_edit.html',
-    #         {
-    #             'user_form': user_form,
-    #             'profile_form': profile_form,
-    #             'id': id
-    #         }
-    #     )
-    # else:
-    #     if request.method == "POST":
-    #         user_form = UserForm(request.POST)
-    #         profile_form = ProfileForm(request.POST)
-    #         if user_form.is_valid() and profile_form.is_valid():
-    #             user = user_form.save(commit=False)
-    #             user.set_password(user_form.cleaned_data['password'])
-    #             user.save()
-    #             profile = profile_form.save(commit=False)
-    #             profile.user = user
-    #             profile.save()
-    #             return redirect('/admin_panel/users/')
-    #     else:
-    #         user_form = UserForm()
-    #         profile_form = ProfileForm()
-    #         return render(
-    #             request,
-    #             'admin_panel/user_form_add.html',
-    #             {
-    #                 'user_form': user_form,
-    #                 'profile_form': profile_form,
-    #             }
-    #         )
+class SDPasswordChangeView(SuccessMessageMixin, LoginRequiredMixin, PasswordChangeView):
+    template_name = 'admin_panel/password_change.html'
+    success_url = reverse_lazy('admin_panel:users')
+    success_message = 'Пароль успешно изменен'
 
 
-def delete_user(request, id):
-    user = User.objects.get(id=id)
-    user.delete()
-    return redirect('/admin_panel/users')
+# def delete_user(request, id):
+#     user = User.objects.get(id=id)
+#     user.delete()
+#     return redirect('/admin_panel/users')
 
 
 def pupils(request):
