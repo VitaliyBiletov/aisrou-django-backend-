@@ -5,7 +5,7 @@ from .forms import UserForm, PupilRegistrationForm\
     # , LogoGroupsForm, ProfileForm
 from .models import Pupil\
     # , LogoGroups, Profile
-from django.contrib.auth.models import User
+from main.models import CustomUser
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, JsonResponse
 
@@ -14,16 +14,13 @@ from django.http import HttpResponse, JsonResponse
 def index(request):
     return render(
         request,
-        'admin_panel/index.html',
-        {
-            'title': 'Администратор'
-        }
+        'admin_panel/index.html'
     )
 
 
 @login_required
 def users(request):
-    list_users = User.objects.all()
+    list_users = CustomUser.objects.all()
     return render(
         request,
         'admin_panel/users.html',

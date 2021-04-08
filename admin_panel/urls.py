@@ -15,7 +15,7 @@ app_name = 'admin_panel'
 
 urlpatterns = [
     # path('admin_panel/', views.index, name='admin_panel'),
-    # path('users/', views.users, name='users'),
+    path('users/', views.users, name='users'),
     # path('users/add/', views.edit_user, {'tmplt_name': forms_template['add']}, name='add_user'),
     # path('users/edit/<int:id>/', views.edit_user, {'tmplt_name': forms_template['edit']}, name='edit_user'),
     # path('users/delete/<int:id>/', views.delete_user, name='delete_user'),

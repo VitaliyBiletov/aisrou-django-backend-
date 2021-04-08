@@ -5,7 +5,7 @@ from .functions import get_name
 from django.core.validators import RegexValidator
 
 
-User.add_to_class("__str__", get_name)
+# User.add_to_class("__str__", get_name)
 
 
 class Pupil(models.Model):

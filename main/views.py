@@ -5,8 +5,8 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def index(request):
-    # if request.user.is_staff:
-    #     return render(request, 'admin_panel/index.html')
+    if request.user.is_staff:
+        return render(request, 'admin_panel/index.html')
     return render(request, 'main/index.html')
 
 

@@ -7,7 +7,7 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
         <h1 class="h2">Пользователи</h1>
     </div>
-    <a class="btn btn-outline-success" href="{% url 'admin_panel:add_user' %}" rel="modal:open">Добавить</a>
+    <a class="btn btn-outline-success" href="#" rel="modal:open">Добавить</a>
     <div class="row">
         <div class="col-sm">
             <table class="table table-bordered table-sm my-4">
@@ -25,18 +25,18 @@
               </thead>
               <tbody>
               {% for user in list_users %}
-                {% if not user.is_staff %}
+{#                {% if user.is_staff %}#}
                 <tr>
                   <td>{{ user.id}}</td>
                   <td>{{ user.username}}</td>
-                  <td>{{ user.profile.last_name}}</td>
-                  <td>{{ user.profile.first_name }}</td>
-                  <td>{{ user.profile.patronymic }}</td>
-                  <td>{{ user.profile.date }}</td>
-                  <td><a href="{% url 'admin_panel:edit_user' user.id %}" rel="modal:open"><img alt="Изменить" width="15" src="https://img.icons8.com/cotton/64/000000/create-new--v2.png"/></a></td>
-                  <td><a href="{% url 'admin_panel:delete_user' user.id %}"><img alt="Удалить" width="15" src="https://img.icons8.com/cotton/64/000000/delete.png"/></a></td>
+                  <td>{{ user.last_name}}</td>
+                  <td>{{ user.first_name }}</td>
+                  <td>{{ user.patronymic|default_if_none:'' }}</td>
+                  <td>{{ user.date_joined}}</td>
+                  <td><a href="#" rel="modal:open"><img alt="Изменить" width="15" src="https://img.icons8.com/cotton/64/000000/create-new--v2.png"/></a></td>
+                  <td><a href="#"><img alt="Удалить" width="15" src="https://img.icons8.com/cotton/64/000000/delete.png"/></a></td>
                 </tr>
-                {% endif %}
+{#                {% endif %}#}
               </tbody>
               {% endfor %}
             </table>
