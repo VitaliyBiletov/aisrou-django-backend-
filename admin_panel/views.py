@@ -1,15 +1,17 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
-from .forms import PupilRegistrationForm\
-    # , LogoGroupsForm, ProfileForm
-from .models import Pupil\
-    # , LogoGroups, Profile
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse_lazy
+from django.views.generic import UpdateView
+
+from main.forms import ChangeUserInfoForm
+from .forms import PupilRegistrationForm
+from .models import Pupil
 from main.models import CustomUser
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.http import HttpResponse, JsonResponse
 
 
-# Create your views here.
 def index(request):
     return render(
         request,
@@ -30,6 +32,22 @@ def users(request):
     # else:
     #     return redirect('/')
 
+
+class ChangeUserInfoView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+    model = CustomUser
+    template_name = 'admin_panel/change_user_info.html'
+    form_class = ChangeUserInfoForm
+    success_url = reverse_lazy('admin_panel:users')
+    success_message = 'Данные сохранены'
+
+    def dispatch(self, request, *args, **kwargs):
+        print(self.kwargs['id'])
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_object(self, queryset=None):
+        if not queryset:
+            queryset = self.get_queryset()
+        return get_object_or_404(queryset, pk=self.kwargs['id'])
 
 # def edit_user(request, tmplt_name='admin_panel/users.html', id=None):
 #     if id:

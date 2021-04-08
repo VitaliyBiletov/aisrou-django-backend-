@@ -23,20 +23,3 @@ class SDLoginView(LoginView):
 
 class SDLogoutView(LogoutView):
     template_name = 'main/logout.html'
-
-
-class ChangeUserInfoView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
-    model = CustomUser
-    template_name = 'main/change_user_info.html'
-    form_class = ChangeUserInfoForm
-    success_url = reverse_lazy('admin_panel:users')
-    success_message = 'Данные сохранены'
-
-    def dispatch(self, request, *args, **kwargs):
-        print(self.kwargs['id'])
-        return super().dispatch(request, *args, **kwargs)
-
-    def get_object(self, queryset=None):
-        if not queryset:
-            queryset = self.get_queryset()
-        return get_object_or_404(queryset, pk=self.kwargs['id'])

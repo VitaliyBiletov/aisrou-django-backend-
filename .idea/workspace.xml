@@ -22,13 +22,14 @@
     <list default="true" id="7230acd5-6974-473e-801a-58a92a5993cb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin_panel/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin_panel/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin_panel/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin_panel/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/admin_panel/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/admin_panel/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin_panel/user_form_edit.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/admin_panel/users.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin_panel/users.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/layout/base_admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/layout/base_admin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/main/change_user_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin_panel/change_user_info.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/main/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/main/login.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,10 +75,10 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Projects\mysite\templates\admin_panel" />
       <recent name="C:\Projects\mysite\templates\layout" />
       <recent name="C:\Projects\mysite\static\admin_panel" />
       <recent name="C:\Projects\mysite\templates\main" />
-      <recent name="C:\Projects\mysite\templates\admin_panel" />
       <recent name="C:\Projects\mysite\static\js\admin_panel" />
     </key>
   </component>
@@ -132,7 +133,7 @@
       <workItem from="1617379272530" duration="4098000" />
       <workItem from="1617617125085" duration="2310000" />
       <workItem from="1617867761402" duration="4435000" />
-      <workItem from="1617891065947" duration="9110000" />
+      <workItem from="1617891065947" duration="10231000" />
     </task>
     <servers />
   </component>
