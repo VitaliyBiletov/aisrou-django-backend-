@@ -1,3 +1,10 @@
+#users_alert {
+    margin-bottom: 1px;
+    height: 36px;
+    line-height: 32px;
+    padding: 0px 15px;
+}
+
 .modal {
     height: auto;
 }

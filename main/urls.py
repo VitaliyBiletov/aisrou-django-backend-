@@ -6,12 +6,11 @@ from django.views.static import serve
 from .views import index, SDLoginView, SDLogoutView, ChangeUserInfoView
 
 app_name = 'main'
-
 urlpatterns = [
-    path('', index),
+    path('', index, name='index'),
     path('accounts/login/', SDLoginView.as_view(), name='login'),
     path('accounts/logout/', SDLogoutView.as_view(), name='logout'),
-    path('accounts/profile/change/<int:id>', ChangeUserInfoView.as_view(), 'profile_change')
+    path('accounts/profile/change/<int:id>', ChangeUserInfoView.as_view(), name='profile_change')
 ]
 
 if settings.DEBUG:

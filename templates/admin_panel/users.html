@@ -1,14 +1,31 @@
 {% extends "admin_panel/../layout/base_admin.html" %}
 {% load static %}
+{% load bootstrap4 %}
 
 {% block title %}Пользователи{% endblock %}
+
+{% block meta %}
+    <script type="text/javascript" src="{% static 'admin_panel/js/users.js' %}"></script>
+{% endblock %}
 
 {% block content %}
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
         <h1 class="h2">Пользователи</h1>
     </div>
-    <a class="btn btn-outline-success" href="#" rel="modal:open">Добавить</a>
-    <div class="row">
+    <div class="row align-items-center">
+        <div class="col-md-auto">
+                <a class="btn btn-outline-success" href="#" rel="modal:open">Добавить</a>
+        </div>
+        <div id="messages" class="col-md-auto">
+            {% for messsage in messages %}
+                <div id="users_alert" class="alert alert-success" role="alert">
+                    {{ messsage }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="row align-items-center">
         <div class="col-sm">
             <table class="table table-bordered table-sm my-4">
               <thead class="thead-dark">
@@ -33,7 +50,7 @@
                   <td>{{ user.first_name }}</td>
                   <td>{{ user.patronymic|default_if_none:'' }}</td>
                   <td>{{ user.date_joined}}</td>
-                  <td><a href="{% url 'profile_change' user.id %}"><img alt="Изменить" width="15" src="https://img.icons8.com/cotton/64/000000/create-new--v2.png"/></a></td>
+                  <td><a href="{% url 'main:profile_change' user.id%}"><img alt="Изменить" width="15" src="https://img.icons8.com/cotton/64/000000/create-new--v2.png"/></a></td>
                   <td><a href="#"><img alt="Удалить" width="15" src="https://img.icons8.com/cotton/64/000000/delete.png"/></a></td>
                 </tr>
 {#                {% endif %}#}
