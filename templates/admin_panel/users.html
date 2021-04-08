@@ -14,7 +14,7 @@
     </div>
     <div class="row align-items-center">
         <div class="col-md-auto">
-                <a class="btn btn-outline-success" href="#" rel="modal:open">Добавить</a>
+                <a class="btn btn-outline-success" href="{% url 'admin_panel:register' %}" rel="modal:open">Добавить</a>
         </div>
         <div id="messages" class="col-md-auto">
             {% for messsage in messages %}

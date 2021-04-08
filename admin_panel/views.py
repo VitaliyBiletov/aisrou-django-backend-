@@ -1,13 +1,15 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, CreateView
+from django.views.generic.detail import SingleObjectMixin
 
 from main.forms import ChangeUserInfoForm
-from .forms import PupilRegistrationForm
+from .forms import PupilRegistrationForm, SDRegisterUserForm, PasswordChangingForm
 from .models import Pupil
 from main.models import CustomUser
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -39,10 +41,6 @@ class SDChangeUserInfoView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('admin_panel:users')
     success_message = 'Данные сохранены'
 
-    def dispatch(self, request, *args, **kwargs):
-        print(self.kwargs['id'])
-        return super().dispatch(request, *args, **kwargs)
-
     def get_object(self, queryset=None):
         if not queryset:
             queryset = self.get_queryset()
@@ -51,8 +49,17 @@ class SDChangeUserInfoView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
 
 class SDPasswordChangeView(SuccessMessageMixin, LoginRequiredMixin, PasswordChangeView):
     template_name = 'admin_panel/password_change.html'
+    form_class = PasswordChangingForm
     success_url = reverse_lazy('admin_panel:users')
     success_message = 'Пароль успешно изменен'
+
+
+class SDRegisterUserView(SuccessMessageMixin, CreateView):
+    model = CustomUser
+    template_name = 'admin_panel/register_user.html'
+    form_class = SDRegisterUserForm
+    success_url = reverse_lazy('admin_panel:users')
+    success_message = 'Регистрация успешно выполнена'
 
 
 # def delete_user(request, id):
