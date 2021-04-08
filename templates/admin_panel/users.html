@@ -33,7 +33,7 @@
                   <td>{{ user.first_name }}</td>
                   <td>{{ user.patronymic|default_if_none:'' }}</td>
                   <td>{{ user.date_joined}}</td>
-                  <td><a href="#" rel="modal:open"><img alt="Изменить" width="15" src="https://img.icons8.com/cotton/64/000000/create-new--v2.png"/></a></td>
+                  <td><a href="{% url 'profile_change' user.id %}"><img alt="Изменить" width="15" src="https://img.icons8.com/cotton/64/000000/create-new--v2.png"/></a></td>
                   <td><a href="#"><img alt="Удалить" width="15" src="https://img.icons8.com/cotton/64/000000/delete.png"/></a></td>
                 </tr>
 {#                {% endif %}#}

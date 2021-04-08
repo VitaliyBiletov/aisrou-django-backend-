@@ -1,7 +1,6 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
-from .forms import UserForm, PupilRegistrationForm\
+from .forms import PupilRegistrationForm\
     # , LogoGroupsForm, ProfileForm
 from .models import Pupil\
     # , LogoGroups, Profile
