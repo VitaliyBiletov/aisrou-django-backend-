@@ -1,8 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
-from .forms import UserForm, PupilRegistrationForm, LogoGroupsForm, ProfileForm
-from .models import Pupil, LogoGroups, Profile
+from .forms import UserForm, PupilRegistrationForm\
+    # , LogoGroupsForm, ProfileForm
+from .models import Pupil\
+    # , LogoGroups, Profile
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, JsonResponse
@@ -33,48 +35,49 @@ def users(request):
     #     return redirect('/')
 
 
-def edit_user(request, tmplt_name='admin_panel/users.html', id=None):
-    if id:
-        user = User.objects.get(id=id)
-        profile = Profile.objects.get(user_id=id)
-    else:
-        user = User()
-        profile = Profile()
+# def edit_user(request, tmplt_name='admin_panel/users.html', id=None):
+#     if id:
+#         user = User.objects.get(id=id)
+#         profile = Profile.objects.get(user_id=id)
+#     else:
+#         user = User()
+#         profile = Profile()
+#
+#     user_form = UserForm(request.POST or None, instance=user)
+#     profile_form = ProfileForm(request.POST or None, instance=profile)
+#
+#
+#     if request.POST:
+#         print(request.POST)
+#         if user_form.is_valid() and profile_form.is_valid():
+#             user = user_form.save(commit=False)
+#             user.set_password(user_form.cleaned_data['password'])
+#             user.save()
+#             profile = profile_form.save(commit=False)
+#             profile.user = user
+#             profile.save()
+#             return JsonResponse({
+#                 'user_form_errors': '',
+#                 'profile_form_errors': ''
+#             })
+#         else:
+#             print(profile_form.errors)
+#             # print(user_form.errors)
+#             return JsonResponse({
+#                 'user_form_errors': user_form.errors,
+#                 'profile_form_errors': profile_form.errors,
+#             })
+#
+#     return render(
+#         request,
+#         tmplt_name,
+#         {
+#             'user_form': user_form,
+#             'profile_form': profile_form,
+#             'id': id,
+#         }
+#     )
 
-    user_form = UserForm(request.POST or None, instance=user)
-    profile_form = ProfileForm(request.POST or None, instance=profile)
-
-
-    if request.POST:
-        print(request.POST)
-        if user_form.is_valid() and profile_form.is_valid():
-            user = user_form.save(commit=False)
-            user.set_password(user_form.cleaned_data['password'])
-            user.save()
-            profile = profile_form.save(commit=False)
-            profile.user = user
-            profile.save()
-            return JsonResponse({
-                'user_form_errors': '',
-                'profile_form_errors': ''
-            })
-        else:
-            print(profile_form.errors)
-            # print(user_form.errors)
-            return JsonResponse({
-                'user_form_errors': user_form.errors,
-                'profile_form_errors': profile_form.errors,
-            })
-
-    return render(
-        request,
-        tmplt_name,
-        {
-            'user_form': user_form,
-            'profile_form': profile_form,
-            'id': id,
-        }
-    )
     # if id:
     #     user = User.objects.get(id=id)
     #     user_form = UserForm(instance=user)
@@ -166,52 +169,52 @@ def delete(request, id):
     return redirect('/admin_panel/pupils_registration')
 
 
-def unpin(request, id):
-    logo_group = LogoGroups.objects.get(id=id)
-    logo_group.delete()
-    profile_id = request.GET.get('profile_id')
-    logo_groups_filtered = LogoGroups.objects.filter(profile=profile_id)
-    return render(
-        request,
-        'admin_panel/result_table.html',
-        {
-            'logo_groups_filtered': logo_groups_filtered,
-            'logo_groups_form': LogoGroupsForm(request.GET),
-        }
-    )
+# def unpin(request, id):
+#     logo_group = LogoGroups.objects.get(id=id)
+#     logo_group.delete()
+#     profile_id = request.GET.get('profile_id')
+#     logo_groups_filtered = LogoGroups.objects.filter(profile=profile_id)
+#     return render(
+#         request,
+#         'admin_panel/result_table.html',
+#         {
+#             'logo_groups_filtered': logo_groups_filtered,
+#             'logo_groups_form': LogoGroupsForm(request.GET),
+#         }
+#     )
 
 
-def groups(request):
-    logo_group_form = LogoGroupsForm()
-    return render(request, 'admin_panel/groups.html', {'logo_groups_form': logo_group_form})
+# def groups(request):
+#     logo_group_form = LogoGroupsForm()
+#     return render(request, 'admin_panel/groups.html', {'logo_groups_form': logo_group_form})
 
 
-def groups_view(request):
-    if request.method == "POST":
-        logo_group_form = LogoGroupsForm(request.POST)
-        profile_id = logo_group_form['profile'].value()
-        logo_groups_filtered = LogoGroups.objects.filter(profile=profile_id)
-        return render(
-            request,
-            'admin_panel/result_table.html',
-            {
-                'logo_groups_form': LogoGroupsForm(request.POST),
-                'logo_groups_filtered': logo_groups_filtered
-            }
-        )
+# def groups_view(request):
+#     if request.method == "POST":
+#         logo_group_form = LogoGroupsForm(request.POST)
+#         profile_id = logo_group_form['profile'].value()
+#         logo_groups_filtered = LogoGroups.objects.filter(profile=profile_id)
+#         return render(
+#             request,
+#             'admin_panel/result_table.html',
+#             {
+#                 'logo_groups_form': LogoGroupsForm(request.POST),
+#                 'logo_groups_filtered': logo_groups_filtered
+#             }
+#         )
 
 
-def groups_attachment(request):
-    if request.method == "POST":
-        logo_group_form = LogoGroupsForm(request.POST)
-        profile_id = logo_group_form['profile'].value()
-        logo_groups_filtered = LogoGroups.objects.filter(profile=profile_id)
-        if logo_group_form.is_valid():
-            logo_group_form.save()
-            return render(
-                request,
-                'admin_panel/result_table.html',
-                {
-                    'logo_groups_filtered': logo_groups_filtered,
-                }
-            )
+# def groups_attachment(request):
+#     if request.method == "POST":
+#         logo_group_form = LogoGroupsForm(request.POST)
+#         profile_id = logo_group_form['profile'].value()
+#         logo_groups_filtered = LogoGroups.objects.filter(profile=profile_id)
+#         if logo_group_form.is_valid():
+#             logo_group_form.save()
+#             return render(
+#                 request,
+#                 'admin_panel/result_table.html',
+#                 {
+#                     'logo_groups_filtered': logo_groups_filtered,
+#                 }
+#             )

@@ -12,7 +12,7 @@
         <form method="post">
             {% csrf_token %}
             {% bootstrap_form form %}
-            <input type="hidden" name="next" value="{{ next }}">
+            <input type="hidden" name="next" value="{{ next  }}">
             {% buttons submit='Войти' %}{% endbuttons %}
         </form>
     {% endif %}

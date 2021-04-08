@@ -21,28 +21,26 @@
   <component name="ChangeListManager">
     <list default="true" id="7230acd5-6974-473e-801a-58a92a5993cb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin_panel/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin_panel/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin_panel/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin_panel/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin_panel/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin_panel/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin_panel/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin_panel/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin_panel/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin_panel/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/migrations/0002_pupil_name.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/migrations/0003_remove_pupil_name.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/migrations/0004_pupil_date.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/migrations/0005_auto_20210306_0018.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/migrations/0006_remove_pupil_date.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/migrations/0007_pupil_date.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/migrations/0008_auto_20210306_0023.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/migrations/0009_delete_pupil.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysite/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/dashboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/admin_panel/css/dashboard.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/admin_panel/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/admin_panel/form.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/admin_panel/js/admin_panel/form.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/admin_panel/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/admin_panel/js/admin_panel/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/admin_panel/result_table.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/admin_panel/js/admin_panel/result_table.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin_panel/base_admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/layout/base_admin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin_panel/groups.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin_panel/groups.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin_panel/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin_panel/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin_panel/pupils_registration.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin_panel/pupils_registration.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin_panel/users.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin_panel/users.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/main/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/main/about.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/main/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/layout/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/main/create.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/main/create.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/main/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/main/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/main/register_done.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/main/register_done.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/registration/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/main/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/main/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/main/login.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -145,6 +143,7 @@
       <workItem from="1617363004473" duration="9223000" />
       <workItem from="1617379272530" duration="4098000" />
       <workItem from="1617617125085" duration="2310000" />
+      <workItem from="1617867761402" duration="1759000" />
     </task>
     <servers />
   </component>
