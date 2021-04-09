@@ -5,8 +5,7 @@ from django.views.decorators.cache import never_cache
 from django.views.static import serve
 
 from . import views
-from .views import SDChangeUserInfoView, SDPasswordChangeView, SDRegisterUserView
-
+from .views import SDChangeUserInfoView, SDRegisterUserView, setPassword
 forms_template = {
     'add': 'admin_panel/user_form_add.html',
     'edit': 'admin_panel/user_form_edit.html',
@@ -14,11 +13,12 @@ forms_template = {
 
 app_name = 'admin_panel'
 urlpatterns = [
-    # path('admin_panel/', views.index, name='admin_panel'),
     path('users/', views.users, name='users'),
-    path('accounts/profile/change/<int:id>', SDChangeUserInfoView.as_view(), name='profile_change'),
-    path('accounts/password/change/<int:id>', SDPasswordChangeView.as_view(), name='password_change'),
+    path('accounts/profile/change/<int:id>/', SDChangeUserInfoView.as_view(), name='profile_change'),
+    path('accounts/set_password/<int:id>/', setPassword, name='password_set'),
     path('accounts/register/', SDRegisterUserView.as_view(), name='register'),
+
+
     # path('users/add/', views.edit_user, {'tmplt_name': forms_template['add']}, name='add_user'),
     # path('users/edit/<int:id>/', views.edit_user, {'tmplt_name': forms_template['edit']}, name='edit_user'),
     # path('users/delete/<int:id>/', views.delete_user, name='delete_user'),

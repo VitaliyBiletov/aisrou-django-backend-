@@ -1,18 +1,14 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import PasswordChangeView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView, CreateView
-from django.views.generic.detail import SingleObjectMixin
-
-from main.forms import ChangeUserInfoForm
-from .forms import PupilRegistrationForm, SDRegisterUserForm, PasswordChangingForm
+from .forms import PupilRegistrationForm, SDRegisterUserForm, ChangeUserInfoForm, setPasswordForm
 from .models import Pupil
 from main.models import CustomUser
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib import messages
 
 
 @login_required
@@ -22,7 +18,7 @@ def index(request):
         'admin_panel/index.html'
     )
 
-
+@login_required
 def users(request):
     list_users = CustomUser.objects.all()
     return render(
@@ -47,13 +43,6 @@ class SDChangeUserInfoView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
         return get_object_or_404(queryset, pk=self.kwargs['id'])
 
 
-class SDPasswordChangeView(SuccessMessageMixin, LoginRequiredMixin, PasswordChangeView):
-    template_name = 'admin_panel/password_change.html'
-    form_class = PasswordChangingForm
-    success_url = reverse_lazy('admin_panel:users')
-    success_message = 'Пароль успешно изменен'
-
-
 class SDRegisterUserView(SuccessMessageMixin, CreateView):
     model = CustomUser
     template_name = 'admin_panel/register_user.html'
@@ -61,6 +50,21 @@ class SDRegisterUserView(SuccessMessageMixin, CreateView):
     success_url = reverse_lazy('admin_panel:users')
     success_message = 'Регистрация успешно выполнена'
 
+
+def setPassword(request, id):
+    print(id)
+    form = setPasswordForm()
+    user = CustomUser.objects.get(pk=id)
+    if request.POST:
+        form = setPasswordForm(request.POST)
+        if form.is_valid():
+            # user = CustomUser.objects.get(pk=id)
+            password = form.cleaned_data['password1']
+            print(password)
+            user.set_password(password)
+            user.save()
+            return render(request, 'admin_panel/password_change.html', {'form': form, 'user': setPasswordForm()})
+    return render(request, 'admin_panel/password_change.html', {'form': form, 'user': user})
 
 # def delete_user(request, id):
 #     user = User.objects.get(id=id)
