@@ -1,11 +1,10 @@
 from django.conf import settings
-from django.urls import path, include
+from django.urls import path
 from django.conf.urls import url
 from django.views.decorators.cache import never_cache
 from django.views.static import serve
 
-from . import views
-from .views import SDChangeUserInfoView, SDRegisterUserView, setPassword
+from .views import SDChangeUserInfoView, SDRegisterUserView, set_password, delete_user, users
 forms_template = {
     'add': 'admin_panel/user_form_add.html',
     'edit': 'admin_panel/user_form_edit.html',
@@ -13,11 +12,11 @@ forms_template = {
 
 app_name = 'admin_panel'
 urlpatterns = [
-    path('users/', views.users, name='users'),
+    path('users/', users, name='users'),
     path('accounts/profile/change/<int:id>/', SDChangeUserInfoView.as_view(), name='profile_change'),
-    path('accounts/set_password/<int:id>/', setPassword, name='password_set'),
+    path('accounts/profile/set_password/<int:id>/', set_password, name='set_password'),
     path('accounts/register/', SDRegisterUserView.as_view(), name='register'),
-
+    path('accounts/profile/delete/<int:id>/', delete_user, name='delete'),
 
     # path('users/add/', views.edit_user, {'tmplt_name': forms_template['add']}, name='add_user'),
     # path('users/edit/<int:id>/', views.edit_user, {'tmplt_name': forms_template['edit']}, name='edit_user'),

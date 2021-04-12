@@ -13,10 +13,12 @@ from django.contrib import messages
 
 @login_required
 def index(request):
+    print(request)
     return render(
         request,
         'admin_panel/index.html'
     )
+
 
 @login_required
 def users(request):
@@ -48,10 +50,10 @@ class SDRegisterUserView(SuccessMessageMixin, CreateView):
     template_name = 'admin_panel/register_user.html'
     form_class = SDRegisterUserForm
     success_url = reverse_lazy('admin_panel:users')
-    success_message = 'Регистрация успешно выполнена'
+    success_message = 'Пользователь успешно добавлен'
 
 
-def setPassword(request, id):
+def set_password(request, id):
     print(id)
     form = setPasswordForm()
     user = CustomUser.objects.get(pk=id)
@@ -63,13 +65,15 @@ def setPassword(request, id):
             print(password)
             user.set_password(password)
             user.save()
-            return render(request, 'admin_panel/password_change.html', {'form': form, 'user': setPasswordForm()})
+            messages.success(request, 'Пароль успешно изменен')
+            return redirect('admin_panel:users')
     return render(request, 'admin_panel/password_change.html', {'form': form, 'user': user})
 
-# def delete_user(request, id):
-#     user = User.objects.get(id=id)
-#     user.delete()
-#     return redirect('/admin_panel/users')
+
+def delete_user(request, id):
+    user = CustomUser.objects.get(id=id)
+    user.delete()
+    return redirect('/admin_panel/users')
 
 
 def pupils(request):

@@ -52,8 +52,8 @@
                   <td>{{ user.patronymic|default_if_none:'' }}</td>
                   <td>{{ user.date_joined}}</td>
                   <td class="text-center"><a href="{% url 'admin_panel:profile_change' user.id%}"><img alt="Изменить" width="15" src="https://img.icons8.com/cotton/64/000000/create-new--v2.png"/></a></td>
-                  <td class="text-center"><a href="{% url 'admin_panel:password_set' user.id %}"><img alt="Изменить пароль" width="15" src={% static 'admin_panel/icons/change_password.ico' %}/></a></td>
-                  <td class="text-center"><a href="#"><img alt="Удалить" width="15" src="https://img.icons8.com/cotton/64/000000/delete.png"/></a></td>
+                  <td class="text-center"><a href="{% url 'admin_panel:set_password' user.id %}"><img alt="Изменить пароль" width="15" src={% static 'admin_panel/icons/change_password.ico' %}/></a></td>
+                  <td class="text-center"><a href="{% url 'admin_panel:delete' user.id %}"><img alt="Удалить" width="15" src="https://img.icons8.com/cotton/64/000000/delete.png"/></a></td>
                 </tr>
 {#                {% endif %}#}
               </tbody>

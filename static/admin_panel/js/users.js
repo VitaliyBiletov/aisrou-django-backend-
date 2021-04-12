@@ -4,5 +4,5 @@ $(document).ready(function(){
             $(this).alert('close')
             $('#messages').remove()
         })
-    }, 2000)
+    }, 1000)
 })
