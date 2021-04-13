@@ -4,7 +4,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView, CreateView
-from .forms import PupilRegistrationForm, SDRegisterUserForm, ChangeUserInfoForm, setPasswordForm
+from .forms import SDRegisterPupilForm, SDRegisterUserForm, ChangeUserInfoForm, SetPasswordForm
 from .models import Pupil
 from main.models import CustomUser
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -54,15 +54,12 @@ class SDRegisterUserView(SuccessMessageMixin, CreateView):
 
 
 def set_password(request, id):
-    print(id)
-    form = setPasswordForm()
+    form = SetPasswordForm()
     user = CustomUser.objects.get(pk=id)
     if request.POST:
-        form = setPasswordForm(request.POST)
+        form = SetPasswordForm(request.POST)
         if form.is_valid():
-            # user = CustomUser.objects.get(pk=id)
             password = form.cleaned_data['password1']
-            print(password)
             user.set_password(password)
             user.save()
             messages.success(request, 'Пароль успешно изменен')
@@ -90,21 +87,42 @@ def pupils(request):
 
     if request.user.is_staff:
         if request.method == "POST":
-            pupil_form = PupilRegistrationForm(request.POST)
+            pupil_form = SDRegisterPupilForm(request.POST)
             if pupil_form.is_valid():
                 pupil_form.save()
                 return redirect('/admin_panel/pupils_registration/')
         else:
             return render(
                 request,
-                'admin_panel/pupils_registration.html',
+                'admin_panel/pupils.html',
                 {
-                    'pupil_registration_form': PupilRegistrationForm(),
+                    'pupil_registration_form': SDRegisterPupilForm(),
                     'list_pupils': pupils,
                 }
             )
     else:
         return redirect('/')
+
+
+class SDPupilRegisterView(SuccessMessageMixin, CreateView):
+    model = Pupil
+    template_name = 'admin_panel/register_pupil.html'
+    form_class = SDRegisterPupilForm
+    success_url = reverse_lazy('admin_panel:pupils')
+    success_message = 'Ученик успешно добавлен'
+
+
+class SDChangePupilInfoView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+    model = Pupil
+    template_name = 'admin_panel/change_pupil_info.html'
+    form_class = SDRegisterPupilForm
+    success_url = reverse_lazy('admin_panel:pupils')
+    success_message = 'Данные сохранены'
+
+    def get_object(self, queryset=None):
+        if not queryset:
+            queryset = self.get_queryset()
+        return get_object_or_404(queryset, pk=self.kwargs['id'])
 
 
 def delete(request, id):

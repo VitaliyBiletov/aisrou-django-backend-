@@ -52,7 +52,7 @@ class ChangeUserInfoForm(forms.ModelForm):
         fields = ('username', 'last_name', 'first_name', 'patronymic', 'email', 'is_staff', 'password',)
 
 
-class setPasswordForm(forms.Form):
+class SetPasswordForm(forms.Form):
     password1 = forms.CharField(label='Пароль', required=True, widget=forms.PasswordInput)
     password2 = forms.CharField(label='Повторите пароль', required=True, widget=forms.PasswordInput)
 
@@ -79,15 +79,7 @@ class setPasswordForm(forms.Form):
         return user
 
 
-class PupilRegistrationForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(PupilRegistrationForm, self).__init__(*args, **kwargs)
-        for field in iter(self.fields):
-            self.fields[field].widget.attrs.update(
-                {
-                    'class': 'form-control col-md-5'
-                }
-            )
+class SDRegisterPupilForm(forms.ModelForm):
 
     class Meta:
         model = Pupil

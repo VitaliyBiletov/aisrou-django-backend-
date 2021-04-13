@@ -33,6 +33,7 @@ class Pupil(models.Model):
     class Meta:
         verbose_name = 'Ученик'
         verbose_name_plural = 'Ученики'
+        ordering = ['last_name']
 
 
 # class Profile(models.Model):

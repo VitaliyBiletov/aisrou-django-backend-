@@ -1,0 +1,91 @@
+{% extends 'admin_panel/../layout/base_admin.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block meta %}
+    <script type="text/javascript" src="{% static 'admin_panel/js/users.js' %}"></script>
+{% endblock %}
+
+{% block title %}Регистрация ученика{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <h1 class="h2">Ученики</h1>
+    </div>
+    <div class="row align-items-center">
+        <div class="col-md-auto">
+                <a class="btn btn-outline-success" href="{% url 'admin_panel:pupil_register' %}" rel="modal:open">Добавить</a>
+        </div>
+        <div id="messages" class="col-md-auto">
+            {% for messsage in messages %}
+                <div id="users_alert" class="alert alert-success" role="alert">
+                    {{ messsage }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{#    <div class="form-group">#}
+{#        <form method="post" class="my-4 chartjs-render-monitor">#}
+{#            {% csrf_token %}#}
+{#                {{ pupil_registration_form.as_p }}#}
+{#                <p><input class="btn btn-primary" type="submit" value="Зарегистрировать"></p>#}
+{#        </form>#}
+{#    </div>#}
+    <div class="row align-items-center">
+        <div class="col-sm">
+            <table class="table table-bordered table-sm my-4">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">id</th>
+                  <th scope="col">Фамилия</th>
+                  <th scope="col">Имя</th>
+                  <th scope="col">Отчество</th>
+                  <th scope="col">Дата регистрации</th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                    {% for pupil in list_pupils %}
+                    <tr>
+                      <th scope="row">{{pupil.id}}</th>
+                      <td>{{pupil.last_name}}</td>
+                      <td>{{pupil.first_name}}</td>
+                      <td>{{pupil.middle_name}}</td>
+                      <td>{{pupil.date}}</td>
+                      <td class="text-center"><a href="{% url 'admin_panel:pupil_change' pupil.id %}"><img alt="Изменить" width="15" src="https://img.icons8.com/cotton/64/000000/create-new--v2.png"/></a></td>
+                      <td class="text-center"><a href="{% url 'admin_panel:delete' pupil.id %}}"><img alt="Удалить" width="15" src="https://img.icons8.com/cotton/64/000000/delete.png"/></a></td>
+                    </tr>
+                    {% endfor %}
+              </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-auto">
+            {% if list_pupils.has_other_pages %}
+                <nav aria-label="Page navigation" class="justify-content-center">
+                  <ul class="pagination">
+                    {% if list_pupils.has_previous %}
+                        <li class="page-item "><a class="page-link" href="?page={{ list_pupils.previous_page_number }}">&laquo;</a></li>
+                    {% else %}
+                        <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+                    {% endif %}
+                    {% for i in list_pupils.paginator.page_range %}
+                        {% if list_pupils.number == i %}
+                            <li class="page-item active"><span class="page-link">{{ i }}<span class="sr-only">(current)</span></span></li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if list_pupils.has_next %}
+                      <li class="page-item"><a class="page-link" href="?page={{ list_pupils.next_page_number }}">&raquo;</a></li>
+                    {% else %}
+                      <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+                    {% endif %}
+                  </ul>
+                </nav>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

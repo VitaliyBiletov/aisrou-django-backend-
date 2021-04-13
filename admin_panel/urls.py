@@ -4,7 +4,9 @@ from django.conf.urls import url
 from django.views.decorators.cache import never_cache
 from django.views.static import serve
 
-from .views import SDChangeUserInfoView, SDRegisterUserView, set_password, delete_user, users
+from .views import pupils, SDChangePupilInfoView, \
+    SDPupilRegisterView, SDChangeUserInfoView, \
+    SDRegisterUserView, set_password, delete_user, users
 forms_template = {
     'add': 'admin_panel/user_form_add.html',
     'edit': 'admin_panel/user_form_edit.html',
@@ -21,7 +23,9 @@ urlpatterns = [
     # path('users/add/', views.edit_user, {'tmplt_name': forms_template['add']}, name='add_user'),
     # path('users/edit/<int:id>/', views.edit_user, {'tmplt_name': forms_template['edit']}, name='edit_user'),
     # path('users/delete/<int:id>/', views.delete_user, name='delete_user'),
-    # path('pupils_registration/', views.pupils, name='pupils'),
+    path('pupils/', pupils, name='pupils'),
+    path('pupils/add/', SDPupilRegisterView.as_view(), name='pupil_register'),
+    path('pupils/change/<int:id>/', SDChangePupilInfoView.as_view(), name='pupil_change'),
     # path('pupils_registration/delete/<int:id>/', views.delete),
     # path('groups/', views.groups, name='groups'),
     # path('groups/view/', views.groups_view, name='view'),
