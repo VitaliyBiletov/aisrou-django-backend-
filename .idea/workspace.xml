@@ -20,20 +20,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7230acd5-6974-473e-801a-58a92a5993cb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/admin_panel/migrations/0036_auto_20210413_0705.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin_panel/migrations/0037_auto_20210413_0705.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin_panel/change_pupil_info.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin_panel/pupils.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin_panel/register_pupil.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin_panel/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin_panel/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin_panel/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin_panel/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin_panel/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin_panel/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin_panel/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin_panel/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin_panel/pupils_registration.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin_panel/register_user.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin_panel/register_user.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/layout/base_admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/layout/base_admin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/admin_panel/js/admin_panel/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/admin_panel/js/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/admin_panel/js/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/admin_panel/js/users.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin_panel/change_pupil_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin_panel/change_pupil_info.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin_panel/change_user_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin_panel/change_user_info.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin_panel/pupils.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin_panel/pupils.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin_panel/users.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin_panel/users.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,11 +76,11 @@
       <recent name="C:\Projects\mysite\templates\admin_panel" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Projects\mysite\static\admin_panel\js" />
       <recent name="C:\Projects\mysite\static\admin_panel\icons" />
       <recent name="C:\Projects\mysite\templates\admin_panel" />
       <recent name="C:\Projects\mysite\templates\layout" />
       <recent name="C:\Projects\mysite\static\admin_panel" />
-      <recent name="C:\Projects\mysite\templates\main" />
     </key>
   </component>
   <component name="RunManager" selected="Python.thread_func">
@@ -171,7 +164,7 @@
       <workItem from="1617867761402" duration="4435000" />
       <workItem from="1617891065947" duration="18319000" />
       <workItem from="1618234626527" duration="6221000" />
-      <workItem from="1618277939873" duration="7943000" />
+      <workItem from="1618277939873" duration="8247000" />
     </task>
     <servers />
   </component>
