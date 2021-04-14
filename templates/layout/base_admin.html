@@ -7,12 +7,9 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{% block title %}Главная{% endblock %}</title>
-{#    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">#}
     {% bootstrap_css %}
     <link rel="stylesheet" href="{% static 'admin_panel/css/dashboard.css' %}" />
     <link rel="stylesheet" href="{% static 'admin_panel/css/style.css' %}">
-{#    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>#}
-{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>#}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
     {% bootstrap_javascript jquery='full' %}
     {% block meta %}{% endblock %}
@@ -36,18 +33,22 @@
         </ul>
     </div>
     <div class="row">
-        <nav class="col-md-auto nav flex-column border">
-            <a class="nav-link text-dark" href="{% url 'admin_panel:users' %}">Пользователи</a>
-            <div class="dropdown-divider"></div>
-            <a class="nav-link text-dark" href="{% url 'admin_panel:pupils' %}">Ученики</a>
-            <div class="dropdown-divider"></div>
-            <a class="nav-link text-dark" href="#">Группы</a>
-        </nav>
+        <div class="col-md-2 p-0 border">
+            <nav class="nav flex-column">
+                <a class="nav-link border-bottom" href="{% url 'admin_panel:users' %}">Пользователи</a>
+                <a class="nav-link border-bottom" href="{% url 'admin_panel:pupils' %}">Ученики</a>
+                <a class="nav-link" href="{% url 'admin_panel:groups' %}">Группы</a>
+            </nav>
+        </div>
         <section class="col border py-2">
             {% block content %}{% endblock %}
         </section>
     </div>
-    <footer class="mt-3"><p class="text-right font-italic">{% now 'Y' %}, ГОУ ЯО &laquo;Петровская школа-интернат&raquo;</p></footer>
+    <div class="row">
+        <div class="col">
+            <footer class="mt-3 fixed-bottom"><p class="text-right font-italic">{% now 'Y' %}, ГОУ ЯО &laquo;Петровская школа-интернат&raquo;</p></footer>
+        </div>
+    </div>
 </body>
 </html>
 

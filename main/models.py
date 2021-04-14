@@ -9,5 +9,7 @@ class CustomUser(AbstractUser):
     class Meta(AbstractUser.Meta):
         pass
 
+    def __str__(self):
+        return "{} {} {}".format(self.last_name, self.first_name, self.patronymic)
 
 

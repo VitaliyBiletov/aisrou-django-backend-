@@ -4,8 +4,8 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView, CreateView
-from .forms import SDRegisterPupilForm, SDRegisterUserForm, ChangeUserInfoForm, SetPasswordForm
-from .models import Pupil
+from .forms import SDRegisterPupilForm, SDRegisterUserForm, ChangeUserInfoForm, SetPasswordForm, LogoGroupsForm
+from .models import Pupil, LogoGroups
 from main.models import CustomUser
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
@@ -67,7 +67,7 @@ def set_password(request, id):
     return render(request, 'admin_panel/password_change.html', {'form': form, 'user': user})
 
 
-def delete_user(request, id):
+def user_delete(request, id):
     user = CustomUser.objects.get(id=id)
     user.delete()
     return redirect('/admin_panel/users')
@@ -125,10 +125,10 @@ class SDChangePupilInfoView(SuccessMessageMixin, LoginRequiredMixin, UpdateView)
         return get_object_or_404(queryset, pk=self.kwargs['id'])
 
 
-def delete(request, id):
+def pupil_delete(request, id):
     pupil = Pupil.objects.get(id=id)
     pupil.delete()
-    return redirect('/admin_panel/pupils_registration')
+    return redirect('/admin_panel/pupils')
 
 
 # def unpin(request, id):
@@ -146,24 +146,31 @@ def delete(request, id):
 #     )
 
 
-# def groups(request):
-#     logo_group_form = LogoGroupsForm()
-#     return render(request, 'admin_panel/groups.html', {'logo_groups_form': logo_group_form})
+def groups(request):
+    logo_group_form = LogoGroupsForm()
+    logo_groups = LogoGroups.objects.all()
+    return render(request, 'admin_panel/groups.html', {
+        'form': logo_group_form,
+        'logo_groups': logo_groups
+    })
 
 
-# def groups_view(request):
-#     if request.method == "POST":
-#         logo_group_form = LogoGroupsForm(request.POST)
-#         profile_id = logo_group_form['profile'].value()
-#         logo_groups_filtered = LogoGroups.objects.filter(profile=profile_id)
-#         return render(
-#             request,
-#             'admin_panel/result_table.html',
-#             {
-#                 'logo_groups_form': LogoGroupsForm(request.POST),
-#                 'logo_groups_filtered': logo_groups_filtered
-#             }
-#         )
+def groups_view(request):
+    if request.method == "POST":
+        logo_group_form = LogoGroupsForm(request.POST)
+        user_id = logo_group_form['custom_user'].value()
+        if user_id:
+            logo_groups_filtered = LogoGroups.objects.filter(custom_user=user_id)
+        else:
+            logo_groups_filtered = None
+        return render(
+            request,
+            'admin_panel/result_table.html',
+            {
+                'logo_groups_form': LogoGroupsForm(request.POST),
+                'logo_groups_filtered': logo_groups_filtered
+            }
+        )
 
 
 # def groups_attachment(request):

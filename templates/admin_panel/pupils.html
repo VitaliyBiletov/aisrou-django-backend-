@@ -54,7 +54,7 @@
                       <td>{{pupil.middle_name}}</td>
                       <td>{{pupil.date}}</td>
                       <td class="text-center"><a href="{% url 'admin_panel:pupil_change' pupil.id %}"><img alt="Изменить" width="15" src="https://img.icons8.com/cotton/64/000000/create-new--v2.png"/></a></td>
-                      <td class="text-center"><a href="{% url 'admin_panel:delete' pupil.id %}}"><img alt="Удалить" width="15" src="https://img.icons8.com/cotton/64/000000/delete.png"/></a></td>
+                      <td class="text-center"><a href="{% url 'admin_panel:pupil_delete' pupil.id %}"><img alt="Удалить" width="15" src="https://img.icons8.com/cotton/64/000000/delete.png"/></a></td>
                     </tr>
                     {% endfor %}
               </tbody>
