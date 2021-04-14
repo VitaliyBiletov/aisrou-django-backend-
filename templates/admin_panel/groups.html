@@ -30,30 +30,28 @@
             </form>
         </div>
         <div class="col-sm">
-            {% block table %}
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">ID</th>
-                      <th scope="col">Имя</th>
-                      <th scope="col">Фамилия</th>
-                      <th scope="col"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  {% for record in logo_groups_filtered %}
-                    <tr>
-                      <th scope="row">{{ record.id }}</th>
-                      <td>{{ record.pupil.first_name }}</td>
-                      <td>{{ record.pupil.last_name }}</td>
-                      <td>
-                          <a class="text-danger unpin" href="unpin/{{ record.id }}/">Открепить</a>
-                      </td>
-                    </tr>
-                  {% endfor %}
-                  </tbody>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Имя</th>
+                  <th scope="col">Фамилия</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for record in logo_groups_filtered %}
+                <tr>
+                  <th scope="row">{{ record.id }}</th>
+                  <td>{{ record.pupil.first_name }}</td>
+                  <td>{{ record.pupil.last_name }}</td>
+                  <td>
+                      <a class="text-danger unpin" href="unpin/{{ record.id }}/"><img alt="Удалить" width="15" src="https://img.icons8.com/cotton/64/000000/delete.png"/></a>
+                  </td>
+                </tr>
+              {% endfor %}
+              </tbody>
             </table>
-            {% endblock table%}
         </div>
     </div>
 {% endblock %}

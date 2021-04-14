@@ -9,8 +9,8 @@ $(document).ready(function(){
 
     selectUser.change(function(e){
         e.preventDefault()
-        console.log('selectUser')
         const teacher_value = $(this).val();
+        console.log(selectPupil)
         if (teacher_value){
             selectPupil.attr('disabled', false)
         }else {
@@ -30,7 +30,6 @@ $(document).ready(function(){
     })
 
     selectPupil.change(function() {
-        console.log('selectPupil')
         if (this.value){
             saveButton.attr('disabled', false)
             saveButton.removeClass('disabled')
@@ -41,7 +40,6 @@ $(document).ready(function(){
     })
 
     saveButton.on('click', function(e){
-        console.log('saveButton')
         e.preventDefault()
         $.ajax({
             url: 'attachment/',
@@ -54,6 +52,19 @@ $(document).ready(function(){
             }
         })
     })
+
+    $('.unpin').on('click', function (e) {
+            e.preventDefault()
+            $.ajax({
+                url: $(this).attr('href'),
+                type: "GET",
+                data: {'id_teacher': $("#id_teacher").val()},
+                success: function (data) {
+                    $('.table').empty()
+                    $('.table').append(data)
+                }
+            })
+        })
 
     selectPupil.select2({
 		placeholder: 'Выбрать',

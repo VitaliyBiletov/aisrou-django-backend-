@@ -131,21 +131,6 @@ def pupil_delete(request, id):
     return redirect('/admin_panel/pupils')
 
 
-# def unpin(request, id):
-#     logo_group = LogoGroups.objects.get(id=id)
-#     logo_group.delete()
-#     profile_id = request.GET.get('profile_id')
-#     logo_groups_filtered = LogoGroups.objects.filter(profile=profile_id)
-#     return render(
-#         request,
-#         'admin_panel/result_table.html',
-#         {
-#             'logo_groups_filtered': logo_groups_filtered,
-#             'logo_groups_form': LogoGroupsForm(request.GET),
-#         }
-#     )
-
-
 def groups(request):
     logo_group_form = LogoGroupsForm()
     logo_groups = LogoGroups.objects.all()
@@ -158,16 +143,16 @@ def groups(request):
 def groups_view(request):
     if request.method == "POST":
         logo_group_form = LogoGroupsForm(request.POST)
-        user_id = logo_group_form['custom_user'].value()
-        if user_id:
-            logo_groups_filtered = LogoGroups.objects.filter(custom_user=user_id)
+        custom_user_id = logo_group_form['custom_user'].value()
+        if custom_user_id:
+            logo_groups_filtered = LogoGroups.objects.filter(custom_user=custom_user_id)
         else:
             logo_groups_filtered = None
         return render(
             request,
             'admin_panel/result_table.html',
             {
-                'logo_groups_form': LogoGroupsForm(request.POST),
+                'form': LogoGroupsForm(request.POST),
                 'logo_groups_filtered': logo_groups_filtered
             }
         )
@@ -176,8 +161,8 @@ def groups_view(request):
 def groups_attachment(request):
     if request.method == "POST":
         logo_group_form = LogoGroupsForm(request.POST)
-        profile_id = logo_group_form['custom_user'].value()
-        logo_groups_filtered = LogoGroups.objects.filter(profile=profile_id)
+        custom_user_id = logo_group_form['custom_user'].value()
+        logo_groups_filtered = LogoGroups.objects.filter(custom_user=custom_user_id)
         if logo_group_form.is_valid():
             logo_group_form.save()
             return render(
@@ -187,3 +172,18 @@ def groups_attachment(request):
                     'logo_groups_filtered': logo_groups_filtered,
                 }
             )
+
+
+def unpin(request, id):
+    logo_group = LogoGroups.objects.get(id=id)
+    logo_group.delete()
+    custom_user_id = request.GET.get('custom_user_id')
+    logo_groups_filtered = LogoGroups.objects.filter(custom_user=custom_user_id)
+    return render(
+        request,
+        'admin_panel/result_table.html',
+        {
+            'logo_groups_filtered': logo_groups_filtered,
+            # 'form': LogoGroupsForm(request.POST),
+        }
+    )
