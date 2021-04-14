@@ -2,7 +2,6 @@
 *.log
 *.pot
 *.pyc
-.idea
 __pycache__/
 local_settings.py
 media
