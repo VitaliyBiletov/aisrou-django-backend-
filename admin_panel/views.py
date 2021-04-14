@@ -173,17 +173,17 @@ def groups_view(request):
         )
 
 
-# def groups_attachment(request):
-#     if request.method == "POST":
-#         logo_group_form = LogoGroupsForm(request.POST)
-#         profile_id = logo_group_form['profile'].value()
-#         logo_groups_filtered = LogoGroups.objects.filter(profile=profile_id)
-#         if logo_group_form.is_valid():
-#             logo_group_form.save()
-#             return render(
-#                 request,
-#                 'admin_panel/result_table.html',
-#                 {
-#                     'logo_groups_filtered': logo_groups_filtered,
-#                 }
-#             )
+def groups_attachment(request):
+    if request.method == "POST":
+        logo_group_form = LogoGroupsForm(request.POST)
+        profile_id = logo_group_form['custom_user'].value()
+        logo_groups_filtered = LogoGroups.objects.filter(profile=profile_id)
+        if logo_group_form.is_valid():
+            logo_group_form.save()
+            return render(
+                request,
+                'admin_panel/result_table.html',
+                {
+                    'logo_groups_filtered': logo_groups_filtered,
+                }
+            )

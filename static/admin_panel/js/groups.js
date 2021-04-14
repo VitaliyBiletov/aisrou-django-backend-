@@ -9,6 +9,14 @@ $(document).ready(function(){
 
     selectUser.change(function(e){
         e.preventDefault()
+        console.log('selectUser')
+        const teacher_value = $(this).val();
+        if (teacher_value){
+            selectPupil.attr('disabled', false)
+        }else {
+            selectPupil.val(null)
+            selectPupil.attr('disabled', true)
+        }
         $.ajax({
             url: 'view/',
             type: "POST",
@@ -19,16 +27,10 @@ $(document).ready(function(){
                 $('.table').append(data)
             }
         })
-        const teacher_value = $(this).val();
-        if (teacher_value){
-            selectPupil.attr('disabled', false)
-        }else {
-            selectPupil.val(null)
-            selectPupil.attr('disabled', true)
-        }
     })
 
     selectPupil.change(function() {
+        console.log('selectPupil')
         if (this.value){
             saveButton.attr('disabled', false)
             saveButton.removeClass('disabled')
@@ -39,8 +41,18 @@ $(document).ready(function(){
     })
 
     saveButton.on('click', function(e){
+        console.log('saveButton')
         e.preventDefault()
-        alert('click')
+        $.ajax({
+            url: 'attachment/',
+            type: "POST",
+            data: $(this).parents('form').serialize(),
+            cache: false,
+            success: function(data){
+                $('.table').empty()
+                $('.table').append(data)
+            }
+        })
     })
 
     selectPupil.select2({
