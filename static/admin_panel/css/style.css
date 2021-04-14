@@ -1,3 +1,12 @@
+.nav-link {
+    color: #757575;
+}
+
+.nav-link:hover{
+    color:white;
+    background-color: gray;
+}
+
 #users_alert {
     margin-bottom: 1px;
     height: 36px;

@@ -1,6 +1,8 @@
 from django.db import models
 from datetime import datetime
 from django.contrib.auth.models import User, Group
+
+from main.models import CustomUser
 from .functions import get_name
 from django.core.validators import RegexValidator
 
@@ -36,57 +38,21 @@ class Pupil(models.Model):
         ordering = ['last_name']
 
 
-# class Profile(models.Model):
-#     validator = RegexValidator(
-#             '^[А-Яа-я]+$',
-#             message='Недопустимые символы',
-#             code='invalid_lastName'
-#         )
-#
-#     user = models.OneToOneField(User, on_delete=models.CASCADE)
-#
-#     last_name = models.CharField(
-#         verbose_name='Фамилия',
-#         max_length=30,
-#         blank=False,
-#         validators=[validator]
-#     )
-#     first_name = models.CharField(
-#         verbose_name='Имя',
-#         max_length=30,
-#         blank=False,
-#         validators=[validator]
-#     )
-#     patronymic = models.CharField(
-#         verbose_name='Отчество',
-#         max_length=30,
-#         blank=False,
-#         validators=[validator]
-#     )
-#     date = models.DateField(
-#         'Дата регистрации',
-#         default=datetime.now
-#     )
-#
-#     def __str__(self):
-#         return '{} {} {}'.format(self.last_name, self.first_name, self.patronymic)
+class LogoGroups(models.Model):
+    custom_user = models.ForeignKey(
+        CustomUser,
+        verbose_name='Учитель',
+        on_delete=models.PROTECT,
+        null=True,
+    )
 
+    pupil = models.ForeignKey(
+        Pupil,
+        verbose_name='Ученик',
+        on_delete=models.PROTECT,
+        null=True
+    )
 
-# class LogoGroups(models.Model):
-#     profile = models.ForeignKey(
-#         'Profile',
-#         verbose_name='Учитель',
-#         on_delete=models.SET_NULL,
-#         null=True,
-#     )
-#
-#     pupil = models.ForeignKey(
-#         Pupil,
-#         verbose_name='Ученик',
-#         on_delete=models.SET_NULL,
-#         null=True
-#     )
-#
-#     class Meta:
-#         verbose_name = 'Логопедическая группа'
-#         verbose_name_plural = 'Логопедические группы'
+    class Meta:
+        verbose_name = 'Логопедическая группа'
+        verbose_name_plural = 'Логопедические группы'

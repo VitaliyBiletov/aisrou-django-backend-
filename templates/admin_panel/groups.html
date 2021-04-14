@@ -1,44 +1,37 @@
 {% extends 'admin_panel/../layout/base_admin.html' %}
+{% load bootstrap4 %}
+{% load static %}
 
 {% block title %}
     Группы
 {% endblock %}
 
+{% block meta %}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script type="text/javascript" src="{% static 'admin_panel/js/groups.js' %}"></script>
+{% endblock %}
+
 {% block content %}
-
-    <div id="tabs">
-        <ul class="nav nav-tabs">
-          <li class="nav-item">
-            <a class="nav-link active" href="#tabs-1">Просмотр</a>
-          </li>
-        </ul>
-      <div class="tab-pane" id="tabs-1">
-    <!--    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">-->
-    <!--        <h1 class="h2">Группы</h1>-->
-    <!--    </div>-->
-        <form id="group_view_form" class="my-4" method="post">
-            {% csrf_token %}
-            <div class="form-row">
-                    <div class="form-group col-md-3">
-                        {{ logo_groups_form.profile.label_tag }}
-                        {{ logo_groups_form.profile }}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <h1 class="h2">Группы</h1>
+    </div>
+    <div class="d-flex flex-row">
+        <div class="col-md-auto">
+            <form id="group_view_form" method="post">
+                {% csrf_token %}
+                {% bootstrap_form form layout='horizontal' %}
+                <div class="row">
+                    <div class="col-md-auto save-group">
+                        {% buttons submit="Прикрепить" %}{% endbuttons %}
                     </div>
-                    <div class="form-group col-md-3">
-                        {{ logo_groups_form.pupil.label_tag }}
-                        {{ logo_groups_form.pupil }}
-                    </div>
-            </div>
-            <div class="row">
-                <div class="button_attachment offset-md-3 px-2">
-                    <button type="submit" id="button_attachment" class="btn btn-primary disabled" disabled>Прикрепить</button>
+                    {% bootstrap_messages %}
                 </div>
-                <p id='group_message' style="display: none"></p>
-            </div>
-
-        </form>
-        <div id="table">
-            <p class="mt-3">Группа учеников:</p>
-            <table class="table col-md-6 mt-3">
+            </form>
+        </div>
+        <div class="col-sm">
+            {% block table %}
+                <table class="table">
                   <thead>
                     <tr>
                       <th scope="col">ID</th>
@@ -60,8 +53,7 @@
                   {% endfor %}
                   </tbody>
             </table>
+            {% endblock table%}
         </div>
-      </div>
     </div>
-
 {% endblock %}

@@ -4,7 +4,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.core.exceptions import ValidationError
 
 from main.models import CustomUser
-from .models import Pupil
+from .models import Pupil, LogoGroups
 
 
 class SDRegisterUserForm(forms.ModelForm):
@@ -86,17 +86,11 @@ class SDRegisterPupilForm(forms.ModelForm):
         fields = ('first_name', 'last_name', 'middle_name')
 
 
-# class LogoGroupsForm(forms.ModelForm):
-#     class Meta:
-#         model = LogoGroups
-#         fields = ('profile', 'pupil')
-#
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#         for field in iter(self.fields):
-#             self.fields[field].widget.attrs.update(
-#                 {
-#                     'class': 'js-select2  form-control',
-#                 }
-#             )
-        #self.fields['profile'].queryset = User.objects.filter(groups__name='Логопеды')
+class LogoGroupsForm(forms.ModelForm):
+    class Meta:
+        model = LogoGroups
+        fields = ('custom_user', 'pupil')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['custom_user'].queryset = CustomUser.objects.filter(is_staff=False)

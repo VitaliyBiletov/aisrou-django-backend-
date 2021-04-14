@@ -1,7 +1,5 @@
 from django.contrib import admin
-from .models import Pupil\
-    # , LogoGroups, Profile
-# Register your models here.
+from .models import Pupil, LogoGroups
 
 
 class ClassPupil(admin.ModelAdmin):
@@ -19,12 +17,12 @@ admin.site.register(Pupil, ClassPupil)
 class ClassLogoGroups(admin.ModelAdmin):
     list_display = (
         'id',
-        'profile',
+        'custom_user',
         'pupil'
     )
 
 
-# admin.site.register(LogoGroups, ClassLogoGroups)
+admin.site.register(LogoGroups, ClassLogoGroups)
 
 
 # class ClassProfile(admin.ModelAdmin):

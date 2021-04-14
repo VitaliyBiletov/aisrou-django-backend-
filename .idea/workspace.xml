@@ -21,12 +21,13 @@
   <component name="ChangeListManager">
     <list default="true" id="7230acd5-6974-473e-801a-58a92a5993cb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/admin_panel/js/admin_panel/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/admin_panel/js/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/admin_panel/js/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/admin_panel/js/users.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin_panel/change_pupil_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin_panel/change_pupil_info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin_panel/change_user_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin_panel/change_user_info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin_panel/pupils.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin_panel/pupils.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin_panel/users.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin_panel/users.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin_panel/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin_panel/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin_panel/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin_panel/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/admin_panel/js/admin_panel/result_table.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/admin_panel/js/result_table.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/admin_panel/js/groups.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/admin_panel/js/groups.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin_panel/groups.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin_panel/groups.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin_panel/result_table.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin_panel/result_table.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,9 +41,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="CSS File" />
-        <option value="JavaScript File" />
         <option value="Python Script" />
         <option value="HTML File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -72,15 +73,15 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Projects\mysite\templates\admin_panel" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Projects\mysite\static\admin_panel\js" />
       <recent name="C:\Projects\mysite\static\admin_panel\icons" />
       <recent name="C:\Projects\mysite\templates\admin_panel" />
       <recent name="C:\Projects\mysite\templates\layout" />
       <recent name="C:\Projects\mysite\static\admin_panel" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Projects\mysite\templates\admin_panel" />
     </key>
   </component>
   <component name="RunManager" selected="Python.thread_func">
@@ -165,6 +166,8 @@
       <workItem from="1617891065947" duration="18319000" />
       <workItem from="1618234626527" duration="6221000" />
       <workItem from="1618277939873" duration="8247000" />
+      <workItem from="1618393063178" duration="15301000" />
+      <workItem from="1618417806772" duration="1899000" />
     </task>
     <servers />
   </component>
@@ -253,6 +256,10 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="184" y="29" key="SettingsEditor/0.0.1366.768@0.0.1366.768" timestamp="1617816237943" />
+    <state x="492" y="298" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1618410518407">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="492" y="298" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.768@0.0.1366.768" timestamp="1618410518407" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/mysite$thread_func.coverage" NAME="thread_func Coverage Results" MODIFIED="1618235619350" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
