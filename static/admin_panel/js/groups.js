@@ -22,7 +22,9 @@ $(document).ready(function(){
             data: $(this).parents('form').serialize(),
             cache: false,
             success: function(data){
-                console.log(data)
+                for (item of data){
+                    console.log(item)
+                }
                 $('.table').empty()
                 $('.table').append(data)
             }
