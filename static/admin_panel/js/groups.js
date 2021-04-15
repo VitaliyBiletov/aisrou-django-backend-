@@ -22,11 +22,16 @@ $(document).ready(function(){
             data: $(this).parents('form').serialize(),
             cache: false,
             success: function(data){
-                for (item of data){
-                    console.log(item)
+                const group_tbody = $('.tbody_group')
+                for (let item of data){
+                    const groups_values = Object.values(item)
+                    const tr = group_tbody.append(`<tr></tr>`)
+                    for(let value of groups_values){
+                        tr.append(`<td>${value}</td>`)
+                    }
+                    tr.append('<td><a class="text-danger unpin" href="unpin/{{ record.id }}/"><img alt="Удалить" width="15" src="https://img.icons8.com/cotton/64/000000/delete.png"/></a></td>')
                 }
-                $('.table').empty()
-                $('.table').append(data)
+                // $('.table').insert(data)
             }
         })
     })
