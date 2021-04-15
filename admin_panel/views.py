@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView, CreateView
@@ -145,26 +145,16 @@ def groups_view(request):
     if request.method == "POST":
         logo_group_form = LogoGroupsForm(request.POST)
         custom_user_id = logo_group_form['custom_user'].value()
+        print(custom_user_id)
+        list_pupils = []
         if custom_user_id:
-            list_pupils = []
             logo_groups_filtered = LogoGroups.objects.filter(custom_user=custom_user_id)
             for group in logo_groups_filtered:
-                list_pupils.append({'id': group.pupil.id,
+                list_pupils.append({'id': group.id,
                                     'first_name': group.pupil.first_name,
                                     'last_name': group.pupil.last_name}
                                    )
-            print(list_pupils)
-        else:
-            logo_groups_filtered = None
         return JsonResponse(list_pupils, safe=False)
-        # render(
-        #     request,
-        #     'admin_panel/result_table.html',
-        #     {
-        #         'form': LogoGroupsForm(request.POST),
-        #         'logo_groups_filtered': logo_groups_filtered
-        #     }
-        # )
 
 
 def groups_attachment(request):
@@ -183,16 +173,9 @@ def groups_attachment(request):
             )
 
 
-def unpin(request, id):
+def group_delete(request, id):
+    # print(request.GET)
+    # if request.GET and id:
     logo_group = LogoGroups.objects.get(id=id)
     logo_group.delete()
-    custom_user_id = request.GET.get('custom_user_id')
-    logo_groups_filtered = LogoGroups.objects.filter(custom_user=custom_user_id)
-    return render(
-        request,
-        'admin_panel/result_table.html',
-        {
-            'logo_groups_filtered': logo_groups_filtered,
-            # 'form': LogoGroupsForm(request.POST),
-        }
-    )
+    return HttpResponse()

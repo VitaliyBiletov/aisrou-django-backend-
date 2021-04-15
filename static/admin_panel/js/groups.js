@@ -9,6 +9,7 @@ $(document).ready(function(){
 
     selectUser.change(function(e){
         e.preventDefault()
+        console.log('change')
         const teacher_value = $(this).val();
         if (teacher_value){
             selectPupil.attr('disabled', false)
@@ -22,16 +23,19 @@ $(document).ready(function(){
             data: $(this).parents('form').serialize(),
             cache: false,
             success: function(data){
+                console.log(data)
                 const group_tbody = $('.tbody_group')
-                for (let item of data){
+                group_tbody.empty()
+                for (let item of data) {
                     const groups_values = Object.values(item)
-                    const tr = group_tbody.append(`<tr></tr>`)
-                    for(let value of groups_values){
+                    let tr = $("<tr>")
+                    group_tbody.append(tr)
+                    for (let value of groups_values) {
                         tr.append(`<td>${value}</td>`)
                     }
-                    tr.append('<td><a class="text-danger unpin" href="unpin/{{ record.id }}/"><img alt="Удалить" width="15" src="https://img.icons8.com/cotton/64/000000/delete.png"/></a></td>')
+                    tr.append(`<td><a class='text-danger unpin' href='unpin/${item.id}/'><img alt='Удалить' width='15' src='https://img.icons8.com/cotton/64/000000/delete.png'/></a></td>`)
                 }
-                // $('.table').insert(data)
+                delete_record()
             }
         })
     })
@@ -43,7 +47,7 @@ $(document).ready(function(){
         } else {
             saveButton.attr('disabled', true)
             saveButton.addClass('disabled')
-        };
+        }
     })
 
     saveButton.on('click', function(e){
@@ -52,26 +56,32 @@ $(document).ready(function(){
             url: 'attachment/',
             type: "POST",
             data: $(this).parents('form').serialize(),
-            cache: false,
+            // cache: false,
             success: function(data){
-                $('.table').empty()
-                $('.table').append(data)
+                console.log(data)
+                const group_tbody = $('.tbody_group')
+                group_tbody.empty()
+                group_tbody.append(data)
+                delete_record()
             }
         })
     })
 
-    $('.unpin').on('click', function (e) {
+    function delete_record(){
+        $('.unpin').on('click', function (e) {
             e.preventDefault()
-            $.ajax({
-                url: $(this).attr('href'),
-                type: "GET",
-                data: {'id_teacher': $("#id_teacher").val()},
-                success: function (data) {
-                    $('.table').empty()
-                    $('.table').append(data)
-                }
-            })
-        })
+                $.ajax({
+                    url: $(this).attr('href'),
+                    type: "GET",
+                    success: function(data, textStatus) {
+                        if (textStatus === "success"){
+                            $(e.target).parents('tr').remove()
+                        }
+                    },
+                })
+            }
+        )
+    }
 
     selectPupil.select2({
 		placeholder: 'Выбрать',

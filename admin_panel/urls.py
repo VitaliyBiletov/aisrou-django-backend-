@@ -6,7 +6,7 @@ from django.views.static import serve
 
 from .views import pupils, SDChangePupilInfoView, \
     SDPupilRegisterView, SDChangeUserInfoView, \
-    SDRegisterUserView, set_password, users, pupil_delete, user_delete, groups, groups_view, groups_attachment, unpin
+    SDRegisterUserView, set_password, users, pupil_delete, user_delete, groups, groups_view, groups_attachment, group_delete
 
 forms_template = {
     'add': 'admin_panel/user_form_add.html',
@@ -31,7 +31,7 @@ urlpatterns = [
     path('groups/', groups, name='groups'),
     path('groups/view/', groups_view, name='view'),
     path('groups/attachment/', groups_attachment, name='attachment'),
-    path('groups/unpin/<int:id>/', unpin, name='unpin'),
+    path('groups/unpin/<int:id>/', group_delete, name='group_delete'),
 ]
 
 if settings.DEBUG:
