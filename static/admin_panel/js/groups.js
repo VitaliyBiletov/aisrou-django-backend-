@@ -10,7 +10,6 @@ $(document).ready(function(){
     selectUser.change(function(e){
         e.preventDefault()
         const teacher_value = $(this).val();
-        console.log(selectPupil)
         if (teacher_value){
             selectPupil.attr('disabled', false)
         }else {
@@ -23,6 +22,7 @@ $(document).ready(function(){
             data: $(this).parents('form').serialize(),
             cache: false,
             success: function(data){
+                console.log(data)
                 $('.table').empty()
                 $('.table').append(data)
             }
