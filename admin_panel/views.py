@@ -145,7 +145,6 @@ def groups_view(request):
     if request.method == "POST":
         logo_group_form = LogoGroupsForm(request.POST)
         custom_user_id = logo_group_form['custom_user'].value()
-        print(custom_user_id)
         list_pupils = []
         if custom_user_id:
             logo_groups_filtered = LogoGroups.objects.filter(custom_user=custom_user_id)
@@ -157,20 +156,21 @@ def groups_view(request):
         return JsonResponse(list_pupils, safe=False)
 
 
-def groups_attachment(request):
+def groups_add(request):
     if request.method == "POST":
         logo_group_form = LogoGroupsForm(request.POST)
         custom_user_id = logo_group_form['custom_user'].value()
-        logo_groups_filtered = LogoGroups.objects.filter(custom_user=custom_user_id)
+        list_pupils = []
         if logo_group_form.is_valid():
             logo_group_form.save()
-            return render(
-                request,
-                'admin_panel/result_table.html',
-                {
-                    'logo_groups_filtered': logo_groups_filtered,
-                }
-            )
+        if custom_user_id:
+            logo_groups_filtered = LogoGroups.objects.filter(custom_user=custom_user_id)
+            for group in logo_groups_filtered:
+                list_pupils.append({'id': group.id,
+                                    'first_name': group.pupil.first_name,
+                                    'last_name': group.pupil.last_name}
+                                   )
+            return JsonResponse(list_pupils, safe=False)
 
 
 def group_delete(request, id):

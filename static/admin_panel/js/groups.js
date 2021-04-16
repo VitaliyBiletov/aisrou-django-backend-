@@ -23,7 +23,6 @@ $(document).ready(function(){
             data: $(this).parents('form').serialize(),
             cache: false,
             success: function(data){
-                console.log(data)
                 const group_tbody = $('.tbody_group')
                 group_tbody.empty()
                 for (let item of data) {
@@ -58,10 +57,17 @@ $(document).ready(function(){
             data: $(this).parents('form').serialize(),
             // cache: false,
             success: function(data){
-                console.log(data)
                 const group_tbody = $('.tbody_group')
                 group_tbody.empty()
-                group_tbody.append(data)
+                for (let item of data) {
+                    const groups_values = Object.values(item)
+                    let tr = $("<tr>")
+                    group_tbody.append(tr)
+                    for (let value of groups_values) {
+                        tr.append(`<td>${value}</td>`)
+                    }
+                    tr.append(`<td><a class='text-danger unpin' href='unpin/${item.id}/'><img alt='Удалить' width='15' src='https://img.icons8.com/cotton/64/000000/delete.png'/></a></td>`)
+                }
                 delete_record()
             }
         })
