@@ -23,17 +23,8 @@ $(document).ready(function(){
             data: $(this).parents('form').serialize(),
             cache: false,
             success: function(data){
-                const group_tbody = $('.tbody_group')
-                group_tbody.empty()
-                for (let item of data) {
-                    const groups_values = Object.values(item)
-                    let tr = $("<tr>")
-                    group_tbody.append(tr)
-                    for (let value of groups_values) {
-                        tr.append(`<td>${value}</td>`)
-                    }
-                    tr.append(`<td><a class='text-danger unpin' href='unpin/${item.id}/'><img alt='Удалить' width='15' src='https://img.icons8.com/cotton/64/000000/delete.png'/></a></td>`)
-                }
+                const tbody = $('.tbody_group')
+                update_table(data, tbody)
                 delete_record()
             }
         })
@@ -57,21 +48,26 @@ $(document).ready(function(){
             data: $(this).parents('form').serialize(),
             // cache: false,
             success: function(data){
-                const group_tbody = $('.tbody_group')
-                group_tbody.empty()
-                for (let item of data) {
-                    const groups_values = Object.values(item)
-                    let tr = $("<tr>")
-                    group_tbody.append(tr)
-                    for (let value of groups_values) {
-                        tr.append(`<td>${value}</td>`)
-                    }
-                    tr.append(`<td><a class='text-danger unpin' href='unpin/${item.id}/'><img alt='Удалить' width='15' src='https://img.icons8.com/cotton/64/000000/delete.png'/></a></td>`)
-                }
+                const tbody = $('.tbody_group')
+                update_table(data, tbody)
                 delete_record()
             }
         })
     })
+
+    function update_table(data, tbody){
+        const group_tbody = tbody
+            group_tbody.empty()
+            for (let item of data) {
+                const groups_values = Object.values(item)
+                let tr = $("<tr>")
+                group_tbody.append(tr)
+                for (let value of groups_values) {
+                    tr.append(`<td>${value}</td>`)
+                }
+                tr.append(`<td><a class='text-danger unpin' href='unpin/${item.id}/'><img alt='Удалить' width='15' src='https://img.icons8.com/cotton/64/000000/delete.png'/></a></td>`)
+        }
+    }
 
     function delete_record(){
         $('.unpin').on('click', function (e) {
