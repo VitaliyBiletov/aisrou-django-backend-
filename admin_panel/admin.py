@@ -1,8 +1,17 @@
 from django.contrib import admin
-from .models import Pupil, LogoGroups
+from .models import Pupil, LogoGroups, CustomUser
 
 
-class ClassPupil(admin.ModelAdmin):
+@admin.register(CustomUser)
+class CustomUserAdmin(admin.ModelAdmin):
+    list_display = (
+        'username',
+        'last_name',
+    )
+
+
+@admin.register(Pupil)
+class PupilAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'last_name',
@@ -11,28 +20,10 @@ class ClassPupil(admin.ModelAdmin):
     )
 
 
-admin.site.register(Pupil, ClassPupil)
-
-
-class ClassLogoGroups(admin.ModelAdmin):
+@admin.register(LogoGroups)
+class LogoGroupsAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'custom_user',
         'pupil'
     )
-
-
-admin.site.register(LogoGroups, ClassLogoGroups)
-
-
-# class ClassProfile(admin.ModelAdmin):
-#     list_display = (
-#         'id',
-#         'last_name',
-#         'first_name',
-#         'user',
-#         'date'
-#     )
-
-
-# admin.site.register(Profile, ClassProfile)

@@ -1,10 +1,5 @@
 from django.contrib import admin
-from .models import CustomUser, ArticulatoryMotorSkills, Diagnostics
-
-
-@admin.register(CustomUser)
-class CustomUserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'last_name',)
+from .models import ArticulatoryMotorSkills, Diagnostics
 
 
 @admin.register(ArticulatoryMotorSkills)

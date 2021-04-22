@@ -1,20 +1,25 @@
 from django import forms
 from django.contrib.auth import password_validation
-from django.contrib.auth.forms import PasswordChangeForm
 from django.core.exceptions import ValidationError
 
-from main.models import CustomUser
-from .models import Pupil, LogoGroups
+from .models import CustomUser, Pupil, LogoGroups
 
 
 class SDRegisterUserForm(forms.ModelForm):
-    email = forms.EmailField(required=True, label="Электронная почта")
-    password1 = forms.CharField(label='Пароль',
-                                widget=forms.PasswordInput,
-                                help_text=password_validation.password_validators_help_text_html())
-    password2 = forms.CharField(label='Пароль(повторно)',
-                                widget=forms.PasswordInput,
-                                help_text='Введит пароль ещё раз')
+    email = forms.EmailField(
+        required=True,
+        label="Электронная почта"
+    )
+    password1 = forms.CharField(
+        label='Пароль',
+        widget=forms.PasswordInput,
+        help_text=password_validation.password_validators_help_text_html()
+    )
+    password2 = forms.CharField(
+        label='Пароль(повторно)',
+        widget=forms.PasswordInput,
+        help_text='Введит пароль ещё раз'
+    )
 
     def clean_password(self):
         password1 = self.cleaned_data['password1']
@@ -49,7 +54,8 @@ class SDRegisterUserForm(forms.ModelForm):
 class ChangeUserInfoForm(forms.ModelForm):
     class Meta:
         model = CustomUser
-        fields = ('username', 'last_name', 'first_name', 'patronymic', 'email', 'is_staff', 'password',)
+        fields = ('username', 'last_name', 'first_name',
+                  'patronymic', 'email', 'is_staff', 'password',)
 
 
 class SetPasswordForm(forms.Form):

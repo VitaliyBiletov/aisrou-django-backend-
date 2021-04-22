@@ -9,7 +9,8 @@ from django.urls import reverse_lazy
 from django.views.generic import UpdateView
 
 from admin_panel.models import LogoGroups
-from main.models import CustomUser, Diagnostics
+from main.models import Diagnostics
+from admin_panel.models import CustomUser
 
 
 @login_required

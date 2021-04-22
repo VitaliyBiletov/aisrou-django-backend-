@@ -1,15 +1,21 @@
 from django.db import models
 from datetime import datetime
-from django.contrib.auth.models import User, Group
-from django.dispatch import receiver
-
-from main.models import CustomUser
-from django.db.models import signals
-from .functions import get_name
-from django.core.validators import RegexValidator
+from django.contrib.auth.models import User, Group, AbstractUser
 
 
-# User.add_to_class("__str__", get_name)
+class CustomUser(AbstractUser):
+    patronymic = models.CharField(
+        'Отчество',
+        max_length=50,
+        blank=True,
+        null=True
+    )
+
+    class Meta(AbstractUser.Meta):
+        pass
+
+    def __str__(self):
+        return "{} {} {}".format(self.last_name, self.first_name, self.patronymic)
 
 
 class Pupil(models.Model):
@@ -40,25 +46,18 @@ class Pupil(models.Model):
         ordering = ['last_name']
 
 
-@receiver(signals.post_save, sender=Pupil)
-def print_message(sender, instance, created, **kwargs):
-    print('sender: ', sender)
-    print('instance: ', instance)
-    print('created: ', created)
-    print('Message')
-
 class LogoGroups(models.Model):
     custom_user = models.ForeignKey(
         CustomUser,
         verbose_name='Учитель',
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
         null=True,
     )
 
     pupil = models.ForeignKey(
         Pupil,
         verbose_name='Ученик',
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
         null=True
     )
 

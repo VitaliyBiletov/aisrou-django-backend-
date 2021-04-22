@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from django.views.generic import UpdateView, CreateView
 from .forms import SDRegisterPupilForm, SDRegisterUserForm, ChangeUserInfoForm, SetPasswordForm, LogoGroupsForm
 from .models import Pupil, LogoGroups
-from main.models import CustomUser
+from .models import CustomUser
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 
@@ -54,6 +54,7 @@ class SDRegisterUserView(SuccessMessageMixin, CreateView):
     success_message = 'Пользователь успешно добавлен'
 
 
+@login_required
 def set_password(request, id):
     form = SetPasswordForm()
     user = CustomUser.objects.get(pk=id)
@@ -149,10 +150,11 @@ def groups_view(request):
         if custom_user_id:
             logo_groups_filtered = LogoGroups.objects.filter(custom_user=custom_user_id)
             for group in logo_groups_filtered:
-                list_pupils.append({'id': group.id,
-                                    'first_name': group.pupil.first_name,
-                                    'last_name': group.pupil.last_name}
-                                   )
+                list_pupils.append(
+                    {'id': group.id,
+                     'first_name': group.pupil.first_name,
+                     'last_name': group.pupil.last_name}
+                )
         return JsonResponse(list_pupils, safe=False)
 
 
@@ -174,8 +176,6 @@ def groups_add(request):
 
 
 def group_delete(request, id):
-    # print(request.GET)
-    # if request.GET and id:
     logo_group = LogoGroups.objects.get(id=id)
     logo_group.delete()
     return HttpResponse()
