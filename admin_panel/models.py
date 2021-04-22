@@ -1,8 +1,10 @@
 from django.db import models
 from datetime import datetime
 from django.contrib.auth.models import User, Group
+from django.dispatch import receiver
 
 from main.models import CustomUser
+from django.db.models import signals
 from .functions import get_name
 from django.core.validators import RegexValidator
 
@@ -37,6 +39,13 @@ class Pupil(models.Model):
         verbose_name_plural = 'Ученики'
         ordering = ['last_name']
 
+
+@receiver(signals.post_save, sender=Pupil)
+def print_message(sender, instance, created, **kwargs):
+    print('sender: ', sender)
+    print('instance: ', instance)
+    print('created: ', created)
+    print('Message')
 
 class LogoGroups(models.Model):
     custom_user = models.ForeignKey(

@@ -7,14 +7,22 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import sessions
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView
-from main.models import CustomUser
+
+from admin_panel.models import LogoGroups
+from main.models import CustomUser, Diagnostics
 
 
 @login_required
 def index(request):
     if request.user.is_staff:
         return render(request, 'admin_panel/index.html')
-    return render(request, 'main/index.html')
+    logo_group_for_user = LogoGroups.objects.filter(custom_user=request.user.id)
+    diagnostics = Diagnostics.objects.all()
+    print(logo_group_for_user)
+    return render(request, 'main/index.html', {
+        'logo_group_for_user': logo_group_for_user,
+        'diagnostics': diagnostics
+    })
 
 
 class SDLoginView(LoginView):

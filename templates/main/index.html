@@ -1,4 +1,4 @@
-{% extends 'main/../layout/base.html' %}
+{% extends 'layout/base.html' %}
 
 {% block title %}
     {{ title }}
@@ -10,7 +10,27 @@
   <p>Ваше имя пользователя и пароль не совпадают. Пожалуйста, попробуйте еще раз.</p>
 {% endif %}
 
-<div class="row justify-content-center">
+    <div class="row justify-content-center">
         <h1>Пользователь вошел!</h1>
-</div>
-{% endblock %}
+    </div>
+    <div class="row">
+        <div class="col">
+           <label for="list_pupils">Выберите учащегося:</label>
+           <select id="list_pupils" class="form-control">
+                {% for item in logo_group_for_user %}
+                    <option value="{{ item.id }}">{{ item.pupil }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+           <label for="list_pupils">Выберите обследование:</label>
+           <select id="list_pupils" class="form-control" size="{{ diagnostics.count }}">
+                {% for diagnostic in diagnostics %}
+                    <option value="{{ diagnostic.id }}">{{ diagnostic.date_create }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+{% endblock content%}
