@@ -1,4 +1,5 @@
 {% extends 'layout/base.html' %}
+{% load bootstrap4 %}
 
 {% block title %}
     {{ title }}
@@ -7,26 +8,41 @@
 {% block content %}
 
 {% if form.errors %}
-  <p>Ваше имя пользователя и пароль не совпадают. Пожалуйста, попробуйте еще раз.</p>
+    <p xmlns="http://www.w3.org/1999/html">Ваше имя пользователя и пароль не совпадают. Пожалуйста, попробуйте еще раз.</p>
 {% endif %}
     <div class="row">
         <div class="col">
+            <form action={% url 'main:diag'%} method="post">
+            {% csrf_token %}
            <label for="list_pupils">Выберите учащегося:</label>
-           <select id="list_pupils" class="form-control">
+           <select name="select_pupil" id="list_pupils" class="form-control">
                 {% for item in logo_group_for_user %}
                     <option value="{{ item.id }}">{{ item.pupil }}</option>
                 {% endfor %}
             </select>
+            <button class="btn btn-primary mt-2" type="submit">Создать</button>
+            </form>
         </div>
     </div>
-    <div class="row">
+    <div class="row mt-3">
         <div class="col">
-           <label for="list_pupils">Выберите обследование:</label>
-           <select id="list_pupils" class="form-control" size="{{ diagnostics.count }}">
-                {% for diagnostic in diagnostics %}
-                    <option value="{{ diagnostic.id }}">{{ diagnostic.date_create }}</option>
-                {% endfor %}
-            </select>
+{#            <button class="btn btn-primary" type="submit">Создать</button>#}
+            <a type="button" class="btn btn-primary">Список обследований</a>
         </div>
     </div>
+{#    <div class="row">#}
+{#        <div class="col">#}
+{#           <label for="list_pupils">Выберите обследований:</label>#}
+{#           <select id="list_pupils" class="form-control" size="{{ diagnostics.count }}">#}
+{#                {% for diagnostic in diagnostics %}#}
+{#                    <option value="{{ diagnostic.id }}">{{ diagnostic.date_create }}</option>#}
+{#                {% endfor %}#}
+{#            </select>#}
+{#        </div>#}
+{#    </div>#}
+    <script>
+        $('#list_pupils').on('change', function (e) {
+            console.log(e.target.selectedIndex)
+        })
+    </script>
 {% endblock content%}

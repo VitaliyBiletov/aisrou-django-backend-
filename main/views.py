@@ -2,7 +2,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from admin_panel.models import LogoGroups
+from admin_panel.models import LogoGroups, Pupil
 from main.models import Diagnostics
 
 
@@ -29,4 +29,17 @@ def logout_view(request):
 
 class SDLogoutView(LogoutView):
     template_name = "main/logout.html"
+
+
+def diag(request):
+    print(request.POST)
+    pupil_id = request.POST['select_pupil']
+    print(pupil_id)
+    select_pupil = Pupil.objects.get(pk=pupil_id)
+    return render(request, 'main/diagnostics.html', {'select_pupil': select_pupil})
+
+
+def add_diag(request):
+    print(request.POST)
+    return redirect('/')
 

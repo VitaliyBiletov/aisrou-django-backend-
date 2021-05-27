@@ -37,6 +37,17 @@ class Pupil(models.Model):
         default=datetime.now
     )
 
+    date_of_birth = models.DateField(
+        'Дата рождения',
+        null=True,
+    )
+
+    home_address = models.CharField(
+        'Домашний адрес',
+        null=True,
+        max_length=100,
+    )
+
     def __str__(self):
         return "{} {}".format(self.last_name, self.first_name)
 

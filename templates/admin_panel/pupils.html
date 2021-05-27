@@ -40,6 +40,8 @@
                   <th scope="col">Фамилия</th>
                   <th scope="col">Имя</th>
                   <th scope="col">Отчество</th>
+                  <th scope="col">Дата рождения</th>
+                  <th scope="col">Домашний адрес</th>
                   <th scope="col">Дата регистрации</th>
                   <th scope="col"></th>
                   <th scope="col"></th>
@@ -52,6 +54,8 @@
                       <td>{{pupil.last_name}}</td>
                       <td>{{pupil.first_name}}</td>
                       <td>{{pupil.middle_name}}</td>
+                      <td>{{pupil.date_of_birth}}</td>
+                      <td>{{pupil.home_address}}</td>
                       <td>{{pupil.date}}</td>
                       <td class="text-center"><a href="{% url 'admin_panel:pupil_change' pupil.id %}"><img alt="Изменить" width="15" src="https://img.icons8.com/cotton/64/000000/create-new--v2.png"/></a></td>
                       <td class="text-center"><a href="{% url 'admin_panel:pupil_delete' pupil.id %}"><img alt="Удалить" width="15" src="https://img.icons8.com/cotton/64/000000/delete.png"/></a></td>

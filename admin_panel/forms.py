@@ -89,7 +89,7 @@ class SDRegisterPupilForm(forms.ModelForm):
 
     class Meta:
         model = Pupil
-        fields = ('first_name', 'last_name', 'middle_name')
+        fields = ('first_name', 'last_name', 'middle_name', 'date_of_birth', 'home_address')
 
 
 class LogoGroupsForm(forms.ModelForm):
