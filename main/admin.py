@@ -1,11 +1,5 @@
 from django.contrib import admin
-from .models import ArticulatoryMotorSkills, Diagnostics
-
-
-@admin.register(ArticulatoryMotorSkills)
-class ArticulatoryMotorSkillsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'repeat',)\
-
+from .models import Diagnostics
 
 
 @admin.register(Diagnostics)

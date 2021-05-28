@@ -1,4 +1,5 @@
 {% extends 'layout/base.html' %}
+{% load static %}
 
 {% block title %}
     {{ title }}
@@ -6,9 +7,10 @@
 
 {% block content %}
     <p class='h4 mt-3 border-bottom text-muted'>{{ select_pupil }}</p>
+
     <ul class="nav nav-tabs mt-3" id="myTab">
       <li class="nav-item">
-        <a class="nav-link active" href="#home">Характеристика</a>
+        <a class="nav-link" href="#home">Состояние функций</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#profile">Сенсомоторный уровень</a>
@@ -36,32 +38,50 @@
       </li>
     </ul>
 
-    <div class="tab-content">
+    <div class="tab-content mt-3">
         <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
             <form action={% url 'main:add_diag'%} method="post">
                 {% csrf_token %}
-                <div class="forms mt-3 col-sm-7">
-                  <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Состояние функции слуха, зрения</label>
-                    <textarea name="ex1" class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Состояние дыхательной, голосовой функции, просодических компонентов речи</label>
-                    <textarea name="ex2" class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Состояние органов артикуляционного аппарата</label>
-                    <textarea name="ex3" class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Состояние общей моторики и мелкой моторики пальцев рук</label>
-                    <textarea name="ex4" class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Дополнительные сведения</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
-                  </div>
-                <button type="submit" class="btn btn-primary">Сохранить</button>
+                <div class="row">
+                    <div class="col-sm">
+                      <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Слух</label>
+                        <textarea name="ex1" class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Зрение</label>
+                        <textarea name="ex1" class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Дыхание</label>
+                        <textarea name="ex2" class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Голос</label>
+                        <textarea name="ex2" class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
+                      </div>
+                    </div>
+                    <div class="col-sm">
+                      <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Просодика</label>
+                        <textarea name="ex2" class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
+                      </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Артикуляционный аппарат</label>
+                        <textarea name="ex3" class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Общая моторика и мелкая моторика пальцев рук</label>
+                        <textarea name="ex4" class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Дополнительные сведения</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
+                      </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
                 </div>
             </form>
         </div>
