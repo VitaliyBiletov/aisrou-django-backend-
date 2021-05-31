@@ -31,17 +31,21 @@ class SDLogoutView(LogoutView):
     template_name = "main/logout.html"
 
 
-def diag(request):
+def add_diagnostic_view(request):
     form = StatesOfFunctionsForm()
-    pupil_id = request.POST['select_pupil']
-    select_pupil = Pupil.objects.get(pk=pupil_id)
-    # Diagnostics.objects.create(user_id=request.user, pupil_id=select_pupil)
-    return render(request, 'main/diagnostics.html', {'select_pupil': select_pupil,
-                                                     'form': form})
+    request.session['pupil_id'] = request.GET['pupil_id']
+    select_pupil = Pupil.objects.get(pk=request.session['pupil_id'])
+    Diagnostics.objects.create(user_id=request.user, pupil_id=select_pupil)
+    print('pupil_id: ' + request.session['pupil_id'])
+    return render(request,
+                  'main/diagnostics.html',
+                  {
+                      'select_pupil': select_pupil,
+                      'form': form
+                  }
+                  )
 
 
-def add_diag(request):
+def save_diagnostic_view(request):
     print(request.POST)
-    print('add-diag')
     return redirect('/')
-

@@ -3,13 +3,13 @@ from django.urls import path, include
 from django.views.decorators.cache import never_cache
 from django.views.static import serve
 
-from .views import index, SDLoginView, SDLogoutView, logout_view, add_diag, diag
+from .views import index, SDLoginView, SDLogoutView, logout_view, add_diagnostic_view, save_diagnostic_view
 
 app_name = 'main'
 urlpatterns = [
     path('', index, name='index'),
-    path('diag/', diag, name='diag'),
-    path('diag/add/', add_diag, name='add_diag'),
+    path('diagnostic/', add_diagnostic_view, name='add_diagnostic'),
+    path('diagnostic/save/', save_diagnostic_view, name='save_diagnostic'),
     path('accounts/login/', SDLoginView.as_view(), name='login'),
     path('accounts/logout/', logout_view, name='logout'),
 ]

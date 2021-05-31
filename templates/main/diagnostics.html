@@ -39,23 +39,35 @@
       </li>
     </ul>
 
-    <div class="tab-content mt-3">
+
+        <form method="GET">
+            <div class="tab-content mt-3">
         <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
-            <form method="post">
                 {% csrf_token %}
                 {% bootstrap_form form layout='horizontal' form_group_class='form-group' horizontal_field_class='col-md-5'%}
-                {% buttons submit='Сохранить' %}{% endbuttons %}
-            </form>
         </div>
         <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
             PROFILE
+            <input type="text" name="test"></div>
         </div>
-    </div>
+            <button class="btn btn-primary" id="save-diag" type="submit">Сохранить</button>
+        </form>
+
     <script>
     $('#myTab a').on('click', function (e) {
       e.preventDefault()
       console.log($(this))
       $(this).tab('show')
+    })
+
+    $('#save-diag').on('click', function (e) {
+        e.preventDefault()
+        console.log($(this).parents('form').serialize())
+        $.ajax({
+            url: 'save/',
+            method: 'POST',
+            data: $(this).parents('form').serialize(),
+        })
     })
 
     </script>
