@@ -2,7 +2,7 @@
 {% load bootstrap4 %}
 
 {% block title %}
-    {{ title }}
+    Главная
 {% endblock %}
 
 {% block content %}
@@ -10,23 +10,23 @@
 {% if form.errors %}
     <p xmlns="http://www.w3.org/1999/html">Ваше имя пользователя и пароль не совпадают. Пожалуйста, попробуйте еще раз.</p>
 {% endif %}
+
     <div class="row">
         <div class="col">
             <form action={% url 'main:diag'%} method="post">
             {% csrf_token %}
-           <label for="list_pupils">Выберите учащегося:</label>
-           <select name="select_pupil" id="list_pupils" class="form-control">
-                {% for item in logo_group_for_user %}
-                    <option value="{{ item.id }}">{{ item.pupil }}</option>
-                {% endfor %}
-            </select>
-            <button class="btn btn-primary mt-2" type="submit">Создать</button>
+               <label for="list_pupils">Выберите учащегося:</label>
+               <select name="select_pupil" id="list_pupils" class="form-control">
+                    {% for item in logo_group_for_user %}
+                        <option value="{{ item.id }}">{{ item.pupil }}</option>
+                    {% endfor %}
+                </select>
+                <button class="btn btn-primary mt-2" type="submit">Создать</button>
             </form>
         </div>
     </div>
     <div class="row mt-3">
         <div class="col">
-{#            <button class="btn btn-primary" type="submit">Создать</button>#}
             <a type="button" class="btn btn-primary">Список обследований</a>
         </div>
     </div>

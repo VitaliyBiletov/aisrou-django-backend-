@@ -13,26 +13,27 @@
     <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
     {% bootstrap_javascript jquery='full' %}
 </head>
-<body>
-
-<nav class="navbar navbar-light sticky-top bg-light flex-md-nowrap p-0">
-    <a class="navbar-brand col-sm-3 col-md-2" href="/">АИС РОУ</a>
-    <ul class="navbar-nav px-3">
-      <li class="nav-item d-flex text-nowrap">
-        {% if user.is_authenticated %}
-        <span class="navbar-text text-dark mr-3">
-          {{ user }}
-        </span>
-            <a class="nav-link" href="{% url 'main:logout' %}">Выход</a>
-        {% else %}
-            <a class="nav-link" href="{% url 'main:login' %}">Вход</a>
-        {% endif %}
-      </li>
-      </ul>
-      </nav>
-    <div class="container">
-        {% block content %}
-        {% endblock %}
+<body >
+    <div class="container h-100 border border-bottom-0 border-light p-0">
+        <nav class="navbar navbar-light sticky-top bg-light flex-md-nowrap p-0">
+            <a class="navbar-brand col-sm-3 col-md-2" href="/">АИС РОУ</a>
+            <ul class="navbar-nav px-3">
+              <li class="nav-item d-flex text-nowrap">
+                {% if user.is_authenticated %}
+                <span class="navbar-text text-dark mr-3">
+                  {{ user }}
+                </span>
+                    <a class="nav-link" href="{% url 'main:logout' %}">Выход</a>
+                {% else %}
+                    <a class="nav-link" href="{% url 'main:login' %}">Вход</a>
+                {% endif %}
+              </li>
+            </ul>
+        </nav>
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
     </div>
 </body>
 </html>

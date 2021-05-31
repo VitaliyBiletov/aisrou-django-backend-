@@ -8,7 +8,7 @@ from .models import CustomUser, Pupil, LogoGroups
 class SDRegisterUserForm(forms.ModelForm):
     email = forms.EmailField(
         required=True,
-        label="Электронная почта"
+        label="Электронная почта",
     )
     password1 = forms.CharField(
         label='Пароль',

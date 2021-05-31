@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from admin_panel.models import LogoGroups, Pupil
 from main.models import Diagnostics
+from .forms import StatesOfFunctionsForm
 
 
 @login_required
@@ -11,10 +12,9 @@ def index(request):
     if request.user.is_staff:
         return render(request, 'admin_panel/index.html')
     logo_group_for_user = LogoGroups.objects.filter(custom_user=request.user.id)
-    diagnostics = Diagnostics.objects.all()
+    print('index')
     return render(request, 'main/index.html', {
         'logo_group_for_user': logo_group_for_user,
-        'diagnostics': diagnostics,
     })
 
 
@@ -32,14 +32,16 @@ class SDLogoutView(LogoutView):
 
 
 def diag(request):
-    print(request.POST)
+    form = StatesOfFunctionsForm()
     pupil_id = request.POST['select_pupil']
-    print(pupil_id)
     select_pupil = Pupil.objects.get(pk=pupil_id)
-    return render(request, 'main/diagnostics.html', {'select_pupil': select_pupil})
+    # Diagnostics.objects.create(user_id=request.user, pupil_id=select_pupil)
+    return render(request, 'main/diagnostics.html', {'select_pupil': select_pupil,
+                                                     'form': form})
 
 
 def add_diag(request):
     print(request.POST)
+    print('add-diag')
     return redirect('/')
 
