@@ -12,12 +12,16 @@ class StatesOfFunctionsForm(forms.ModelForm):
 
     class Meta:
         model = StatesOfFunctions
-        fields = ('hearing',
+        fields = ('diagnostic_id',
+                  'hearing',
                   'vision',
                   'breath',
                   'voice',
                   'prosody',
                   'articulation_apparatus',
                   'motor_skills',
-                  'additional_information'
+                  'additional_information',
                   )
+        widgets = {
+            'diagnostic_id': forms.HiddenInput(),
+        }

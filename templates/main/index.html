@@ -13,7 +13,7 @@
 
     <div class="row">
         <div class="col">
-            <form action='{% url 'main:add_diagnostic' %}' method="GET">
+            <form action='{% url 'main:diagnostic' %}' method="GET">
 {#            {% csrf_token %}#}
                <label for="list_pupils">Выберите учащегося:</label>
                <select name="pupil_id" id="list_pupils" class="form-control">

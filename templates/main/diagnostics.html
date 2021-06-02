@@ -10,65 +10,30 @@
     <p class='h4 mt-3 border-bottom text-muted'>{{ select_pupil }}</p>
 
     <ul class="nav nav-tabs mt-3" id="myTab">
-      <li class="nav-item">
-        <a class="nav-link active" href="#home">Состояние функций</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#profile">Сенсомоторный уровень</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Грамматический строй речи</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Словарный запас</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Связная речь</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Языковой анализ</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Логико-грамматические отношения и словообразование</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Чтение</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Письмо</a>
-      </li>
-    </ul>
+    {% for key,value in headers_tab %}
+        <li class="nav-item">
+            <a class="nav-link" href="#{{ key }}">{{ value }}</a>
+        </li>
+    {% endfor %}
 
-
-        <form method="GET">
-            <div class="tab-content mt-3">
-        <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                {% csrf_token %}
+    <form method="POST">
+        {% csrf_token %}
+        <div class="tab-content mt-3">
+            <div class="tab-pane active" id="state_functions" role="tabpanel" aria-labelledby="home-tab">
                 {% bootstrap_form form layout='horizontal' form_group_class='form-group' horizontal_field_class='col-md-5'%}
-        </div>
-        <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-            PROFILE
-            <input type="text" name="test"></div>
-        </div>
-            <button class="btn btn-primary" id="save-diag" type="submit">Сохранить</button>
-        </form>
+            </div>
+            <div class="tab-pane" id="senso_motor_level" role="tabpanel" aria-labelledby="profile-tab">
+                PROFILE
+            </div>
+    </div>
+        <button class="btn btn-primary" id="save-diag" type="submit">Сохранить</button>
+    </form>
 
     <script>
     $('#myTab a').on('click', function (e) {
       e.preventDefault()
-      console.log($(this))
       $(this).tab('show')
     })
-
-    $('#save-diag').on('click', function (e) {
-        e.preventDefault()
-        console.log($(this).parents('form').serialize())
-        $.ajax({
-            url: 'save/',
-            method: 'POST',
-            data: $(this).parents('form').serialize(),
-        })
-    })
-
     </script>
+
 {% endblock content %}
