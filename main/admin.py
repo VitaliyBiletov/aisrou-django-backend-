@@ -9,4 +9,4 @@ class DiagnosticsAdmin(admin.ModelAdmin):
 
 @admin.register(StatesOfFunctions)
 class StatesOfFunctionsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'diagnostic_id',)
+    list_display = ('id',)

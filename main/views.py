@@ -7,6 +7,7 @@ from django.urls import reverse
 from admin_panel.models import LogoGroups, Pupil
 from main.models import Diagnostics
 from .forms import StatesOfFunctionsForm
+from datetime import datetime
 
 TAB_HEADERS = {
     'state_functions': 'Состояние функций',
@@ -51,8 +52,20 @@ def diagnostic_view(request):
     # select_pupil = Pupil.objects.get(pk=request.session['pupil_id'])
     if request.GET:
         request.session['pupil_id'] = request.GET['pupil_id']
+        # request.session['date_of_creation'] = request.GET['date_of_creation']
         select_pupil = Pupil.objects.get(pk=request.session['pupil_id'])
-        diag = Diagnostics.objects.create(user_id=request.user, pupil_id=select_pupil)
+        print(select_pupil.enrollment_date)
+        date_of_creation = request.GET['date_of_creation']
+        date_of_creation = datetime.strptime(date_of_creation, "%Y-%m-%d")
+
+        curr_class_num = current_class(select_pupil.class_number, select_pupil.enrollment_date, date_of_creation)
+        request.session['current_class'] = curr_class_num
+        diag = Diagnostics.objects.create(
+            user_id=request.user,
+            pupil_id=select_pupil,
+            date_of_creation=date_of_creation,
+            current_class=curr_class_num
+        )
         request.session['diagnostic_id'] = diag.id
         print('diag_id = ', diag.id)
         return redirect(reverse('main:add_diagnostic'))
@@ -61,25 +74,25 @@ def diagnostic_view(request):
 
 def add_diagnostic_view(request):
     headers_tab_keys = TAB_HEADERS.items()
-    print(headers_tab_keys)
     if request.POST:
         data = request.POST.copy()
         data['diagnostic_id'] = str(request.session['diagnostic_id'])
-        print(data)
         form = StatesOfFunctionsForm(data)
         if form.is_valid():
             form.save()
-            select_pupil = Pupil.objects.get(pk=request.session['pupil_id'])
             return redirect(reverse('main:add_diagnostic'))
         else:
             print(form.errors)
+
     form = StatesOfFunctionsForm()
     select_pupil = Pupil.objects.get(pk=request.session['pupil_id'])
+
     return render(request, 'main/diagnostics.html',
                   {
                       'select_pupil': select_pupil,
                       'form': form,
-                      'headers_tab': headers_tab_keys
+                      'headers_tab': headers_tab_keys,
+                      'current_class': request.session['current_class'],
                   })
 
 
@@ -98,3 +111,16 @@ def save_diagnostic_view(request):
                           'select_pupil': select_pupil,
                       })
     return HttpResponse('Не работает!')
+
+
+def current_class(enrollment_сlass, date_came, date_diag):
+    count = 0
+    if date_came.month <= 8:
+        count = count + 1
+
+    if date_diag.month > 8:
+        count = count + 1
+
+    count = count + (date_diag.year - date_came.year) - 1
+    class_num = enrollment_сlass + count
+    return class_num

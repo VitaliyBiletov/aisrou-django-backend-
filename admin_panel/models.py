@@ -47,6 +47,15 @@ class Pupil(models.Model):
         null=True,
         max_length=100,
     )
+    class_number = models.IntegerField(
+        'Класс зачисления',
+        null=True,
+    )
+
+    enrollment_date = models.DateField(
+        'Дата зачисления',
+        null=True
+    )
 
     def __str__(self):
         return "{} {}".format(self.last_name, self.first_name)

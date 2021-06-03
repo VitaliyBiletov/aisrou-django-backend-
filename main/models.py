@@ -27,8 +27,12 @@ class Diagnostics(models.Model):
         null=True
     )
     date_of_creation = models.DateField(
-        auto_now=datetime,
         verbose_name='Дата создания'
+    )
+
+    current_class = models.IntegerField(
+        verbose_name='Текущий класс',
+        null=True
     )
 
     def __str__(self):
@@ -44,39 +48,46 @@ class StatesOfFunctions(models.Model):
         Diagnostics,
         verbose_name='ID_Диагностика',
         on_delete=models.CASCADE,
-        blank=True,
     )
     hearing = models.TextField(
         verbose_name='Слух',
-        blank=True
+        blank=True,
+        null=True
     )
     vision = models.TextField(
         verbose_name='Зрение',
-        blank=True
+        blank=True,
+        null=True
     )
     breath = models.TextField(
         verbose_name='Дыхание',
-        blank=True
+        blank=True,
+        null=True
     )
     voice = models.TextField(
         verbose_name='Голос',
-        blank=True
+        blank=True,
+        null=True
     )
     prosody = models.TextField(
         verbose_name='Просодика',
-        blank=True
+        blank=True,
+        null=True
     )
     articulation_apparatus = models.TextField(
         verbose_name='Артикуляционный аппарат',
-        blank=True
+        blank=True,
+        null=True
     )
     motor_skills = models.TextField(
         verbose_name='Моторика',
-        blank=True
+        blank=True,
+        null=True
     )
     additional_information = models.TextField(
         verbose_name='Дополнительная информация',
-        blank=True
+        blank=True,
+        null=True
     )
 
     class Meta:

@@ -11,25 +11,30 @@
     <p xmlns="http://www.w3.org/1999/html">Ваше имя пользователя и пароль не совпадают. Пожалуйста, попробуйте еще раз.</p>
 {% endif %}
 
-    <div class="row">
-        <div class="col">
+    <div class="row justify-content-center">
+        <div class="col-md-5 text-center">
             <form action='{% url 'main:diagnostic' %}' method="GET">
 {#            {% csrf_token %}#}
-               <label for="list_pupils">Выберите учащегося:</label>
-               <select name="pupil_id" id="list_pupils" class="form-control">
-                    {% for item in logo_group_for_user %}
-                        <option value="{{ item.id }}">{{ item.pupil }}</option>
-                    {% endfor %}
-                </select>
+                <div class="form-group">
+                    <label for="list_pupils">Выберите учащегося:</label>
+                    <select name="pupil_id" id="list_pupils" class="form-control">
+                        <option value="deffault">---------</option>
+                        {% for item in logo_group_for_user %}
+                            <option value="{{ item.id }}">{{ item.pupil }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="date_of_creation">Дата заполнения:</label>
+                    <input id="date_of_creation" name="date_of_creation" type="date" class="form-control">
+                </div>
                 <button class="btn btn-primary mt-2" type="submit">Создать</button>
+                <button class="btn btn-primary mt-2" type="submit">Список обследований</button>
             </form>
         </div>
     </div>
-    <div class="row mt-3">
-        <div class="col">
-            <a type="button" class="btn btn-primary">Список обследований</a>
-        </div>
-    </div>
+
+
 {#    <div class="row">#}
 {#        <div class="col">#}
 {#           <label for="list_pupils">Выберите обследований:</label>#}
@@ -41,8 +46,16 @@
 {#        </div>#}
 {#    </div>#}
     <script>
-        $('#list_pupils').on('change', function (e) {
-            console.log(e.target.selectedIndex)
+        $('.btn').attr('disabled', true)
+        $('#date_of_creation').attr('disabled', true)
+        $("#list_pupils").on('change', function (e) {
+            if ($("#list_pupils").val() == 'deffault'){
+                $('.btn').attr('disabled', true)
+                $('#date_of_creation').attr('disabled', true)
+            } else {
+                $('.btn').attr('disabled', false)
+                $('#date_of_creation').attr('disabled', false)
+            }
         })
     </script>
 {% endblock content%}

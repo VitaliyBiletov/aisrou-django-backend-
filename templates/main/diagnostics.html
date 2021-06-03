@@ -7,7 +7,14 @@
 {% endblock %}
 
 {% block content %}
-    <p class='h4 mt-3 border-bottom text-muted'>{{ select_pupil }}</p>
+    <div class="row border-bottom">
+        <div class="col">
+            <p class='mt-3 text-muted'>{{ select_pupil }}</p>
+        </div>
+        <div class="col">
+            <p class='mt-3 text-muted text-right'>{{ current_class }} класс</p>
+        </div>
+    </div>
 
     <ul class="nav nav-tabs mt-3" id="myTab">
     {% for key,value in headers_tab %}
@@ -15,7 +22,7 @@
             <a class="nav-link" href="#{{ key }}">{{ value }}</a>
         </li>
     {% endfor %}
-
+    </ul>
     <form method="POST">
         {% csrf_token %}
         <div class="tab-content mt-3">
@@ -27,6 +34,7 @@
             </div>
     </div>
         <button class="btn btn-primary" id="save-diag" type="submit">Сохранить</button>
+        <a href={% url 'main:index' %}>Отмена</a>
     </form>
 
     <script>

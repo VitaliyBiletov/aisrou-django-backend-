@@ -89,7 +89,11 @@ class SDRegisterPupilForm(forms.ModelForm):
 
     class Meta:
         model = Pupil
-        fields = ('first_name', 'last_name', 'middle_name', 'date_of_birth', 'home_address')
+        fields = ('first_name', 'last_name', 'middle_name', 'date_of_birth', 'home_address', 'class_number', 'enrollment_date')
+        widgets = {
+            'date_of_birth': forms.DateInput(attrs={'type': 'date'},),
+            'enrollment_date': forms.DateInput(attrs={'type': 'date'},),
+        }
 
 
 class LogoGroupsForm(forms.ModelForm):
