@@ -1,6 +1,6 @@
 from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView, LogoutView
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
@@ -54,10 +54,8 @@ def diagnostic_view(request):
         request.session['pupil_id'] = request.GET['pupil_id']
         # request.session['date_of_creation'] = request.GET['date_of_creation']
         select_pupil = Pupil.objects.get(pk=request.session['pupil_id'])
-        print(select_pupil.enrollment_date)
         date_of_creation = request.GET['date_of_creation']
         date_of_creation = datetime.strptime(date_of_creation, "%Y-%m-%d")
-
         curr_class_num = current_class(select_pupil.class_number, select_pupil.enrollment_date, date_of_creation)
         request.session['current_class'] = curr_class_num
         diag = Diagnostics.objects.create(
@@ -113,6 +111,8 @@ def save_diagnostic_view(request):
     return HttpResponse('Не работает!')
 
 
+# Функция получает текущий номер класса исходя из класса зачисления,
+# высчитывается за счет кол-ва августов
 def current_class(enrollment_сlass, date_came, date_diag):
     count = 0
     if date_came.month <= 8:
@@ -124,3 +124,16 @@ def current_class(enrollment_сlass, date_came, date_diag):
     count = count + (date_diag.year - date_came.year) - 1
     class_num = enrollment_сlass + count
     return class_num
+
+
+def list_diagnostics(request):
+    diagnostics = Diagnostics.objects.filter(pupil_id=request.GET['pupil_id'])
+    print(request.GET)
+    diags = {}
+    for diag in diagnostics:
+        diags[diag.id] = diag.date_of_creation.strftime('%d/%m/%Y')
+
+    print(diags)
+    return JsonResponse({
+        'diagnostic_dates': diags,
+    })

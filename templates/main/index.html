@@ -1,9 +1,14 @@
 {% extends 'layout/base.html' %}
 {% load bootstrap4 %}
+{% load static %}
 
 {% block title %}
     Главная
 {% endblock %}
+
+{#{% block css %}#}
+{#    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">#}
+{#{% endblock css %}#}
 
 {% block content %}
 
@@ -13,12 +18,12 @@
 
     <div class="row justify-content-center">
         <div class="col-md-5 text-center">
-            <form action='{% url 'main:diagnostic' %}' method="GET">
+            <form id="main-form" action='{% url 'main:diagnostic' %}' method="GET">
 {#            {% csrf_token %}#}
                 <div class="form-group">
                     <label for="list_pupils">Выберите учащегося:</label>
                     <select name="pupil_id" id="list_pupils" class="form-control">
-                        <option value="deffault">---------</option>
+                        <option value="default">---------</option>
                         {% for item in logo_group_for_user %}
                             <option value="{{ item.id }}">{{ item.pupil }}</option>
                         {% endfor %}
@@ -28,34 +33,12 @@
                     <label for="date_of_creation">Дата заполнения:</label>
                     <input id="date_of_creation" name="date_of_creation" type="date" class="form-control">
                 </div>
-                <button class="btn btn-primary mt-2" type="submit">Создать</button>
-                <button class="btn btn-primary mt-2" type="submit">Список обследований</button>
+                <button class="btn btn-success mt-2" id="create-diag" type="submit">Создать</button>
+                <button class="btn btn-primary mt-2" id="open-list-diag" formaction='{% url 'main:list_diagnostics' %}' type="submit">Список обследований</button>
             </form>
         </div>
     </div>
-
-
-{#    <div class="row">#}
-{#        <div class="col">#}
-{#           <label for="list_pupils">Выберите обследований:</label>#}
-{#           <select id="list_pupils" class="form-control" size="{{ diagnostics.count }}">#}
-{#                {% for diagnostic in diagnostics %}#}
-{#                    <option value="{{ diagnostic.id }}">{{ diagnostic.date_create }}</option>#}
-{#                {% endfor %}#}
-{#            </select>#}
-{#        </div>#}
-{#    </div>#}
     <script>
-        $('.btn').attr('disabled', true)
-        $('#date_of_creation').attr('disabled', true)
-        $("#list_pupils").on('change', function (e) {
-            if ($("#list_pupils").val() == 'deffault'){
-                $('.btn').attr('disabled', true)
-                $('#date_of_creation').attr('disabled', true)
-            } else {
-                $('.btn').attr('disabled', false)
-                $('#date_of_creation').attr('disabled', false)
-            }
-        })
+
     </script>
 {% endblock content%}

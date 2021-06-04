@@ -9,8 +9,12 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{% block title %}Главная{% endblock %}</title>
+    {% block css %}
+        <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+    {% endblock css %}
+    <script type="text/javascript" src="{% static 'main/js/' %}"></script>
     {% bootstrap_css %}
-    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+
     {% bootstrap_javascript jquery='full' %}
 </head>
 <body >
@@ -30,10 +34,8 @@
               </li>
             </ul>
         </nav>
-        <div class="container">
             {% block content %}
             {% endblock %}
-        </div>
     </div>
 </body>
 </html>
