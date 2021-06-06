@@ -1,5 +1,6 @@
 {% load bootstrap4 %}
 {% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,9 +13,8 @@
     {% block css %}
         <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
     {% endblock css %}
-    <script type="text/javascript" src="{% static 'main/js/' %}"></script>
-    {% bootstrap_css %}
 
+    {% bootstrap_css %}
     {% bootstrap_javascript jquery='full' %}
 </head>
 <body >
@@ -34,8 +34,12 @@
               </li>
             </ul>
         </nav>
+        <div class="container">
             {% block content %}
             {% endblock %}
+        </div>
     </div>
 </body>
 </html>
+
+{% block js %}{% endblock js %}

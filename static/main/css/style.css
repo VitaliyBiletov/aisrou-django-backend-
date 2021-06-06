@@ -2,7 +2,20 @@ body{
     height: 100vh;
 }
 
-#form-list-diagnostics>select{
+#list-diagnostics{
     overflow-y: auto;
-    text-align: center;
+}
+
+#form-list-diagnostics>select:focus {
+    box-shadow: none;
+}
+
+#form-list-diagnostics>select>option:hover{
+    background-color: #DCDCDC;
+    border-radius: 20px;
+}
+
+#form-list-diagnostics>select>option:checked{
+    background-color: #C0C0C0;
+    border-radius: 20px;
 }

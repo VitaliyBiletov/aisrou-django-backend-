@@ -46,10 +46,6 @@ class SDLogoutView(LogoutView):
 
 
 def diagnostic_view(request):
-    # form = StatesOfFunctionsForm()
-    # print(request.GET['pupil_id'])
-    # request.session['pupil_id'] = request.GET['pupil_id']
-    # select_pupil = Pupil.objects.get(pk=request.session['pupil_id'])
     if request.GET:
         request.session['pupil_id'] = request.GET['pupil_id']
         # request.session['date_of_creation'] = request.GET['date_of_creation']
@@ -65,7 +61,6 @@ def diagnostic_view(request):
             current_class=curr_class_num
         )
         request.session['diagnostic_id'] = diag.id
-        print('diag_id = ', diag.id)
         return redirect(reverse('main:add_diagnostic'))
     return redirect('/')
 
@@ -96,9 +91,7 @@ def add_diagnostic_view(request):
 
 def save_diagnostic_view(request):
     data = request.POST.copy()
-    print('session: ', request.session['diag_id'])
     data['diagnostic_id'] = str(request.session['diag_id'])
-    print(data)
     form = StatesOfFunctionsForm(data)
     if form.is_valid():
         form.save()
@@ -109,6 +102,24 @@ def save_diagnostic_view(request):
                           'select_pupil': select_pupil,
                       })
     return HttpResponse('Не работает!')
+
+
+def delete_diagnostic_view(request):
+    print(request.GET)
+    if request.GET:
+        diagnostic_id = request.GET['diagnostic_id']
+        Diagnostics.objects.filter(id=diagnostic_id).delete()
+        diagnostics = Diagnostics.objects.filter(pupil_id=request.GET['pupil_id'])
+        diags = {}
+        for diag in diagnostics:
+            diags[diag.id] = diag.date_of_creation.strftime('%d/%m/%Y')
+
+        print(diagnostic_id)
+        return JsonResponse({
+            "status": "ok",
+            'diagnostic_dates': diags,
+        })
+    return JsonResponse({"status": "err"})
 
 
 # Функция получает текущий номер класса исходя из класса зачисления,
@@ -128,12 +139,10 @@ def current_class(enrollment_сlass, date_came, date_diag):
 
 def list_diagnostics(request):
     diagnostics = Diagnostics.objects.filter(pupil_id=request.GET['pupil_id'])
-    print(request.GET)
     diags = {}
     for diag in diagnostics:
         diags[diag.id] = diag.date_of_creation.strftime('%d/%m/%Y')
 
-    print(diags)
     return JsonResponse({
         'diagnostic_dates': diags,
     })
