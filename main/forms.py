@@ -8,6 +8,7 @@ class StatesOfFunctionsForm(forms.ModelForm):
         for field in self.fields:
             self.fields[field].widget.attrs['rows'] = 2
             self.fields[field].widget.attrs['placeholder'] = ''
+            self.fields[field].widget.attrs['class'] = 'form-control'
             # field.widget.attrs['rows'] = 1
 
     class Meta:

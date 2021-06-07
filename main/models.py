@@ -93,3 +93,6 @@ class StatesOfFunctions(models.Model):
     class Meta:
         verbose_name = 'Состояние функций'
         verbose_name_plural = 'Состояния функций'
+
+    def __str__(self):
+        return 'id {} : Диагностика {}'.format(self.id, self.diagnostic_id)

@@ -23,11 +23,20 @@
         </li>
     {% endfor %}
     </ul>
-    <form method="POST">
+    <form action="{% url 'main:save_diagnostic' %}" method="POST">
         {% csrf_token %}
         <div class="tab-content mt-3">
             <div class="tab-pane active" id="state_functions" role="tabpanel" aria-labelledby="home-tab">
-                {% bootstrap_form form layout='horizontal' form_group_class='form-group' horizontal_field_class='col-md-5'%}
+{#                {% bootstrap_form form layout='horizontal' form_group_class='form-group' %}#}
+                {% for field in form.visible_fields %}
+                     <div class="form-group row">
+                        <label for="{{ field.name }}" class="col-sm-2 col-form-label">{{ field.label_tag }}</label>
+                        <div class="col-sm-6">
+                         {{ field }}
+                        </div>
+                      </div>
+
+                {% endfor %}
             </div>
             <div class="tab-pane" id="senso_motor_level" role="tabpanel" aria-labelledby="profile-tab">
                 PROFILE

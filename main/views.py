@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from admin_panel.models import LogoGroups, Pupil
-from main.models import Diagnostics
+from main.models import Diagnostics, StatesOfFunctions
 from .forms import StatesOfFunctionsForm
 from datetime import datetime
 
@@ -45,7 +45,9 @@ class SDLogoutView(LogoutView):
     template_name = "main/logout.html"
 
 
-def diagnostic_view(request):
+def create_diagnostic_view(request):
+    print('Представление для создания диагностки')
+    headers_tab_keys = TAB_HEADERS.items()
     if request.GET:
         request.session['pupil_id'] = request.GET['pupil_id']
         # request.session['date_of_creation'] = request.GET['date_of_creation']
@@ -61,47 +63,48 @@ def diagnostic_view(request):
             current_class=curr_class_num
         )
         request.session['diagnostic_id'] = diag.id
-        return redirect(reverse('main:add_diagnostic'))
-    return redirect('/')
+        states_of_function = StatesOfFunctions.objects.create(diagnostic_id=diag)
+        print('Текущий ученик = ', select_pupil)
+        print('Дата зачисления = ', date_of_creation)
+        print('Текущий класс = ', curr_class_num)
+        return render(
+            request,
+            'main/diagnostic.html',
+            {
+                'form': StatesOfFunctionsForm(),
+                'headers_tab': headers_tab_keys,
+                'current_class': request.session['current_class'],
+                'select_pupil': select_pupil,
+            }
+        )
 
 
-def add_diagnostic_view(request):
+def save_diagnostic_view(request):
+    print('Сохранение диагностики')
     headers_tab_keys = TAB_HEADERS.items()
     if request.POST:
         data = request.POST.copy()
         data['diagnostic_id'] = str(request.session['diagnostic_id'])
-        form = StatesOfFunctionsForm(data)
-        if form.is_valid():
-            form.save()
-            return redirect(reverse('main:add_diagnostic'))
-        else:
-            print(form.errors)
+        current_state = StatesOfFunctions.objects.get(diagnostic_id=data['diagnostic_id'])
+        form = StatesOfFunctionsForm(data, instance=current_state)
+        form.save()
+        select_pupil = Pupil.objects.get(pk=request.session['pupil_id'])
+        return render(request, 'main/diagnostic.html',
+                      {
+                          'form': form,
+                          'select_pupil': select_pupil,
+                          'headers_tab': headers_tab_keys,
+                          'current_class': request.session['current_class'],
+                      })
 
-    form = StatesOfFunctionsForm()
-    select_pupil = Pupil.objects.get(pk=request.session['pupil_id'])
-
-    return render(request, 'main/diagnostics.html',
+    current_state = StatesOfFunctions.objects.get(diagnostic_id=request.session['diagnostic_id'])
+    form = StatesOfFunctionsForm(instance=current_state)
+    return render(request, 'main/diagnostic.html',
                   {
-                      'select_pupil': select_pupil,
                       'form': form,
                       'headers_tab': headers_tab_keys,
                       'current_class': request.session['current_class'],
                   })
-
-
-def save_diagnostic_view(request):
-    data = request.POST.copy()
-    data['diagnostic_id'] = str(request.session['diag_id'])
-    form = StatesOfFunctionsForm(data)
-    if form.is_valid():
-        form.save()
-        select_pupil = Pupil.objects.get(pk=request.session['pupil_id'])
-        return render(request, 'main/diagnostics.html',
-                      {
-                          'form': StatesOfFunctionsForm(),
-                          'select_pupil': select_pupil,
-                      })
-    return HttpResponse('Не работает!')
 
 
 def delete_diagnostic_view(request):

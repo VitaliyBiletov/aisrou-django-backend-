@@ -33,11 +33,8 @@
     })
 
     $('#open-list-diag').on('click', function (e) {
-        isInvalidDate()
-    })
-
-    $('#open-list-diag').on('click', function (e) {
         e.preventDefault()
+        isInvalidDate()
         $.ajax({
             url: '/diagnostic/list/',
             method: 'GET',
@@ -74,6 +71,7 @@
                 buttonsRow.append(toDeleteCol)
                 form.append(buttonsRow)
                 col.append(form)
+                //Удалить диагностику
                 $("#delete_diagnostic").on('click', function (e) {
                     e.preventDefault()
                     const id_diagnostic = $('#list-diagnostics').val()
@@ -90,21 +88,23 @@
                             if (data['status'] == 'ok'){
                                 list.empty()
                                 count = 0
-                                if ((count) == 0){
-                                    $('#delete_diagnostic').attr('disabled', true)
-                                    $('#edit_diagnostic').attr('disabled', true)
-                                    return
-                                }
                                 for (let diag in data['diagnostic_dates']) {
                                     count++
                                     $("<option />", {
                                         value: diag,
                                         text: `${count}. Обследование (${data['diagnostic_dates'][diag]})`
-                                }).appendTo(list)
+                                    }).appendTo(list)
+                                }
+
+                                if (count == 0) {
+                                    $('#delete_diagnostic').attr('disabled', true)
+                                    $('#edit_diagnostic').attr('disabled', true)
+                                    return
+                                }
+
                                 list.attr('size',count)
                                 }
                             }
-                        }
 
                     })
                 })
