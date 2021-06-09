@@ -44,8 +44,8 @@
                 $('#form-list-diagnostics').remove()
                 $('#empty-msg').remove()
                 const col = $('#main-form').parent('div')
-                const form = $('<form id="form-list-diagnostics" class="mt-3"></form>')
-                const list = $('<select id="list-diagnostics" class="form-control"></select>')
+                const form = $('<form method="get" id="form-list-diagnostics" class="mt-3"></form>')
+                const list = $('<select name="diagnostic_id" id="list-diagnostics" class="form-control"></select>')
                 for (let diag in data['diagnostic_dates']) {
                     count++
                     $("<option />", {
@@ -63,7 +63,7 @@
                 const buttonsRow = $('<div class="row mt-3"></div>')
                 const toChangeCol = $('<div class="col"></div>')
                 const toDeleteCol = $('<div class="col"></div>')
-                const toChange = $('<button id="edit_diagnostic" class="btn btn-primary">Изменить</button>')
+                const toChange = $(`<button id="edit_diagnostic" formaction="/diagnostics/" class='btn btn-primary'>Изменить</button>`)
                 const toDelete = $('<button id="delete_diagnostic" class="btn btn-danger">Удалить</button>')
                 toChangeCol.append(toChange)
                 toDeleteCol.append(toDelete)

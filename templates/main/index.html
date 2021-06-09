@@ -14,7 +14,8 @@
 
     <div class="row justify-content-center mt-3">
         <div class="col-md-5 text-center">
-            <form id="main-form" method="GET">
+            <form id="main-form" method="POST">
+                {% csrf_token %}
                 <div class="form-group">
                     <label for="list_pupils">Выберите учащегося:</label>
                     <select name="pupil_id" id="list_pupils" class="form-control">

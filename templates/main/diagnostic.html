@@ -23,7 +23,7 @@
         </li>
     {% endfor %}
     </ul>
-    <form action="{% url 'main:save_diagnostic' %}" method="POST">
+    <form method="POST" action="{% url 'main:save_diagnostic' %}">
         {% csrf_token %}
         <div class="tab-content mt-3">
             <div class="tab-pane active" id="state_functions" role="tabpanel" aria-labelledby="home-tab">

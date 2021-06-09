@@ -45,28 +45,43 @@ class SDLogoutView(LogoutView):
     template_name = "main/logout.html"
 
 
+@login_required
 def create_diagnostic_view(request):
     print('Представление для создания диагностки')
     headers_tab_keys = TAB_HEADERS.items()
-    if request.GET:
-        request.session['pupil_id'] = request.GET['pupil_id']
+    if request.POST:
+        print('POST create')
+        request.session['pupil_id'] = request.POST['pupil_id']
         # request.session['date_of_creation'] = request.GET['date_of_creation']
         select_pupil = Pupil.objects.get(pk=request.session['pupil_id'])
-        date_of_creation = request.GET['date_of_creation']
+        date_of_creation = request.POST['date_of_creation']
         date_of_creation = datetime.strptime(date_of_creation, "%Y-%m-%d")
-        curr_class_num = current_class(select_pupil.class_number, select_pupil.enrollment_date, date_of_creation)
-        request.session['current_class'] = curr_class_num
-        diag = Diagnostics.objects.create(
+        class_now = current_class(select_pupil.class_number, select_pupil.enrollment_date, date_of_creation)
+        request.session['current_class'] = class_now
+        diagnostic = Diagnostics.objects.create(
             user_id=request.user,
             pupil_id=select_pupil,
             date_of_creation=date_of_creation,
-            current_class=curr_class_num
+            current_class=class_now
         )
-        request.session['diagnostic_id'] = diag.id
-        states_of_function = StatesOfFunctions.objects.create(diagnostic_id=diag)
+        StatesOfFunctions.objects.create(diagnostic_id=diagnostic)
+        request.session['diagnostic_id'] = diagnostic.id
         print('Текущий ученик = ', select_pupil)
         print('Дата зачисления = ', date_of_creation)
-        print('Текущий класс = ', curr_class_num)
+        print('Текущий класс = ', class_now)
+        return render(
+            request,
+            'main/diagnostic.html',
+            {
+                'form': StatesOfFunctionsForm(),
+                'headers_tab': headers_tab_keys,
+                'current_class': request.session['current_class'],
+                'select_pupil': select_pupil,
+            }
+        )
+    else:
+        select_pupil = Pupil.objects.get(pk=request.session['pupil_id'])
+        print('GET create')
         return render(
             request,
             'main/diagnostic.html',
@@ -79,32 +94,45 @@ def create_diagnostic_view(request):
         )
 
 
+@login_required
 def save_diagnostic_view(request):
-    print('Сохранение диагностики')
     headers_tab_keys = TAB_HEADERS.items()
+    # Если метод POST то сохраняем
     if request.POST:
+        print('POST save')
         data = request.POST.copy()
-        data['diagnostic_id'] = str(request.session['diagnostic_id'])
-        current_state = StatesOfFunctions.objects.get(diagnostic_id=data['diagnostic_id'])
+        diagnostic_id = request.session['diagnostic_id']
+        data['diagnostic_id'] = diagnostic_id
+        print(data)
+        diagnostic = Diagnostics.objects.get(pk=diagnostic_id)
+        print('diag', diagnostic)
+        current_state = StatesOfFunctions.objects.get(diagnostic_id=diagnostic)
+        print('curr state', current_state)
         form = StatesOfFunctionsForm(data, instance=current_state)
         form.save()
-        select_pupil = Pupil.objects.get(pk=request.session['pupil_id'])
+        select_pupil = Pupil.objects.get(pk=diagnostic.pupil_id.id)
         return render(request, 'main/diagnostic.html',
                       {
                           'form': form,
                           'select_pupil': select_pupil,
                           'headers_tab': headers_tab_keys,
-                          'current_class': request.session['current_class'],
+                          'current_class': diagnostic.current_class,
                       })
-
-    current_state = StatesOfFunctions.objects.get(diagnostic_id=request.session['diagnostic_id'])
-    form = StatesOfFunctionsForm(instance=current_state)
-    return render(request, 'main/diagnostic.html',
-                  {
-                      'form': form,
-                      'headers_tab': headers_tab_keys,
-                      'current_class': request.session['current_class'],
-                  })
+    # Если метод GET то отображаем нужную диагностику
+    else:
+        print('GET save')
+        diagnostic_id = request.session['diagnostic_id']
+        print(diagnostic_id)
+        diagnostic = Diagnostics.objects.get(pk=diagnostic_id)
+        current_state = StatesOfFunctions.objects.get(diagnostic_id=diagnostic_id)
+        form = StatesOfFunctionsForm(instance=current_state)
+        return render(request, 'main/diagnostic.html',
+                      {
+                          'form': form,
+                          'headers_tab': headers_tab_keys,
+                          'select_pupil': Pupil.objects.get(id=diagnostic.pupil_id.id),
+                          'current_class': diagnostic.current_class,
+                      })
 
 
 def delete_diagnostic_view(request):
