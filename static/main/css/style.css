@@ -12,10 +12,10 @@ body{
 
 #form-list-diagnostics>select>option:hover{
     background-color: #DCDCDC;
-    border-radius: 20px;
+    border-radius: 3px;
 }
 
 #form-list-diagnostics>select>option:checked{
     background-color: #C0C0C0;
-    border-radius: 20px;
+    border-radius: 3px;
 }

@@ -38,6 +38,7 @@
         $.ajax({
             url: '/diagnostic/list/',
             method: 'GET',
+            dataType: 'json',
             data: {'pupil_id': $('#list_pupils').val()},
             success: function (data) {
                 let count = 0
@@ -46,11 +47,13 @@
                 const col = $('#main-form').parent('div')
                 const form = $('<form method="get" id="form-list-diagnostics" class="mt-3"></form>')
                 const list = $('<select name="diagnostic_id" id="list-diagnostics" class="form-control"></select>')
-                for (let diag in data['diagnostic_dates']) {
+                console.log(data)
+                for (let diag in data) {
                     count++
+                    console.log(diag)
                     $("<option />", {
-                        value: diag,
-                        text: `${count}. Обследование (${data['diagnostic_dates'][diag]})`
+                        value: data[diag].id,
+                        text: `${count}. Обследование (${data[diag].date})`
                     }).appendTo(list)
 
                 }
@@ -88,6 +91,7 @@
                             if (data['status'] == 'ok'){
                                 list.empty()
                                 count = 0
+
                                 for (let diag in data['diagnostic_dates']) {
                                     count++
                                     $("<option />", {

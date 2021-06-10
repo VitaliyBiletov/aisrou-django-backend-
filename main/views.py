@@ -97,32 +97,20 @@ def create_diagnostic_view(request):
 @login_required
 def save_diagnostic_view(request):
     headers_tab_keys = TAB_HEADERS.items()
-    # Если метод POST то сохраняем
+    # # Если метод POST то сохраняем
     if request.POST:
-        print('POST save')
         data = request.POST.copy()
         diagnostic_id = request.session['diagnostic_id']
         data['diagnostic_id'] = diagnostic_id
         print(data)
         diagnostic = Diagnostics.objects.get(pk=diagnostic_id)
-        print('diag', diagnostic)
         current_state = StatesOfFunctions.objects.get(diagnostic_id=diagnostic)
-        print('curr state', current_state)
         form = StatesOfFunctionsForm(data, instance=current_state)
         form.save()
-        select_pupil = Pupil.objects.get(pk=diagnostic.pupil_id.id)
-        return render(request, 'main/diagnostic.html',
-                      {
-                          'form': form,
-                          'select_pupil': select_pupil,
-                          'headers_tab': headers_tab_keys,
-                          'current_class': diagnostic.current_class,
-                      })
+        return HttpResponse('Данные успешно сохранены!')
     # Если метод GET то отображаем нужную диагностику
     else:
-        print('GET save')
         diagnostic_id = request.session['diagnostic_id']
-        print(diagnostic_id)
         diagnostic = Diagnostics.objects.get(pk=diagnostic_id)
         current_state = StatesOfFunctions.objects.get(diagnostic_id=diagnostic_id)
         form = StatesOfFunctionsForm(instance=current_state)
@@ -131,7 +119,7 @@ def save_diagnostic_view(request):
                           'form': form,
                           'headers_tab': headers_tab_keys,
                           'select_pupil': Pupil.objects.get(id=diagnostic.pupil_id.id),
-                          'current_class': diagnostic.current_class,
+                          'diagnostic': diagnostic,
                       })
 
 
@@ -169,11 +157,11 @@ def current_class(enrollment_сlass, date_came, date_diag):
 
 
 def list_diagnostics(request):
-    diagnostics = Diagnostics.objects.filter(pupil_id=request.GET['pupil_id']).order_by('date_of_creation')
+    diagnostics = Diagnostics.objects.filter(pupil_id=request.GET['pupil_id']).order_by('-date_of_creation')
     diags = {}
+    count = 0
     for diag in diagnostics:
-        diags[diag.id] = diag.date_of_creation.strftime('%d/%m/%Y')
-
-    return JsonResponse({
-        'diagnostic_dates': diags,
-    })
+        diags[count] = {'id': diag.id, 'date': diag.date_of_creation.strftime('%d/%m/%Y')}
+        count = count + 1
+    print(diags)
+    return JsonResponse(diags)
