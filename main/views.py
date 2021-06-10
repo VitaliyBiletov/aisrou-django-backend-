@@ -169,7 +169,7 @@ def current_class(enrollment_сlass, date_came, date_diag):
 
 
 def list_diagnostics(request):
-    diagnostics = Diagnostics.objects.filter(pupil_id=request.GET['pupil_id'])
+    diagnostics = Diagnostics.objects.filter(pupil_id=request.GET['pupil_id']).order_by('date_of_creation')
     diags = {}
     for diag in diagnostics:
         diags[diag.id] = diag.date_of_creation.strftime('%d/%m/%Y')
