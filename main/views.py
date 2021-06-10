@@ -110,7 +110,8 @@ def save_diagnostic_view(request):
         return HttpResponse('Данные успешно сохранены!')
     # Если метод GET то отображаем нужную диагностику
     else:
-        diagnostic_id = request.session['diagnostic_id']
+        diagnostic_id = request.GET['diagnostic_id']
+        request.session['diagnostic_id'] = diagnostic_id
         diagnostic = Diagnostics.objects.get(pk=diagnostic_id)
         current_state = StatesOfFunctions.objects.get(diagnostic_id=diagnostic_id)
         form = StatesOfFunctionsForm(instance=current_state)
