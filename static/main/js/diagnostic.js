@@ -1,3 +1,8 @@
+$('#myTab a').on('click', function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
+
 $('.nav .nav-item:first-child>a').addClass('active')
 
 $('#save-diag').on('click',function (e) {
