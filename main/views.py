@@ -66,30 +66,18 @@ def create_diagnostic_view(request):
         )
         StatesOfFunctions.objects.create(diagnostic_id=diagnostic)
         request.session['diagnostic_id'] = diagnostic.id
-        print('Текущий ученик = ', select_pupil)
-        print('Дата зачисления = ', date_of_creation)
-        print('Текущий класс = ', class_now)
-        return render(
-            request,
-            'main/diagnostic.html',
-            {
-                'form': StatesOfFunctionsForm(),
-                'headers_tab': headers_tab_keys,
-                'current_class': request.session['current_class'],
-                'select_pupil': select_pupil,
-            }
-        )
+        return HttpResponseRedirect(reverse('main:create_diagnostic'))
     else:
         select_pupil = Pupil.objects.get(pk=request.session['pupil_id'])
         print('GET create')
+        diagnostic = Diagnostics.objects.get(id=request.session['diagnostic_id'])
         return render(
             request,
             'main/diagnostic.html',
             {
                 'form': StatesOfFunctionsForm(),
                 'headers_tab': headers_tab_keys,
-                'current_class': request.session['current_class'],
-                'select_pupil': select_pupil,
+                'diagnostic': diagnostic,
             }
         )
 
@@ -115,7 +103,8 @@ def save_diagnostic_view(request):
         diagnostic = Diagnostics.objects.get(pk=diagnostic_id)
         current_state = StatesOfFunctions.objects.get(diagnostic_id=diagnostic_id)
         form = StatesOfFunctionsForm(instance=current_state)
-        return render(request, 'main/diagnostic.html',
+        return render(request,
+                      'main/diagnostic.html',
                       {
                           'form': form,
                           'headers_tab': headers_tab_keys,
