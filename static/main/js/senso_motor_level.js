@@ -1,4 +1,4 @@
-    const pairsOfSounds = [
+const pairsOfSounds = [
   {
     id: 0,
     view: 'Ба-па | Па-ба',

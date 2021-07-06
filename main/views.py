@@ -88,18 +88,27 @@ def save_diagnostic_view(request):
     headers_tab_keys = TAB_HEADERS.items()
     # # Если метод POST то сохраняем
     if request.POST:
+        print('Сохранение POST')
+        # print(request.POST)
         data = request.POST.copy()
         diagnostic_id = request.session['diagnostic_id']
-        data['diagnostic_id'] = diagnostic_id
-        print(data)
+        data['diagnostic'] = diagnostic_id
+        # print(data)
         diagnostic = Diagnostics.objects.get(pk=diagnostic_id)
-        current_state = StatesOfFunctions.objects.get(diagnostic_id=diagnostic)
+        current_state = StatesOfFunctions.objects.get(diagnostic=diagnostic)
         form = StatesOfFunctionsForm(data, instance=current_state)
-        form.save()
+        if form.is_valid:
+            form.save()
+            print("Состояние функций успешно сохранено")
+        else:
+            print(form.errors)
+
         return HttpResponse('Данные успешно сохранены!')
     # Если метод GET то отображаем нужную диагностику
     else:
+        print('Изменение GET')
         diagnostic_id = request.GET['diagnostic_id']
+        print(diagnostic_id)
         request.session['diagnostic_id'] = diagnostic_id
         diagnostic = Diagnostics.objects.get(pk=diagnostic_id)
         current_state = StatesOfFunctions.objects.get(diagnostic_id=diagnostic_id)
@@ -109,7 +118,7 @@ def save_diagnostic_view(request):
                       {
                           'form': form,
                           'headers_tab': headers_tab_keys,
-                          'select_pupil': Pupil.objects.get(id=diagnostic.pupil_id.id),
+                          'select_pupil': Pupil.objects.get(id=diagnostic.pupil_id),
                           'diagnostic': diagnostic,
                       })
 
