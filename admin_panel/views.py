@@ -6,8 +6,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView, CreateView
 from .forms import SDRegisterPupilForm, SDRegisterUserForm, ChangeUserInfoForm, SetPasswordForm, LogoGroupsForm
-from .models import Pupil, LogoGroups
-from .models import CustomUser
+from .models import Pupil, LogoGroups, CustomUser
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 

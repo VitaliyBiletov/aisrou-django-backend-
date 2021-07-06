@@ -14,13 +14,13 @@ from admin_panel.models import Pupil, CustomUser
 
 
 class Diagnostics(models.Model):
-    user_id = models.ForeignKey(
+    user = models.ForeignKey(
         CustomUser,
         verbose_name='Учитель',
         on_delete=models.CASCADE,
         null=True
     )
-    pupil_id = models.ForeignKey(
+    pupil = models.ForeignKey(
         Pupil,
         verbose_name='Ученик',
         on_delete=models.CASCADE,
@@ -44,7 +44,7 @@ class Diagnostics(models.Model):
 
 
 class StatesOfFunctions(models.Model):
-    diagnostic_id = models.ForeignKey(
+    diagnostic = models.ForeignKey(
         Diagnostics,
         verbose_name='ID_Диагностика',
         on_delete=models.CASCADE,
@@ -95,4 +95,37 @@ class StatesOfFunctions(models.Model):
         verbose_name_plural = 'Состояния функций'
 
     def __str__(self):
-        return 'id {} : Диагностика {}'.format(self.id, self.diagnostic_id)
+        return 'id {} : Диагностика {}'.format(self.id, self.diagnostic)
+
+
+class SensoMotorLevel(models.Model):
+    diagnostic = models.ForeignKey(
+        Diagnostics,
+        verbose_name='ID_Диагностика',
+        on_delete=models.CASCADE,
+    )
+
+    phonemic_perception = models.CharField(
+        verbose_name='Фонематическое воспритятие',
+        blank=True,
+        null=True,
+        max_length=100,
+    )
+
+    sound_pronunciation = models.CharField(
+        verbose_name='Звукопроизношение',
+        blank=True,
+        null=True,
+        max_length=100,
+    )
+
+    sound_syllable_structure = models.CharField(
+        verbose_name='Звуко-слоговая структура',
+        blank=True,
+        null=True,
+        max_length=100,
+    )
+
+    class Meta:
+        verbose_name = 'Сенсо-моторный уровень'
+        verbose_name_plural = 'Сенсо-моторный уровень'

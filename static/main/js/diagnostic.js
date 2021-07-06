@@ -120,7 +120,7 @@ $(document).ready(function(){
 }
 
   $('#text').text(pairsOfSounds[i].view)
-  $('td:first-child').addClass('active')
+  $('.state-table tr td:first-child').addClass('active-cell')
 
   $('.scores-btn').on('click',function(e){
 

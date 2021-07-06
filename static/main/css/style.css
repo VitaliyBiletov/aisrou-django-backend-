@@ -120,6 +120,6 @@ body{
     top: 3.9em; }
 
 .active-cell {
-  box-shadow: inset 0px 0px 5px 2px black; }
+  box-shadow: inset 0px 0px 5px 2px black !important; }
 
 /*# sourceMappingURL=style2.css.map */

@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from admin_panel.models import LogoGroups, Pupil
-from main.models import Diagnostics, StatesOfFunctions
+from main.models import Diagnostics, StatesOfFunctions, SensoMotorLevel
 from .forms import StatesOfFunctionsForm
 from datetime import datetime
 
@@ -59,12 +59,13 @@ def create_diagnostic_view(request):
         class_now = current_class(select_pupil.class_number, select_pupil.enrollment_date, date_of_creation)
         request.session['current_class'] = class_now
         diagnostic = Diagnostics.objects.create(
-            user_id=request.user,
-            pupil_id=select_pupil,
+            user_id=request.user.id,
+            pupil_id=select_pupil.id,
             date_of_creation=date_of_creation,
             current_class=class_now
         )
-        StatesOfFunctions.objects.create(diagnostic_id=diagnostic)
+        StatesOfFunctions.objects.create(diagnostic_id=diagnostic.id)
+        SensoMotorLevel.objects.create(diagnostic_id=diagnostic.id)
         request.session['diagnostic_id'] = diagnostic.id
         return HttpResponseRedirect(reverse('main:create_diagnostic'))
     else:

@@ -13,7 +13,7 @@ class StatesOfFunctionsForm(forms.ModelForm):
 
     class Meta:
         model = StatesOfFunctions
-        fields = ('diagnostic_id',
+        fields = ('diagnostic',
                   'hearing',
                   'vision',
                   'breath',
@@ -24,5 +24,5 @@ class StatesOfFunctionsForm(forms.ModelForm):
                   'additional_information',
                   )
         widgets = {
-            'diagnostic_id': forms.HiddenInput(),
+            'diagnostic': forms.HiddenInput(),
         }
