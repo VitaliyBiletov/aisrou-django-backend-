@@ -1,5 +1,6 @@
 body
   height: 100vh
+  min-width: 700px
 
 #list-diagnostics
   overflow-y: auto
@@ -106,11 +107,11 @@ body
   &::after
     content: attr(data-tooltip)
     position: absolute
-    width: 200px
-    left: -75px
+    width: 80px
+    left: 0px
     top: 0
     background: #28c0ff
-    font-size: 11pt
+    font-size: 7pt
     color: #fff
     text-shadow: 1px 1px black
     border-radius: 5px
@@ -122,118 +123,24 @@ body
     transition: 0.3s
 
   &:hover::after
-    opacity: 0.8
-    top: 3.9em
+    opacity: 1
+    top: 6em
 
 .active-cell
   box-shadow: inset 0px 0px 5px 2px black !important
 
-table
-  display: block
-  border-radius: 10px
-  -webkit-border-radius: 10px
-  -moz-border-radius: 10px
-  -khtml-border-radius: 10px
-  border: 1px solid #385874
-  padding: 3px
-  background: #385874
-
-td
-  width: 50px
-  height: 50px
-  border-top: none !important
-  border-right: none
-  box-shadow: inset 0px 0px 2px 1px black
-  transition: 0.1s
-  background: white
-
-  &:hover
-    box-shadow: inset 0px 0px 5px 2px black
-    cursor: pointer
-
-  &:first-child
-    border-top-left-radius: 10px
-    border-bottom-left-radius: 10px
-    transition: 0.1s
-
-  &:first-child:hover
-    box-shadow: inset 0px 0px 5px 2px black
-
-  &:last-child
-    border-top-right-radius: 10px
-    border-bottom-right-radius: 10px
-    border-right: none
-    transition: 0.1s
-
-  &:last-child:hover
-    box-shadow: inset 0px 0px 5px 2px black
-
-#text
-  font-size: 35pt
-  background-color: #e5f3ff
-  padding: 10px 50px
-  width: 650px
-  text-align: center
-  border-radius: 10px
-  color: #385874
-  font-weight: bold
-
 #left a, #right a
   text-decoration: none
 
-.btn
-  box-shadow: 1px 1px 2px 0px black
-  font-size: 16pt
-  margin-top: 0px
-  width: 4em
+/*---------------*/
+.phonemicPerception
+  border: 2px solid #385874
+  padding-bottom: 15px
+  height: 340px
+  max-height: 400px
+  min-width: 500px
+
+.heading
   color: #fff
-  text-shadow: 1px 1px 2px black
-  transition: 0.2s
-  outline: none
-
-  &:hover
-    color: #fff
-    border: 5px solid #b5ddff
-    margin-top: -5px
-
-
-.red
-  background-color: #ff4040
-
-.yellow
-  background-color: #f9ff50
-
-.blue
-  background-color: #2099ff
-
-.green
-  background-color: #5eaf5e
-
-[data-tooltip]
-  position: relative
-
-  &::after
-    content: attr(data-tooltip)
-    position: absolute
-    width: 200px
-    left: -75px
-    top: 0
-    background: #28c0ff
-    font-size: 11pt
-    color: #fff
-    text-shadow: 1px 1px black
-    border-radius: 5px
-    padding: 0.3em
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3)
-    pointer-events: none
-    opacity: 0
-    text-align: center
-    transition: 0.3s
-
-  &:hover::after
-    opacity: 0.8
-    top: 3.9em
-
-.active
-  box-shadow: inset 0px 0px 5px 2px black
-
+  min-width: 500px
+  background: #385874

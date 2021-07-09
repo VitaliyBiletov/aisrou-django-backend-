@@ -17,24 +17,20 @@
     {% bootstrap_css %}
     {% bootstrap_javascript jquery='full' %}
 </head>
-<body >
-    <nav class="navbar fixed-top navbar-light sticky-top bg-light flex-md-nowrap p-0">
-        <a class="navbar-brand col-sm-2 col-md-2" href="/">АИС РОУ</a>
-        {% block info_diagnostic %}{% endblock %}
-        <div class="login_nav col-md-auto">
-            <ul class="navbar-nav px-3">
-              <li class="nav-item d-flex text-nowrap">
+<body>
+    <nav class="d-flex flex-column top-nav justify-content-between flex-md-row align-items-center p-1 px-md-4 mb-3 bg-light border-bottom box-shadow">
+            <a class="navbar-brand" href="/">АИС РОУ</a>
+            {% block info_diagnostic %}{% endblock %}
+            <div class="d-flex align-items-center flex-md-row flex-column">
                 {% if user.is_authenticated %}
-                <span class="navbar-text text-dark mr-3">
+                <p class="navbar-text text-dark m-0">
                   {{ user }}
-                </span>
+                </p>
                     <a class="nav-link" href="{% url 'main:logout' %}">Выход</a>
                 {% else %}
                     <a class="nav-link" href="{% url 'main:login' %}">Вход</a>
                 {% endif %}
-              </li>
-            </ul>
-        </div>
+            </div>
     </nav>
         <div class="container">
         {% block content %}

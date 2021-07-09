@@ -25,11 +25,11 @@ const pairsOfSounds = [
   },
   {
     id: 6,
-    view: 'Га-ка-га | Га-ка-га',
+    view: 'Га-ка-га | Ка-га-ка',
   },
   {
     id: 7,
-    view: 'За-са-за | За-са-за',
+    view: 'За-са-за | Са-за-са',
   },
   {
     id: 8,
@@ -54,39 +54,52 @@ const pairsOfSounds = [
 ]
 
 const colors = {
-  0: {name: 'red', code:'#ff4040'},
-  1: {name: 'yellow', code:'#f9ff50'},
-  2: {name: 'blue', code:'#2099ff'},
-  3: {name: 'green', code:'#5eaf5e'},
+    0: {name: 'red', code:'#ff4040'},
+    1: {name: 'yellow', code:'#f9ff50'},
+    2: {name: 'blue', code:'#2099ff'},
+    3: {name: 'green', code:'#5eaf5e'},
 }
 
 const hints = {
   0: "Отказ от выполнения, полная невозможность воспроизведения пробы",
   1: 'Неточное воспроизведение обоих членов пары с перестановкой слогов, их заменой и пропусками;',
   2: 'Первый член воспроизводится правильно, второй уподобляется первому (ба-па-ба-па)',
-  3:'Точное и правильное воспроизведение в темпе предъявления',
+  3: 'Точное и правильное воспроизведение в темпе предъявления',
 }
 
 $(function(){
 
+  console.log('Сенсо-моторный уровень!')
+
   for (let hint in hints){
-    $('.buttons').append(`<div class="col-md-auto"><button class="btn btn-score ${colors[hint].name}" value=${hint} data-tooltip='${hints[hint]}'>${hint}</button></div>`)
+    $('.buttons').append(`<div class="col-auto col-sm-auto col-md-auto"><button class="scores-btn ${colors[hint].name}" value=${hint} data-tooltip='${hints[hint]}'>${hint}</button></div>`)
   }
 
   let i = 0;
+  console.log($('.state-table tr'))
+    const scores = $('.state-table').attr('data-scores')
+    for (let i in pairsOfSounds){
+        console.log('scores = ',scores[i])
+        $('.state-table tr').append(`<td data-tooltip='${pairsOfSounds[i].view}' data-id=${i} data-score=${scores[i]}></td>`)
 
-  for (let i in pairsOfSounds){
-    $('.nav tr').append(`<td data-tooltip='${pairsOfSounds[i].view}' data-id=${i}></td>`)
-}
+        $(`td[data-id=${i}]`).css({
+          'background-color': scores[i] == '-' ? '#fff' : colors[scores[i]].code,
+          'transition':'background-color 0.3s ease-out',
+        })
+    }
+
 
   $('#text').text(pairsOfSounds[i].view)
-  $('td:first-child').addClass('.active-cell')
 
-  $('.btn-score').on('click',function(e){
+  $('.state-table tr td:first-child').addClass('active-cell')
+
+  $('.scores-btn').on('click',function(e){
 
     e.preventDefault()
 
-    $(`td[data-id=${i}]`).removeClass('.active-cell')
+    $(`td[data-id=${i}]`).attr('data-score', e.target.value)
+
+    $(`td[data-id=${i}]`).removeClass('active-cell')
 
     $(`td[data-id=${i}]`).css({
       'background-color': colors[e.target.value].code,
@@ -104,7 +117,7 @@ $(function(){
         // $('td').removeClass('active')
         // return;
       };
-      $(`td[data-id=${i}]`).addClass('.active-cell')
+      $(`td[data-id=${i}]`).addClass('active-cell')
       $('#text').css({
         'margin-left':200,
       })
@@ -122,8 +135,8 @@ $(function(){
   $('td').on('click', function(e){
     const id = $(e.target).attr('data-id')
     i = id
-    $(`td`).removeClass('.active-cell')
-    $(`td[data-id=${id}]`).addClass('.active-cell')
+    $(`td`).removeClass('active-cell')
+    $(`td[data-id=${id}]`).addClass('active-cell')
     $('#text').text(pairsOfSounds[id].view).animate({
       'margin-left': -200,
       opacity: 0.0,

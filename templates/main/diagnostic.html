@@ -11,20 +11,20 @@
 {% endblock js %}
 
 {% block info_diagnostic %}
-    <div class="container justify-content-center">
-        <div class="row w-100">
-            <div class="col-md-3 col-sm-3">
-                <p class='mt-3 text-muted'><b>Ученик:</b> {{ diagnostic.pupil }}</p>
-            </div>
-            <div class="col-md-5 col-sm-5">
-                <p class='mt-3 text-muted'><b>Дата обследования:</b> {{ diagnostic.date_of_creation }}</p>
-            </div>
-            <div class="col-md-4 col-sm-4">
-                <p class='mt-3 text-muted'><b>Текущий класс:</b> {{ diagnostic.current_class }} класс</p>
-            </div>
+    <div class="d-flex my-2 my-md-0 mr-md-3">
+        <div class="navbar-text mx-3">
+            <p class='text-muted m-0'><b>Ученик:</b> </p>
+            <p class='text-muted m-0'> {{ diagnostic.pupil }}</p>
+        </div>
+        <div class="navbar-text mx-3">
+            <p class='text-muted m-0'><b>Дата обследования:</b></p>
+            <p class='text-muted m-0'>{{ diagnostic.date_of_creation }}</p>
+        </div>
+        <div class="navbar-text mx-3">
+            <p class='text-muted m-0'><b>Текущий класс:</b></p>
+            <p class='text-muted m-0'>{{ diagnostic.current_class }} класс</p>
         </div>
     </div>
-
 {% endblock %}
 
 {% block content %}
@@ -53,7 +53,7 @@
                 </div>
             </form>
         </div>
-        <div class="row fixed-bottom bg-light">
+        <div class="fixed-bottom bg-light">
             <div class="container">
                 <div class="row pt-2 pb-2">
                     <button class="btn btn-success ml-3" id="save-diag" type="submit">Сохранить</button>

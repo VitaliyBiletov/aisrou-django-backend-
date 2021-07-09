@@ -65,13 +65,15 @@ def create_diagnostic_view(request):
             current_class=class_now
         )
         StatesOfFunctions.objects.create(diagnostic_id=diagnostic.id)
-        SensoMotorLevel.objects.create(diagnostic_id=diagnostic.id)
+        SensoMotorLevel.objects.create(diagnostic_id=diagnostic.id, phonemic_perception='-------------')
         request.session['diagnostic_id'] = diagnostic.id
         return HttpResponseRedirect(reverse('main:create_diagnostic'))
     else:
         select_pupil = Pupil.objects.get(pk=request.session['pupil_id'])
         print('GET create')
         diagnostic = Diagnostics.objects.get(id=request.session['diagnostic_id'])
+        scores = SensoMotorLevel.objects.get(diagnostic_id=diagnostic.id)
+        print(scores)
         return render(
             request,
             'main/diagnostic.html',
@@ -79,6 +81,7 @@ def create_diagnostic_view(request):
                 'form': StatesOfFunctionsForm(),
                 'headers_tab': headers_tab_keys,
                 'diagnostic': diagnostic,
+                'scores': scores.phonemic_perception,
             }
         )
 
@@ -93,10 +96,17 @@ def save_diagnostic_view(request):
         data = request.POST.copy()
         diagnostic_id = request.session['diagnostic_id']
         data['diagnostic'] = diagnostic_id
-        # print(data)
+        phonemic_perception = data['phonemicPerception']
+        data.pop('phonemicPerception')
+        print(data)
+        print('phonemic_perception = ', str(phonemic_perception))
+        print('data = ', data)
         diagnostic = Diagnostics.objects.get(pk=diagnostic_id)
-        current_state = StatesOfFunctions.objects.get(diagnostic=diagnostic)
-        form = StatesOfFunctionsForm(data, instance=current_state)
+        current_section_sof = StatesOfFunctions.objects.get(diagnostic=diagnostic)
+        current_section_sml = SensoMotorLevel.objects.get(diagnostic=diagnostic)
+        current_section_sml.phonemic_perception = phonemic_perception
+        current_section_sml.save()
+        form = StatesOfFunctionsForm(data, instance=current_section_sof)
         if form.is_valid:
             form.save()
             print("Состояние функций успешно сохранено")
@@ -111,8 +121,9 @@ def save_diagnostic_view(request):
         print(diagnostic_id)
         request.session['diagnostic_id'] = diagnostic_id
         diagnostic = Diagnostics.objects.get(pk=diagnostic_id)
-        current_state = StatesOfFunctions.objects.get(diagnostic_id=diagnostic_id)
-        form = StatesOfFunctionsForm(instance=current_state)
+        current_section_sof = StatesOfFunctions.objects.get(diagnostic_id=diagnostic_id)
+        scores = SensoMotorLevel.objects.get(diagnostic_id=diagnostic_id)
+        form = StatesOfFunctionsForm(instance=current_section_sof)
         return render(request,
                       'main/diagnostic.html',
                       {
@@ -120,6 +131,7 @@ def save_diagnostic_view(request):
                           'headers_tab': headers_tab_keys,
                           'select_pupil': Pupil.objects.get(id=diagnostic.pupil_id),
                           'diagnostic': diagnostic,
+                          'scores': scores.phonemic_perception,
                       })
 
 
