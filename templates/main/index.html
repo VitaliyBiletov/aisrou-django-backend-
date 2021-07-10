@@ -1,14 +1,10 @@
-{% extends 'layout/base.html' %}
+{% extends 'dist-layout/base.html' %}
 {% load bootstrap4 %}
 {% load static %}
 
 {% block title %}
     Главная
 {% endblock %}
-
-{% block js %}
-    <script type="text/javascript" src="{% static 'main/js/index.js' %}"></script>
-{% endblock js %}
 
 {% block content %}
 
@@ -30,8 +26,8 @@
                     <input id="date_of_creation" name="date_of_creation" type="date" class="form-control">
                 </div>
                 <div class="d-flex flex-column">
-                    <button class="btn btn-success mt-2" id="create-diag" formaction='{% url 'main:create_diagnostic' %}'>Создать</button>
-                    <button class="btn btn-primary mt-2" id="open-list-diag" formaction='{% url 'main:list_diagnostics' %}'>Список обследований</button>
+                    <button class="btn menu-btn btn-success mt-2" id="create-diag" formaction='{% url 'main:create_diagnostic' %}'>Создать</button>
+                    <button class="btn menu-btn btn-primary mt-2" id="open-list-diag" formaction='{% url 'main:list_diagnostics' %}'>Список обследований</button>
                 </div>
             </form>
         </div>
