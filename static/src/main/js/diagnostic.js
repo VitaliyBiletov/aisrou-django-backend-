@@ -1,5 +1,6 @@
+import Noty from 'noty'
 
-console.log('оК!')
+
 $('#diagnosticTabs a').on('click', function (e) {
   e.preventDefault()
   $(this).tab('show')
@@ -38,6 +39,18 @@ $('#save-diag').on('click',function (e) {
         success: function (data)   {
             $('#save-diag').removeClass('btn-danger')
             $('#save-diag').addClass('btn-success')
+            new Noty({
+                type: "success",
+                layout: 'topRight',
+                theme: 'bootstrap-v4',
+                timeout: 700,
+                animation: {
+                    open: 'animate__animated animate__backInRight animate__faster', // Animate.css class names
+                    close: 'animate__animated animate__fadeOutUp animate__faster' // Animate.css class names
+                },
+                progressBar: false,
+                text: 'Изменения сохранены',
+            }).show()
         }
     })
 })
