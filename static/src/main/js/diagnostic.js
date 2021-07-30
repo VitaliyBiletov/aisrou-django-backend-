@@ -1,22 +1,21 @@
 import Noty from 'noty'
 
+// $('#diagnosticTabs a').on('click', function (e) {
+//   e.preventDefault()
+//   $(this).tab('show')
+// })
 
-$('#diagnosticTabs a').on('click', function (e) {
-  e.preventDefault()
-  $(this).tab('show')
-})
-
-$('.nav .nav-item:first-child>a').addClass('active')
-
-$('.nav').find("a").on('click', function (e) {
-    const target = e.target.getAttribute('data-name')
-    try{
-       import(`./${target}`)
-    }catch (e) {
-        console.error(e)
-    }
-
-})
+// $('.nav .nav-item:first-child>a').addClass('active')
+//
+// $('.nav').find("a").on('click', function (e) {
+//     const target = e.target.getAttribute('data-name')
+//     try{
+//        import(`./${target}`)
+//     }catch (e) {
+//         console.error(e)
+//     }
+//
+// })
 
 //Сохранение диагностики (нажатие кнопки Сохранить) ajax-запрос
 $('#save-diag').on('click',function (e) {

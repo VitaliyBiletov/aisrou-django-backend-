@@ -24,28 +24,18 @@
 {% endblock %}
 
 {% block content %}
-    <div class="row mt-2 border-bottom">
-        <div class="col">
-             <ul class="nav nav-pills mt-1 pb-1" id="diagnosticTabs">
-            {% for key,value in headers_tab %}
-                <li class="nav-item">
-                    <a class="nav-link" data-name="{{ key }}" href="#{{ key }}">{{ value }}</a>
-                </li>
-            {% endfor %}
-            </ul>
-        </div>
-    </div>
+
     <div class="row">
         <div class="col mb-5">
+            <div class="row">
+                <div class="col">
+                    <div class="diagnostic-nav"></div>
+                </div>
+            </div>
             <form id="diagnostic-form" method="POST" action="{% url 'main:save_diagnostic' %}">
                 {% csrf_token %}
-                <div class="tab-content mt-3">
-                    <div class="tab-pane active" id="state_functions" role="tabpanel" aria-labelledby="state-functions-tab">
-                        {% include 'main/state_of_functions.html' %}
-                    </div>
-                    <div class="tab-pane" id="senso_motor_level" role="tabpanel" aria-labelledby="senso-motor-level-tab">
-                        {% include 'main/senso_motor_level.html' %}
-                    </div>
+                <div id='diagnostic-container' class="tab-content mt-3">
+
                 </div>
             </form>
         </div>

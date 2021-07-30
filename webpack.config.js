@@ -8,7 +8,7 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, "static", "dist"),
-        filename: '[name]/js/index.[contenthash].js',
+        filename: 'js/[name].[contenthash].js',
     },
     plugins: [
         new CleanWebpackPlugin(),
@@ -21,6 +21,14 @@ module.exports = {
     ],
     module: {
         rules: [
+            {
+                test: /\.(js|jsx)?$/, // определяем тип файлов
+                exclude: /(node_modules)/,  // исключаем из обработки папку node_modules
+                loader: "babel-loader",   // определяем загрузчик
+                options:{
+                    presets:["@babel/preset-env", "@babel/preset-react"]    // используемые плагины
+                }
+            },
             {
                 test: /\.s[ac]ss$/i,
                 use: [
