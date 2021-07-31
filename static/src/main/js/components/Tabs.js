@@ -42,29 +42,21 @@ export default class Tabs extends React.Component {
 
         $(`.btn`).removeClass('active')
         $(`.btn[data-index=${id}]`).addClass('active')
-
-        console.log(this.state)
-    }
-
-    componentDidMount() {
-        const [activeItem] = this.state.items.filter(item => item.active)
-        $(`.btn[data-index=${activeItem.id }]`).addClass('active')
     }
 
     render() {
         const [activeItem] = this.state.items.filter(item => item.active)
-        console.log('active ', activeItem)
         return (
             <React.Fragment>
                     <ul className="nav nav-pills mt-1 pb-1" id='diagnosticTabs'>
-                    {this.state.items.map((n, i)=>(
+                    {this.state.items.map((item, i)=>(
                         <li key={i} className="nav-item">
                             <button
                                 type="button"
-                                className='btn btn-light m-1'
+                                className={`btn btn-light m-1 ${activeItem.id == item.id ? 'active' : ''}`}
                                 data-index={i}
                                 onClick={this.openTab}
-                            >{n.title}</button>
+                            >{item.title}</button>
                         </li>
                     ))}
                     </ul>
