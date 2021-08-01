@@ -23,7 +23,7 @@ export default class PhonemicPerception extends React.Component {
         { id: 10, text: 'Ца-са-ца | Са-ца-са', value: null, color: null, active: false },
         { id: 11, text: 'Ча-тя-ча | Тя-ча-тя', value: null, color: null, active: false },
         { id: 12, text: 'Ра-ла-ра | Ла-ра-ла', value: null, color: null, active: false },
-      ]
+      ],
     }
   }
 
@@ -38,29 +38,49 @@ export default class PhonemicPerception extends React.Component {
       })
 
     this.setState({
-      pairsOfSound: newPairsOfSound
+      pairsOfSound: newPairsOfSound,
     })
   }
 
-  setValue = (value, color) => {
-    const newPairsOfSound = this.state.pairsOfSounds.map(pair => {
-        if (pair.active){
-          pair.value = +value
-          pair.color = color
-        }
-        return pair
-      })
+  // setValue = (value, color) => {
+  //   const newPairsOfSound = this.state.pairsOfSounds.map(pair => {
+  //       if (pair.active){
+  //         pair.value = +value
+  //         pair.color = color
+  //       }
+  //       return pair
+  //     })
+  //
+  //   this.setState({
+  //     pairsOfSound: newPairsOfSound,
+  //   })
+  // }
 
-    this.setState({
-      pairsOfSound: newPairsOfSound
+  setValue = (value, color) => {
+    const [activePair] = this.state.pairsOfSounds.filter(pair => pair.active)
+    const activeId = activePair.id
+    const nextActiveId = activeId == this.state.pairsOfSounds.length - 1 ? 0 : activeId + 1
+    const updatedPairsOfSounds = this.state.pairsOfSounds.map(pair => {
+      if (pair.active){
+        pair.value = +value
+        pair.color = color
+      }
+      if (pair.id == nextActiveId){
+        pair.active = true
+        return pair
+      }
+      pair.active = false
+      return pair
     })
+    this.setState({pairsOfSounds: updatedPairsOfSounds})
+    console.log(this.state.pairsOfSounds)
   }
 
   render() {
     return (
-      <div className='phonemicPerceptionContainer'>
+      <div className='phonemicPerception'>
         <p className="col-md-auto heading px-3">{ this.name }</p>
-        <div className='phonemicPerception'>
+        <div className='phonemicPerceptionContainer'>
           <StatusBar setActivePair={ this.setActivePair } pairsOfSound={ this.state.pairsOfSounds }/>
           <Text pairsOfSound={ this.state.pairsOfSounds } />
           <Buttons setValue={ this.setValue }/>

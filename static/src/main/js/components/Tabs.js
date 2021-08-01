@@ -1,5 +1,4 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import PhonemicPerception from './sensoMotorLevel/phonemicPerception/PhonemicPerception'
 
 const TabContent = ({title, content}) => (

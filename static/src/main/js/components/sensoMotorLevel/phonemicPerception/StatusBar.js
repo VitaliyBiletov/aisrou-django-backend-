@@ -1,5 +1,6 @@
 import React from 'react'
 import $ from 'jquery'
+import 'animate.css/animate.css'
 
 export default class StatusBar extends React.Component{
     constructor(props) {
