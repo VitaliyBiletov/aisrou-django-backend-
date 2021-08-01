@@ -1,4 +1,7 @@
 import React from "react"
+import $ from "jquery";
+
+
 
 export default class Buttons extends React.Component {
     constructor(props) {
@@ -15,12 +18,24 @@ export default class Buttons extends React.Component {
     }
 
     onClick = e => {
-       e.preventDefault()
-       const [{colorName}] = this.state.buttonsInfo.filter(b => b.value == e.target.value)
-       this.setValue(e.target.value, colorName)
+        e.preventDefault()
+        const [{colorName}] = this.state.buttonsInfo.filter(b => b.value == e.target.value)
+        $('#text').animate({
+            opacity: 0,
+            marginLeft: -150
+        }, 100, () => {
+            this.setValue(e.target.value, colorName)
+            $('#text').css({
+                marginLeft: 150
+            }).animate({
+                opacity: 1,
+                marginLeft: 0
+            }, 100)
+        })
     }
 
     render() {
+
         return (
             <div className="row justify-content-center mt-3">
                 <div className='buttonsContainer col-auto col-sm-auto col-md-auto'>

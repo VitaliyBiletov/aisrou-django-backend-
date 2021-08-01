@@ -1,6 +1,5 @@
 import React from 'react'
 import $ from 'jquery'
-import 'animate.css/animate.css'
 
 export default class StatusBar extends React.Component{
     constructor(props) {
@@ -10,7 +9,18 @@ export default class StatusBar extends React.Component{
 
     handleClick = e => {
         const id = e.target.getAttribute('data-id')
-        this.props.setActivePair(id)
+        $('#text').animate({
+            opacity: 0,
+            marginLeft: -150
+        }, 100, () => {
+            this.props.setActivePair(id)
+            $('#text').css({
+                marginLeft: 150
+            }).animate({
+                opacity: 1,
+                marginLeft: 0
+            }, 100)
+        })
     }
 
     render() {

@@ -2,6 +2,7 @@ import React from 'react'
 import StatusBar from "./StatusBar";
 import Buttons from './Buttons'
 import Text from './Text'
+import $ from "jquery";
 
 
 export default class PhonemicPerception extends React.Component {
@@ -42,20 +43,6 @@ export default class PhonemicPerception extends React.Component {
     })
   }
 
-  // setValue = (value, color) => {
-  //   const newPairsOfSound = this.state.pairsOfSounds.map(pair => {
-  //       if (pair.active){
-  //         pair.value = +value
-  //         pair.color = color
-  //       }
-  //       return pair
-  //     })
-  //
-  //   this.setState({
-  //     pairsOfSound: newPairsOfSound,
-  //   })
-  // }
-
   setValue = (value, color) => {
     const [activePair] = this.state.pairsOfSounds.filter(pair => pair.active)
     const activeId = activePair.id
@@ -73,7 +60,6 @@ export default class PhonemicPerception extends React.Component {
       return pair
     })
     this.setState({pairsOfSounds: updatedPairsOfSounds})
-    console.log(this.state.pairsOfSounds)
   }
 
   render() {
