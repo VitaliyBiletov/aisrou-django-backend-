@@ -15,24 +15,13 @@
     {% bootstrap_javascript jquery='full' %}
 </head>
 <body>
-    <nav class="d-flex flex-column top-nav justify-content-between flex-md-row align-items-center p-1 px-md-4 mb-3 bg-light border-bottom box-shadow">
-            <a class="navbar-brand" href="/">АИС РОУ</a>
-            {% block info_diagnostic %}{% endblock %}
-            <div class="d-flex align-items-center flex-md-row flex-column">
-                {% if user.is_authenticated %}
-                <p class="navbar-text text-dark m-0">
-                  {{ user }}
-                </p>
-                    <a class="nav-link" href="{% url 'main:logout' %}">Выход</a>
-                {% else %}
-                    <a class="nav-link" href="{% url 'main:login' %}">Вход</a>
-                {% endif %}
-            </div>
-    </nav>
-        <div class="container">
+    <div class="main">
+        <div class="nav-top d-flex bg-dark text-light justify-content-between">
+                {% block diagnostic_info %}{% endblock %}
+        </div>
         {% block content %}
         {% endblock %}
-        </div>
+    </div>
 </body>
 </html>
 

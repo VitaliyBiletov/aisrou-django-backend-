@@ -6,11 +6,26 @@ import PhonemicPerception from "./components/sensoMotorLevel/phonemicPerception/
 class App extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            stateOfFunctions: {
+                'hearing':'','vision':'','breath':'','voice':'',
+                'prosody':'','articulation_apparatus':'',
+                'motor_skills':'','additional_information':''
+            }
+        }
+    }
+
+    showState = e => {
+        e.preventDefault()
+        console.log(this.state)
     }
 
     render() {
         return (
-            <Tabs />
+            <React.Fragment>
+                <Tabs/>
+                <button className='btn btn-secondary' onClick={showState}>Отправить</button>
+            </React.Fragment>
         )
     }
 }

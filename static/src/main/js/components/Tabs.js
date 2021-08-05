@@ -1,9 +1,9 @@
 import React from 'react'
 import PhonemicPerception from './sensoMotorLevel/phonemicPerception/PhonemicPerception'
+import StateOfFunctions from "./stateOfFunctions/StateOfFunctions";
 
 const TabContent = ({title, content}) => (
     <div className='tabContent'>
-        <p className='tabContentTitle h1'>{title}</p>
         <div className='tabContentContainer'>{content}</div>
     </div>
 )
@@ -13,8 +13,8 @@ export default class Tabs extends React.Component {
         super(props);
         this.state = {
             items: [
-                {id: 0, title: 'Состояние функций', content: 'Пример1', active: false},
-                {id: 1, title: 'Сенсо-моторный уровень', content: <PhonemicPerception/>, active: true},
+                {id: 0, title: 'Состояние функций', content: <StateOfFunctions />, active: true},
+                {id: 1, title: 'Сенсо-моторный уровень', content: <PhonemicPerception name='Фонематическое восприятие'/>, active: false},
                 {id: 2, title: 'Грамматический строй речи', content: 'Пример3', active: false},
                 {id: 3, title: 'Словарный запас', content: 'Пример4', active: false},
                 {id: 4, title: 'Связная речь', content: 'Пример5', active: false},
@@ -47,19 +47,16 @@ export default class Tabs extends React.Component {
         const [activeItem] = this.state.items.filter(item => item.active)
         return (
             <React.Fragment>
-                    <ul className="nav nav-pills mt-1 pb-1" id='diagnosticTabs'>
+                <div className='diag-nav'>
                     {this.state.items.map((item, i)=>(
-                        <li key={i} className="nav-item">
-                            <button
-                                type="button"
-                                className={`btn btn-light m-1 ${activeItem.id == item.id ? 'active' : ''}`}
-                                data-index={i}
-                                onClick={this.openTab}
-                            >{item.title}</button>
-                        </li>
+                        <a
+                            key={i}
+                            className={`${activeItem.id == item.id ? 'active' : ''}`}
+                            data-index={i}
+                            onClick={this.openTab}
+                        >{item.title}</a>
                     ))}
-                    </ul>
-                <hr/>
+                </div>
                 <TabContent {...activeItem}/>
             </React.Fragment>
         )

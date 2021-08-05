@@ -12,11 +12,9 @@ export default class Text extends React.Component {
     render() {
         const [ activePair ] = this.pairsOfSounds.filter( pair => pair.active )
         return (
-            <div className={`row justify-content-md-center mt-5 wrapper`}>
-              <div className={`col-md-auto`}>
+              <div className='text-container'>
                 <p id="text">{ activePair.text }</p>
               </div>
-            </div>
         )
     }
 }
