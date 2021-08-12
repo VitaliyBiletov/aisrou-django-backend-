@@ -2,44 +2,13 @@
 @import "~noty/src/noty"
 @import "~noty/src/themes/bootstrap-v4"
 @import "~noty/lib/noty.css"
+@import "./diagnostic/nav-top"
 
 $heightPhonemic : 300px
+$minWidth: 1100px
 
-.main
-  min-width: 1100px
-
-.nav-top
-  .navbar-brand
-    color: #fff
-    border: 4px solid white
-    padding: 0px 15px
-    margin: 5px 10px
-    text-shadow: 1px 1px black
-  .logout
-    height: 100%
-    a
-      color: #fff
-      background-color: #945050
-      display: flex
-      align-items: center
-      width: 100%
-      height: 100%
-      padding: 0 15px
-      transition: background-color 500ms
-      &:hover
-        text-decoration: none
-        background-color: #934545
-        text-shadow: 1px 1px black
-      &:active
-        background-color: #8b3434
-
-.username
-  display: flex
-  background: #424950
-  height: 100%
-  align-items: center
-  color: #fff
-  text-shadow: 1px 1px black
+body
+  min-width: $minWidth
 
 #list-diagnostics
   overflow-y: auto
@@ -82,239 +51,29 @@ $heightPhonemic : 300px
       height: 6em
       box-shadow: 0px 0px 5px 1px #945050
 
-/*------------
-
-.diag-nav
-  display: block
-  text-align: center
-  background: #f1f1f1
-  height: 100%
-  border-bottom: 1px solid #d5d5d5
-  a
-    display: inline-block
-    font-size: 11pt
-    padding: 7px 10px
-    color: #343a40
-    transition: background-color 150ms
-    border-right: 1px solid #d5d5d5
-    &:hover
-      cursor: pointer
-      text-decoration: none
-      background: #956262
-      color: white
-      text-shadow: 0.5px 0.5px 0.5px black
-    &:last-child
-      border: none
-    &:active
-      background: #945050
-
-.active
-  background: #945050
-  color: #fff !important
-  text-shadow: 0.5px 0.5px 0.5px black
-
-.state-table
-  display: block
-  border-radius: 10px
-  -webkit-border-radius: 10px
-  -moz-border-radius: 10px
-  -khtml-border-radius: 10px
-  border: 1px solid #385874
-  padding: 3px
-  background: #385874
-
-  td
-    width: 50px
-    height: 50px
-    border-top: none !important
-    border-right: none
-    box-shadow: inset 0px 0px 2px 1px black
-    transition: 0.1s
-    background: white
-
-    &:hover
-      box-shadow: inset 0px 0px 5px 2px black
-      cursor: pointer
-
-    &:first-child
-      border-top-left-radius: 10px
-      border-bottom-left-radius: 10px
-      transition: 0.1s
-
-      &:hover
-        box-shadow: inset 0px 0px 5px 2px black
-
-    &:last-child
-      border-top-right-radius: 10px
-      border-bottom-right-radius: 10px
-      border-right: none
-      transition: 0.1s
-
-      &:hover
-        box-shadow: inset 0px 0px 5px 2px black
-
-.text-container
-  margin-top: 25px
-
-#text
-  font-size: 25pt
-  background-color: #e5f3ff
-  padding: 10px 50px
-  text-align: center
-  border-radius: 10px
-  color: #385874
-  font-weight: bold
-
-#left a, #right a
-  text-decoration: none
-
-.scores-btn
-  font-size: 16pt
-  opacity: 0.9
-  margin-top: 0px
-  width: 4em
-  text-shadow: 1px 1px 2px black
-  color: #fff
-  border: none
-  border-radius: 10px
-  outline: none !important
-  transition: 300ms
-  &:hover
-    opacity: 1
-    transform: scale(1.1)
-  &:active
-    transform: scale(0.7)
-
-.red
-  background-color: #ff4040 !important
-
-.yellow
-  background-color: #f9ff50 !important
-
-.blue
-  background-color: #2099ff !important
-
-.green
-  background-color: #5eaf5e !important
-
-[data-tooltip]
-  position: relative
-
-  &::after
-    content: attr(data-tooltip)
-    position: absolute
-    width: 80px
-    left: 0px
-    top: 0
-    background: #28c0ff
-    font-size: 7pt
-    color: #fff
-    text-shadow: 1px 1px black
-    border-radius: 5px
-    padding: 0.3em
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3)
-    pointer-events: none
-    opacity: 0
-    text-align: center
-    transition: 0.3s
-
-  &:hover::after
-    opacity: 1
-    top: 6em
-
-.active-cell
-  box-shadow: inset 0px 0px 5px 2px black !important
-
-#left a, #right a
-  text-decoration: none
-
-/*---------------*/
-.phonemicPerception
-  width: 700px
-  height: $heightPhonemic
+//form-create-diag
+.form-diagnostic
+  width: 500px
   margin: 20px auto
-  box-shadow: 0px 0px 2px black
-
-.phonemicPerceptionContainer
-  display: flex
-  flex-direction: column
-  width: 640px
-  margin: 15px auto
-
-.heading
-  color: #fff
-  background: #343a40
-  text-align: center
-
-.helpContainer
-  width: 150px
-  height: 270px
-  position: absolute
-  right: -160px
-  top: 30px
   border: 1px solid gray
-  background: #fff
-  box-shadow: 1px 1px 1px black
-
-.helpIcon
-  position: absolute
-  top: -10px
-  right: -15px
-  background: #278dff
-  color: #fff
-  display: block
-  height: 40px
-  width: 40px
-  border-radius: 30px
-  margin: 0 auto
-  font-size: 19pt
-  font-weight: bold
-  text-align: center
-  cursor: pointer
-  transition: 150ms
-  &:hover
-    transform: scale(1.1)
-  &:active
-    transform: scale(1)
-
-
-
-//help
-.hints
-  display: flex
-  flex-direction: column
-
-.hint
-  display: flex
-  flex-direction: row
-  padding: 5px
-  border-top: 1px solid gray
-  &:first-child
-    border: none
-
-.color-hint
-  flex: none
-  width: 1em
-  height: 1em
-  margin: auto 0
   border-radius: 10px
+  .title
+    padding: 5px 10px
+    background-color: #424950
+    color: #fff
+    border-top-left-radius: 10px
+    border-top-right-radius: 10px
+  select
+    overflow: hidden
+    border-radius: 5px
+    &:active
+      outline: none
+    &:focus
+      outline: none
+    option
+      padding: 5px
+      &:active
+        background: red!important
 
-.text-hint
-  text-align: justify
-  margin-left: 10px
-  font-size: 7pt
-
-.closeHelp
-  position: absolute
-  right: -11px
-  top: -11px
-  text-align: center
-  width: 20px
-  height: 20px
-  font-size: 10pt
-  border-radius: 9px
-  color: white
-  font-weight: bold
-  cursor: pointer
-  &:hover
-    background-color: #e23a3a !important
+.form-container
+  margin: 30px

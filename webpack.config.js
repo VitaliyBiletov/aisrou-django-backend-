@@ -5,6 +5,7 @@ const HTMLWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
     entry: {
         main: '/static/src/main/js/index',
+        diagnostic: '/static/src/main/js/index-diagnostic'
     },
     output: {
         path: path.resolve(__dirname, "static", "dist"),
@@ -14,9 +15,17 @@ module.exports = {
         new CleanWebpackPlugin(),
         new HTMLWebpackPlugin({
             title: 'main',
-            filename: path.resolve(__dirname,'templates', 'dist-layout','base.html'),
-            template: path.resolve(__dirname,'templates','layout','base.html'),
+            filename: path.resolve(__dirname,'templates', 'dist','index.html'),
+            template: path.resolve(__dirname,'templates','main','index.html'),
             cache: false,
+            chunks: ['main']
+        }),
+        new HTMLWebpackPlugin({
+            title: 'diagnostic',
+            filename: path.resolve(__dirname,'templates', 'dist','diagnostic.html'),
+            template: path.resolve(__dirname,'templates','main','diagnostic.html'),
+            cache: false,
+            chunks: ['diagnostic']
         }),
     ],
     module: {
@@ -43,7 +52,12 @@ module.exports = {
             {
                 test: /\.css$/i,
                 use: ["style-loader", "css-loader"],
-            }
+            },
+            {
+                test: /\.json/,
+                type: 'javascript/auto',
+                use: ['json-loader'],
+              },
         ]
     },
 }

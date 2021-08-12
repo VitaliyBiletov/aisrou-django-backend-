@@ -1,37 +1,36 @@
-{% extends 'dist-layout/base.html' %}
 {% load bootstrap4 %}
 {% load static %}
 
-{% block title %}
-    Главная
-{% endblock %}
-
-{% block content %}
-
-    <div class="row justify-content-center mt-3">
-        <div class="col-md-5 text-center">
-            <form id="main-form" method="POST">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label for="list_pupils">Выберите учащегося:</label>
-                    <select name="pupil_id" id="list_pupils" class="form-control">
-                        <option value="default">---------</option>
-                        {% for item in logo_group_for_user %}
-                            <option value="{{ item.id }}">{{ item.pupil }}</option>
-                        {% endfor %}
-                    </select>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type"
+          content="text/html"
+          charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}Главная{% endblock %}</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+</head>
+<body>
+    <div id="main">
+        <div class="nav-top d-flex bg-dark text-light justify-content-between">
+            <a class="navbar-brand" href="/">АИС РОУ</a>
+            <div class="d-flex align-items-center">
+                {% if user.is_authenticated %}
+                <div class="username px-3">
+                  {{ user }}
                 </div>
-                <div class="form-group">
-                    <label for="date_of_creation">Дата заполнения:</label>
-                    <input id="date_of_creation" name="date_of_creation" type="date" class="form-control">
+                <div class="logout">
+                    <a href="{% url 'main:logout' %}">Выход</a>
                 </div>
-                <div class="d-flex flex-column">
-                    <button class="btn menu-btn btn-success mt-2" id="create-diag" formaction='{% url 'main:create_diagnostic' %}'>Создать</button>
-                    <button class="btn menu-btn btn-primary mt-2" id="open-list-diag" formaction='{% url 'main:list_diagnostics' %}'>Список обследований</button>
-                </div>
-            </form>
+                {% endif %}
+            </div>
         </div>
+        <div id="content"></div>
     </div>
+</body>
+</html>
 
-{% endblock content%}
-
+{% block js %}{% endblock js %}

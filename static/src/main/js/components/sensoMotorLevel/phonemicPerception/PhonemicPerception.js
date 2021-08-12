@@ -5,66 +5,51 @@ import Text from './Text'
 import Help from './Help'
 import 'animate.css/animate.css'
 import classNames from 'classnames'
-import $ from "jquery";
+import { pairsOfSounds } from './pairsOfSounds.json'
 
+const colors = ['red', 'yellow', 'blue', 'green']
 
 export default class PhonemicPerception extends React.Component {
   constructor(props) {
     super(props)
     this.title = props.name
+    this.updateState = props.updateState
     this.state = {
-      pairsOfSounds: [
-        { id: 0, text: 'Ба-па | Па-ба', value: null, color: null, active: true },
-        { id: 1, text: 'Са-за | За-са', value: null, color: null, active: false },
-        { id: 2, text: 'Жа-ша | Ша-жа', value: null, color: null, active: false },
-        { id: 3, text: 'Са-ша | Ша-са', value: null, color: null, active: false },
-        { id: 4, text: 'Ла-ра | Ра-ла', value: null, color: null, active: false },
-        { id: 5, text: 'Ма-на-ма | На-ма-на', value: null, color: null, active: false },
-        { id: 6, text: 'Га-ка-га | Ка-га-ка', value: null, color: null, active: false },
-        { id: 7, text: 'За-са-за | Са-за-са', value: null, color: null, active: false },
-        { id: 8, text: 'Жа-ша-жа | Ша-жа-ша', value: null, color: null, active: false },
-        { id: 9, text: 'Са-ша-са | Ша-са-ша', value: null, color: null, active: false },
-        { id: 10, text: 'Ца-са-ца | Са-ца-са', value: null, color: null, active: false },
-        { id: 11, text: 'Ча-тя-ча | Тя-ча-тя', value: null, color: null, active: false },
-        { id: 12, text: 'Ра-ла-ра | Ла-ра-ла', value: null, color: null, active: false },
-      ],
+      pairsOfSounds: this.props.getState('sensoMotorLevel').phonemicPerception,
+      activePairId: 0,
       helpVisible: false,
       isClose: false,
     }
   }
 
   setActivePair = (id) => {
-    const newPairsOfSound = this.state.pairsOfSounds.map(pair => {
-        if (pair.id == id){
-          pair.active = true
-        } else {
-          pair.active = false
-        }
-        return pair
-      })
-
-    this.setState({
-      pairsOfSound: newPairsOfSound,
-    })
+    this.setState({activePairId: id})
   }
 
-  setValue = (value, color) => {
-    const [activePair] = this.state.pairsOfSounds.filter(pair => pair.active)
-    const activeId = activePair.id
-    const nextActiveId = activeId == this.state.pairsOfSounds.length - 1 ? 0 : activeId + 1
-    const updatedPairsOfSounds = this.state.pairsOfSounds.map(pair => {
-      if (pair.active){
-        pair.value = +value
-        pair.color = color
+  setValue = (value) => {
+    const activePairId = this.state.activePairId
+    const nextActiveId = activePairId == pairsOfSounds.length - 1 ? 0 : activePairId + 1
+    const newState = this.state.pairsOfSounds.map(pair => {
+      if (pair.id == activePairId){
+       return { id: pair.id, value: +value}
       }
       if (pair.id == nextActiveId){
-        pair.active = true
-        return pair
+        this.setState({ activePairId: pair.id })
       }
-      pair.active = false
       return pair
     })
-    this.setState({pairsOfSounds: updatedPairsOfSounds})
+
+    this.setState({pairsOfSounds: newState})
+
+    const phonemicPerception = this.state.pairsOfSounds.map(({id, value}) => {
+      return {id, value}
+    })
+
+    this.updateState(
+        {
+          sensoMotorLevel: { phonemicPerception: phonemicPerception }
+        }
+    )
   }
 
   openHelp = e => {
@@ -82,21 +67,22 @@ export default class PhonemicPerception extends React.Component {
   }
 
   render() {
-
     const classes = classNames({
       'helpContainer': true,
-      'animated': true,
-      'flipInY': this.state.helpVisible,
-      'flipOutY': this.state.isClose,
+      'animate__animated': true,
+      'animate__flipInY': this.state.helpVisible,
+      'animate__flipOutY': this.state.isClose,
     })
 
+    const activePair = pairsOfSounds.find((pair) => pair.id == this.state.activePairId)
+
     return (
-      <div className='phonemicPerception'>
+      <div className='phonemic-perception'>
         <div className="heading">{ this.title }</div>
         <div onClick={this.openHelp} className='helpIcon'>?</div>
-        <div className='phonemicPerceptionContainer'>
-          <StatusBar setActivePair={ this.setActivePair } pairsOfSound={ this.state.pairsOfSounds }/>
-          <Text pairsOfSound={ this.state.pairsOfSounds } />
+        <div className='phonemic-perception-container'>
+          <StatusBar pairsOfSounds={this.state.pairsOfSounds} setActivePair={ this.setActivePair } activePairId={ this.state.activePairId }/>
+          <Text activePair={ activePair } />
           <Buttons setValue={ this.setValue }/>
         </div>
         { this.state.helpVisible && (
@@ -104,7 +90,6 @@ export default class PhonemicPerception extends React.Component {
             <Help closeHelp={this.closeHelp}/>
           </div>
         )}
-
       </div>
       )
   }

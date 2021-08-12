@@ -1,4 +1,3 @@
 import './menu'
-import './App'
-import './diagnostic'
+import './components/MainMenu'
 import '../sass/style.sass'

@@ -1,21 +1,22 @@
 import React from 'react'
 import $ from 'jquery'
+import { pairsOfSounds } from './pairsOfSounds.json'
+
+const colors = ['red', 'yellow', 'blue', 'green']
 
 export default class StatusBar extends React.Component{
     constructor(props) {
         super(props)
-        this.pairsOfSound = props.pairsOfSound
     }
 
     handleClick = e => {
         const id = e.target.getAttribute('data-id')
-        const [active] = this.pairsOfSound.filter(pair => pair.active)
-        if (id != active.id){
+        if (id != this.props.activePairId){
             $('#text').animate({
                 opacity: 0,
                 marginLeft: -150
             }, 100, () => {
-                this.props.setActivePair(id)
+                this.props.setActivePair(+id)
                 $('#text').css({
                     marginLeft: 150
                 }).animate({
@@ -27,24 +28,24 @@ export default class StatusBar extends React.Component{
     }
 
     render() {
-        const [activePair] = this.pairsOfSound.filter(pair => pair.active)
         return (
             <React.Fragment>
-                  <div className="state-table-container">
-                      <table className='state-table' data-scores='{{scores}}'>
-                          <tbody>
-                            <tr>
-                                { this.pairsOfSound.map((pair)=>
-                                    <td onClick={this.handleClick}
-                                        key={pair.id}
-                                        data-tooltip={pair.text}
-                                        data-id={pair.id}
-                                        className={`${pair.color ? pair.color : '' } ${activePair.id == pair.id ? 'active-cell': ''}`}>
-                                    </td>)}
-                            </tr>
-                          </tbody>
-                      </table>
-                  </div>
+              <div className="state-table-container">
+                  <table className='state-table' data-scores='{{scores}}'>
+                      <tbody>
+                        <tr>
+                            { this.props.pairsOfSounds.map((pair)=>{
+                                return(
+                                <td onClick={this.handleClick}
+                                    key={pair.id}
+                                    data-tooltip={pairsOfSounds[pair.id].text}
+                                    data-id={pair.id}
+                                    className={`${colors[pair.value] || ''} ${ this.props.activePairId == pair.id ? 'active-cell': ''}`}>
+                                </td>)})}
+                        </tr>
+                      </tbody>
+                  </table>
+              </div>
             </React.Fragment>
         )
     }

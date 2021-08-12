@@ -1,0 +1,71 @@
+//help
+
+.helpContainer
+  width: 150px
+  height: 270px
+  position: absolute
+  right: -160px
+  top: 30px
+  border: 1px solid gray
+  background: #fff
+  box-shadow: 1px 1px 1px black
+
+.helpIcon
+  position: absolute
+  top: -10px
+  right: -15px
+  background: #278dff
+  color: #fff
+  display: block
+  height: 40px
+  width: 40px
+  border-radius: 30px
+  margin: 0 auto
+  font-size: 19pt
+  font-weight: bold
+  text-align: center
+  cursor: pointer
+  transition: 150ms
+  &:hover
+    transform: scale(1.1)
+  &:active
+    transform: scale(1)
+
+.hints
+  display: flex
+  flex-direction: column
+
+.hint
+  display: flex
+  flex-direction: row
+  padding: 5px
+  border-top: 1px solid gray
+  &:first-child
+    border: none
+
+.color-hint
+  flex: none
+  width: 1em
+  height: 1em
+  margin: auto 0
+  border-radius: 10px
+
+.text-hint
+  text-align: justify
+  margin-left: 10px
+  font-size: 7pt
+
+.closeHelp
+  position: absolute
+  right: -11px
+  top: -11px
+  text-align: center
+  width: 20px
+  height: 20px
+  font-size: 10pt
+  border-radius: 9px
+  color: white
+  font-weight: bold
+  cursor: pointer
+  &:hover
+    background-color: #e23a3a !important

@@ -21,7 +21,6 @@ class StatesOfFunctionsForm(forms.ModelForm):
                   'prosody',
                   'articulation_apparatus',
                   'motor_skills',
-                  'additional_information',
                   )
         widgets = {
             'diagnostic': forms.HiddenInput(),

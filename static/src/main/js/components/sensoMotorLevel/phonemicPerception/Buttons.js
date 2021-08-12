@@ -2,16 +2,17 @@ import React from "react"
 import $ from "jquery";
 import classNames from 'classnames'
 
+const colors = ['red', 'yellow', 'blue', 'green']
 
 export default class Buttons extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             buttonsInfo: [
-                {id: 0, value: 0, colorName:'red' },
-                {id: 1, value: 1, colorName:'yellow' },
-                {id: 2, value: 2, colorName:'blue' },
-                {id: 3, value: 3, colorName:'green' },
+                { value: 0 },
+                { value: 1 },
+                { value: 2 },
+                { value: 3 },
             ],
         }
         this.setValue = this.props.setValue
@@ -19,12 +20,11 @@ export default class Buttons extends React.Component {
 
     onClick = e => {
         e.preventDefault()
-        const [{colorName}] = this.state.buttonsInfo.filter(b => b.value == e.target.value)
         $('#text').animate({
             opacity: 0,
             marginLeft: -150
         }, 100, () => {
-            this.setValue(e.target.value, colorName)
+            this.setValue(e.target.value)
             $('#text').css({
                 marginLeft: 150
             }).animate({
@@ -40,8 +40,8 @@ export default class Buttons extends React.Component {
                 <div className='buttonsContainer col-auto col-sm-auto col-md-auto'>
                     { this.state.buttonsInfo.map(button=>(
                         <button
-                            key={button.id}
-                            className={`scores-btn ${button.colorName} mx-2`}
+                            key={button.value}
+                            className={`scores-btn ${colors[button.value]} mx-2`}
                             value={button.value}
                             onClick={this.onClick}
                         >{button.value}</button>
