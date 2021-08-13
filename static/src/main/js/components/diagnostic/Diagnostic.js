@@ -51,6 +51,13 @@ export default class Diagnostic extends React.Component {
         }
     }
 
+    componentDidMount() {
+        axios.post('/diagnostic/load-data',{
+            data: this.state
+        })
+            .then(res => this.setState(res.data.data))
+    }
+
     updateState = (newState) => {
         this.setState(newState)
     }
@@ -61,6 +68,12 @@ export default class Diagnostic extends React.Component {
 
     handleSendData = (e) => {
         axios.post('save', {'data': this.state})
+    }
+
+    handleChange = (name) => (e) => {
+        let copyState = this.state[name]
+        copyState[e.target.name] = e.target.value
+        this.setState({ [name]: copyState })
     }
 
     render() {
@@ -77,8 +90,9 @@ export default class Diagnostic extends React.Component {
                         <Switch>
                             <Route path='/diagnostic/state-of-function'>
                                 <StateOfFunctions
-                                    getState={this.getState}
+                                    getState={this.state.stateOfFunctions}
                                     updateState={this.updateState}
+                                    onChange={this.handleChange}
                                     name='Состояние функций'/>
                             </Route>
                             <Route path='/diagnostic/senso-motor-level'>

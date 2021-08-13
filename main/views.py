@@ -53,69 +53,49 @@ def diagnostic_view(request):
     diag = Diagnostics.objects.get(id=request.session['diagnostic_id'])
     pupil = Pupil.objects.get(id=diag.pupil_id)
     pupil_class = current_class(pupil.class_number, pupil.date, diag.date_of_creation)
+
     return render(request, 'dist/diagnostic.html', {
         'diag': diag,
         'pupil_class': pupil_class})
 
 
+@csrf_exempt
+def load_data(request):
+    data = json.loads(request.body)['data']
+    stateOfFunctions = StatesOfFunctions.objects.get(diagnostic_id=request.session['diagnostic_id'])
+    stateOfFunctionsDict = stateOfFunctions.__dict__
+    for i in data['stateOfFunctions']:
+        data['stateOfFunctions'][i] = stateOfFunctionsDict[i]
+    return JsonResponse({'data': data})
+
 @login_required
 @csrf_exempt
-def create_diagnostic_view(request):
+def open_diagnostic_view(request, type):
     if request.method == 'POST':
+        request.session['type'] = type
         req = json.loads(request.body)
-        selected_pupil_id = req['selected_pupil_id']['id']
-        select_pupil = Pupil.objects.get(pk=selected_pupil_id)
-        date_of_creation = req['date']['value']
-        date_of_creation = datetime.strptime(date_of_creation, "%Y-%m-%d")
-        class_now = current_class(select_pupil.class_number, select_pupil.enrollment_date, date_of_creation)
-        # request.session['current_class'] = class_now
-        diagnostic = Diagnostics.objects.create(
-            user_id=request.user.id,
-            pupil_id=select_pupil.id,
-            date_of_creation=date_of_creation,
-            current_class=class_now
-        )
-        StatesOfFunctions.objects.create(diagnostic_id=diagnostic.id)
-        SensoMotorLevel.objects.create(diagnostic_id=diagnostic.id, phonemic_perception='-------------')
-        request.session['diagnostic_id'] = diagnostic.id
-        return JsonResponse({'status':'ok'})
+        if type == 'create':
+            selected_pupil_id = req['selected_pupil_id']['id']
+            select_pupil = Pupil.objects.get(pk=selected_pupil_id)
+            date_of_creation = req['date']['value']
+            date_of_creation = datetime.strptime(date_of_creation, "%Y-%m-%d")
+            class_now = current_class(select_pupil.class_number, select_pupil.enrollment_date, date_of_creation)
+            # request.session['current_class'] = class_now
+            diagnostic = Diagnostics.objects.create(
+                user_id=request.user.id,
+                pupil_id=select_pupil.id,
+                date_of_creation=date_of_creation,
+                current_class=class_now
+            )
+            StatesOfFunctions.objects.create(diagnostic_id=diagnostic.id)
+            SensoMotorLevel.objects.create(diagnostic_id=diagnostic.id, phonemic_perception='-------------')
+            request.session['diagnostic_id'] = diagnostic.id
+            return JsonResponse({'status': 'ok'})
+        if type == 'edit':
+            id = json.loads(request.body)['id']
+            request.session['diagnostic_id'] = id
+            return JsonResponse({})
     return HttpResponse('req')
-
-    # if request.POST:
-    #     print('POST create')
-    #     request.session['pupil_id'] = request.POST['pupil_id']
-    #     # request.session['date_of_creation'] = request.GET['date_of_creation']
-    #     select_pupil = Pupil.objects.get(pk=request.session['pupil_id'])
-    #     date_of_creation = request.POST['date_of_creation']
-    #     date_of_creation = datetime.strptime(date_of_creation, "%Y-%m-%d")
-    #     class_now = current_class(select_pupil.class_number, select_pupil.enrollment_date, date_of_creation)
-    #     request.session['current_class'] = class_now
-    #     diagnostic = Diagnostics.objects.create(
-    #         user_id=request.user.id,
-    #         pupil_id=select_pupil.id,
-    #         date_of_creation=date_of_creation,
-    #         current_class=class_now
-    #     )
-    #     StatesOfFunctions.objects.create(diagnostic_id=diagnostic.id)
-    #     SensoMotorLevel.objects.create(diagnostic_id=diagnostic.id, phonemic_perception='-------------')
-    #     request.session['diagnostic_id'] = diagnostic.id
-    #     return HttpResponseRedirect(reverse('main:create_diagnostic'))
-    # else:
-    #     select_pupil = Pupil.objects.get(pk=request.session['pupil_id'])
-    #     print('GET create')
-    #     diagnostic = Diagnostics.objects.get(id=request.session['diagnostic_id'])
-    #     scores = SensoMotorLevel.objects.get(diagnostic_id=diagnostic.id)
-    #     print(scores)
-    #     return render(
-    #         request,
-    #         'main/diagnostic.html',
-    #         {
-    #             'form': StatesOfFunctionsForm(),
-    #             'headers_tab': headers_tab_keys,
-    #             'diagnostic': diagnostic,
-    #             'scores': scores.phonemic_perception,
-    #         }
-    #     )
 
 
 @csrf_exempt
@@ -143,9 +123,9 @@ def list_diags_view(request):
 @login_required
 @csrf_exempt
 def edit_diagnostic_view(request):
-    if request.GET:
-        print('Изменение GET')
-        print(request.GET)
+    if request.method == 'POST':
+        id = json.loads(request.body)['id']
+        request.session['diagnostic_id'] = id
     return JsonResponse({'status': 'ok'})
 
 
@@ -154,13 +134,12 @@ def edit_diagnostic_view(request):
 def save_diagnostic_view(request):
     response = json.loads(request.body)['data']
     d_id = request.session['diagnostic_id']
-    stateOfFunctions = StatesOfFunctions.objects.get(diagnostic_id = d_id)
 
+    stateOfFunctions = StatesOfFunctions.objects.get(diagnostic_id = d_id)
     for name in response['stateOfFunctions']:
         stateOfFunctions.__setattr__(name, response['stateOfFunctions'][name])
     stateOfFunctions.save()
 
-    print(stateOfFunctions.__dict__)
     sensoMotorLevel = SensoMotorLevel.objects.get(diagnostic_id = d_id)
     phonemic_perception = response["sensoMotorLevel"]["phonemicPerception"]
     sensoMotorLevel.phonemic_perception = json.dumps(phonemic_perception)

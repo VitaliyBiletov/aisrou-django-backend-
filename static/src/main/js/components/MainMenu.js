@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import ReactDOM from 'react-dom'
 import axios from "axios";
 import 'animate.css/animate.css'
@@ -39,8 +39,9 @@ class MainMenu extends React.Component {
             this.setState({date:
                     {...this.state.date, isInvalid: false}
             })
-            axios.post('diagnostics/create',
+            axios.post('diagnostic/create',
             {
+                'type':'create',
                 'selected_pupil_id': this.state.selectedPupil,
                 'date': this.state.date,
             })
@@ -140,17 +141,34 @@ function CreateDiagnostic(props){
 }
 
 function ListDiagnostics(props){
+    const [id, setId] = useState(null);
+
+    const handleEditDiagnostic = e => {
+        axios.post('diagnostic/edit',{'id': id})
+            .then(res => window.location = '/diagnostic')
+    }
+
+    const handleChange = e => {
+        setId(e.target.value)
+    }
+
     return (
         <div className="form-diagnostic">
             <p className='title'>Изменение (удаление) диагностики</p>
             <div className="form-container d-flex flex-column ">
                 <p>Список обследований ученика: <b>{props.selectedPupil.pupil}</b></p>
                 { props.listDiags.length > 0 ? (
-                    <select size={props.listDiags.length}>
-                        {props.listDiags.map(diag => <option key={diag.id} value={diag.id}>Дата: {diag.date}</option>)}
+                    <select
+                        size={props.listDiags.length}
+                    >
+                        {props.listDiags.map(diag => <option onClick={handleChange} key={diag.id} value={diag.id}>id: {diag.id} | Дата: {diag.date}</option>)}
                     </select> ) : <p>Обследований нет!</p> }
                 <div className="d-flex flex-row btns mt-3">
-                    <button className='btn btn-primary mr-2' disabled={props.listDiags.length > 0 ? false: true}>Изменить</button>
+                    <button
+                        className='btn btn-primary mr-2'
+                        disabled={props.listDiags.length > 0 ? false: true}
+                        onClick={handleEditDiagnostic}
+                    >Изменить</button>
                     <button className='btn btn-danger' disabled={props.listDiags.length > 0 ? false: true}>Удалить</button>
                 </div>
             </div>

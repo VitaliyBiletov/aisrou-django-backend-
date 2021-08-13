@@ -51,43 +51,43 @@ class StatesOfFunctions(models.Model):
     )
     hearing = models.TextField(
         verbose_name='Слух',
+        default='',
         blank=True,
-        null=True
     )
     vision = models.TextField(
         verbose_name='Зрение',
+        default='',
         blank=True,
-        null=True
     )
     breath = models.TextField(
         verbose_name='Дыхание',
+        default='',
         blank=True,
-        null=True
     )
     voice = models.TextField(
         verbose_name='Голос',
+        default='',
         blank=True,
-        null=True
     )
     prosody = models.TextField(
         verbose_name='Просодика',
+        default='',
         blank=True,
-        null=True
     )
     articulation_apparatus = models.TextField(
         verbose_name='Артикуляционный аппарат',
+        default='',
         blank=True,
-        null=True
     )
     motor_skills = models.TextField(
         verbose_name='Моторика',
+        default='',
         blank=True,
-        null=True
     )
     additional_information = models.TextField(
         verbose_name='Дополнительная информация',
+        default='',
         blank=True,
-        null=True
     )
 
     class Meta:
