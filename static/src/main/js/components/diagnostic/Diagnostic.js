@@ -9,6 +9,7 @@ import StateOfFunctions from "../stateOfFunctions/StateOfFunctions"
 import ReactDOM from "react-dom"
 import SensoMotorLevel from "../sensoMotorLevel/SensoMotorLevel";
 import axios from "axios";
+import $ from 'jquery'
 
 const items = [
                 {id: 0, link:'state-of-function', title: 'Состояние функций'},
@@ -52,6 +53,9 @@ export default class Diagnostic extends React.Component {
     }
 
     componentDidMount() {
+        // window.onbeforeunload = function(e) {
+        //   e.returnValue = '';
+        // };
         axios.post('/diagnostic/load-data',{
             data: this.state
         })
