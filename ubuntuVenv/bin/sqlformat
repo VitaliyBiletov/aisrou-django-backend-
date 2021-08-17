@@ -1,4 +1,4 @@
-#!/home/vitaliy/AISROUproject/mysite/ubuntuVenv/bin/python
+#!/home/vitaliybiletov/AISROUproject/mysite/ubuntuVenv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys

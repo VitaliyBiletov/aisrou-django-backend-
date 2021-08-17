@@ -1,4 +1,4 @@
-#!/home/vitaliy/AISROUproject/mysite/ubuntuVenv/bin/python
+#!/home/vitaliybiletov/AISROUproject/mysite/ubuntuVenv/bin/python3
 # When the django-admin.py deprecation ends, remove this script.
 import warnings
 
