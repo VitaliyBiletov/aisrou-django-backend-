@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+    console.log('group.js')
+
     const selectPupil = $("select[name*='pupil']")
     const selectUser = $("select[name*='custom_user']")
     const saveButton = $(".save-group button")

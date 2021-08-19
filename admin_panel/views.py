@@ -148,6 +148,7 @@ def groups_view(request):
         list_pupils = []
         if custom_user_id:
             logo_groups_filtered = LogoGroups.objects.filter(custom_user=custom_user_id)
+            print(logo_groups_filtered)
             for group in logo_groups_filtered:
                 list_pupils.append(
                     {'id': group.id,

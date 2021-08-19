@@ -28,10 +28,10 @@ urlpatterns = [
     path('pupils/add/', SDPupilRegisterView.as_view(), name='pupil_register'),
     path('pupils/change/<int:id>/', SDChangePupilInfoView.as_view(), name='pupil_change'),
     path('pupils/delete/<int:id>/', pupil_delete, name="pupil_delete"),
-    path('groups/', groups, name='groups'),
     path('groups/view/', groups_view, name='view'),
     path('groups/attachment/', groups_add, name='attachment'),
     path('groups/unpin/<int:id>/', group_delete, name='group_delete'),
+    path('groups/', groups, name='groups'),
 ]
 
 if settings.DEBUG:
