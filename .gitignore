@@ -8,4 +8,5 @@ media
 .idea/
 /static/dist/
 /node_modules/
+/venv/
 /ubuntuVenvNotebook/
