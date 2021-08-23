@@ -46,7 +46,7 @@ CREATE TABLE `admin_panel_customuser` (
 
 LOCK TABLES `admin_panel_customuser` WRITE;
 /*!40000 ALTER TABLE `admin_panel_customuser` DISABLE KEYS */;
-INSERT INTO `admin_panel_customuser` VALUES (1,'pbkdf2_sha256$260000$NtuijZb43pDn7H2V9GWbue$eXXPYyvTqw/8LaYOsBJJWmZfdOZDSgr0BXTZixFy05w=','2021-08-19 08:36:41.119784',1,'admin','','','admin@yandex.ru',1,1,'2021-08-19 07:40:51.752699',NULL),(2,'pbkdf2_sha256$260000$SNhCuVxesdEO6KX9KqbZZC$CJAtMIUf/XmPqq0m5nzszvSJOIPSF0XKXwcNhQz9ew8=','2021-08-19 08:34:21.336242',0,'belova','Екатерина','Белова','belova@yandex.ru',0,1,'2021-08-19 07:41:47.857471','Дмитриевна');
+INSERT INTO `admin_panel_customuser` VALUES (1,'pbkdf2_sha256$260000$NtuijZb43pDn7H2V9GWbue$eXXPYyvTqw/8LaYOsBJJWmZfdOZDSgr0BXTZixFy05w=','2021-08-23 09:06:17.441004',1,'admin','','','admin@yandex.ru',1,1,'2021-08-19 07:40:51.752699',NULL),(2,'pbkdf2_sha256$260000$SNhCuVxesdEO6KX9KqbZZC$CJAtMIUf/XmPqq0m5nzszvSJOIPSF0XKXwcNhQz9ew8=','2021-08-23 09:06:55.543115',0,'belova','Екатерина','Белова','belova@yandex.ru',0,1,'2021-08-19 07:41:47.857471','Дмитриевна');
 /*!40000 ALTER TABLE `admin_panel_customuser` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -131,7 +131,7 @@ CREATE TABLE `admin_panel_logogroups` (
 
 LOCK TABLES `admin_panel_logogroups` WRITE;
 /*!40000 ALTER TABLE `admin_panel_logogroups` DISABLE KEYS */;
-INSERT INTO `admin_panel_logogroups` VALUES (2,2,1),(3,2,1);
+INSERT INTO `admin_panel_logogroups` VALUES (2,2,1);
 /*!40000 ALTER TABLE `admin_panel_logogroups` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -268,7 +268,7 @@ CREATE TABLE `django_admin_log` (
   CONSTRAINT `django_admin_log_content_type_id_c4bce8eb_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
   CONSTRAINT `django_admin_log_user_id_c564eba6_fk_admin_panel_customuser_id` FOREIGN KEY (`user_id`) REFERENCES `admin_panel_customuser` (`id`),
   CONSTRAINT `django_admin_log_chk_1` CHECK ((`action_flag` >= 0))
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -277,7 +277,7 @@ CREATE TABLE `django_admin_log` (
 
 LOCK TABLES `django_admin_log` WRITE;
 /*!40000 ALTER TABLE `django_admin_log` DISABLE KEYS */;
-INSERT INTO `django_admin_log` VALUES (1,'2021-08-19 07:43:59.400466','1','LogoGroups object (1)',1,'[{\"added\": {}}]',11,1);
+INSERT INTO `django_admin_log` VALUES (1,'2021-08-19 07:43:59.400466','1','LogoGroups object (1)',1,'[{\"added\": {}}]',11,1),(2,'2021-08-23 09:06:30.590105','3','LogoGroups object (3)',3,'',11,1);
 /*!40000 ALTER TABLE `django_admin_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -355,7 +355,7 @@ CREATE TABLE `django_session` (
 
 LOCK TABLES `django_session` WRITE;
 /*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
-INSERT INTO `django_session` VALUES ('0211hk3qwqvbkk9etbrv0wt2icc2k4zj','.eJxVjDsOwjAQBe_iGllZr_HGlPQ5g-Xf4gCypTipEHeHSCmgfTPzXsL5bS1u63lxcxIXAeL0uwUfH7nuIN19vTUZW12XOchdkQftcmopP6-H-3dQfC_f2ujECOAH5JHIkoIhgbI6MhmNYEbwzPoMVhmLASmohNoExqiQOGbx_gCwYTbn:1mGdXV:MLn07uoXLRMl8kCgTzOfByrsU-PDzvYzU85JZvMHfZY','2021-09-02 08:36:41.126213');
+INSERT INTO `django_session` VALUES ('0211hk3qwqvbkk9etbrv0wt2icc2k4zj','.eJxVjDsOwjAQBe_iGllZr_HGlPQ5g-Xf4gCypTipEHeHSCmgfTPzXsL5bS1u63lxcxIXAeL0uwUfH7nuIN19vTUZW12XOchdkQftcmopP6-H-3dQfC_f2ujECOAH5JHIkoIhgbI6MhmNYEbwzPoMVhmLASmohNoExqiQOGbx_gCwYTbn:1mGdXV:MLn07uoXLRMl8kCgTzOfByrsU-PDzvYzU85JZvMHfZY','2021-09-02 08:36:41.126213'),('pz7gs576tvey21asguwi7yszi0sltjum','.eJxVjEsOwjAMRO-SNYqSyG5Sluw5Q-TYLimgVupnVXF3WqkLWM68N7OZTOtS8zrrlHsxVxPM5bcrxC8dDiBPGh6j5XFYpr7YQ7Enne19FH3fTvfvoNJc93VHGGNxnWICLpE9CXiIqtgkDsEDxrZIcq5NeyDwDIyNT4LK4Doxny_i7jei:1mI5ux:lA6Nvxrqcl5q3wT4pB7v_npnt_vBSz5irSHmrGlH8BI','2021-09-06 09:06:55.549598');
 /*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -377,7 +377,7 @@ CREATE TABLE `main_diagnostics` (
   KEY `main_diagnostics_user_id_0fa994c4_fk_admin_panel_customuser_id` (`user_id`),
   CONSTRAINT `main_diagnostics_pupil_id_c241e1a8_fk_admin_panel_pupil_id` FOREIGN KEY (`pupil_id`) REFERENCES `admin_panel_pupil` (`id`),
   CONSTRAINT `main_diagnostics_user_id_0fa994c4_fk_admin_panel_customuser_id` FOREIGN KEY (`user_id`) REFERENCES `admin_panel_customuser` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -386,7 +386,7 @@ CREATE TABLE `main_diagnostics` (
 
 LOCK TABLES `main_diagnostics` WRITE;
 /*!40000 ALTER TABLE `main_diagnostics` DISABLE KEYS */;
-INSERT INTO `main_diagnostics` VALUES (1,'2021-08-19',1,2,-1);
+INSERT INTO `main_diagnostics` VALUES (1,'2021-08-19',1,2,-1),(2,'2021-08-03',1,2,-1);
 /*!40000 ALTER TABLE `main_diagnostics` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -406,7 +406,7 @@ CREATE TABLE `main_sensomotorlevel` (
   PRIMARY KEY (`id`),
   KEY `main_sensomotorlevel_diagnostic_id_12e98076_fk_main_diag` (`diagnostic_id`),
   CONSTRAINT `main_sensomotorlevel_diagnostic_id_12e98076_fk_main_diag` FOREIGN KEY (`diagnostic_id`) REFERENCES `main_diagnostics` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -415,7 +415,7 @@ CREATE TABLE `main_sensomotorlevel` (
 
 LOCK TABLES `main_sensomotorlevel` WRITE;
 /*!40000 ALTER TABLE `main_sensomotorlevel` DISABLE KEYS */;
-INSERT INTO `main_sensomotorlevel` VALUES (1,'-------------',NULL,NULL,1);
+INSERT INTO `main_sensomotorlevel` VALUES (1,'-------------',NULL,NULL,1),(2,'-------------',NULL,NULL,2);
 /*!40000 ALTER TABLE `main_sensomotorlevel` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -440,7 +440,7 @@ CREATE TABLE `main_statesoffunctions` (
   PRIMARY KEY (`id`),
   KEY `main_statesoffunctions_diagnostic_id_id_ca0e4525` (`diagnostic_id`),
   CONSTRAINT `main_statesoffunctio_diagnostic_id_3bb18278_fk_main_diag` FOREIGN KEY (`diagnostic_id`) REFERENCES `main_diagnostics` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -449,7 +449,7 @@ CREATE TABLE `main_statesoffunctions` (
 
 LOCK TABLES `main_statesoffunctions` WRITE;
 /*!40000 ALTER TABLE `main_statesoffunctions` DISABLE KEYS */;
-INSERT INTO `main_statesoffunctions` VALUES (1,'','','','','','','',1,'');
+INSERT INTO `main_statesoffunctions` VALUES (1,'','','','','','','',1,''),(2,'','','','','','','',2,'');
 /*!40000 ALTER TABLE `main_statesoffunctions` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -462,4 +462,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-19 12:06:41
+-- Dump completed on 2021-08-23 12:40:49
