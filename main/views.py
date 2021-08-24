@@ -107,7 +107,7 @@ def list_pupils_view(request):
             'id': str(logo_group.pupil_id),
             'pupil': Pupil.objects.get(id=logo_group.pupil_id).__str__(),
         })
-    return JsonResponse({'pupils': pupils})
+    return JsonResponse({'pupils': pupils, 'csrf': request.COOKIES['csrftoken']})
 
 
 @csrf_exempt
@@ -196,20 +196,20 @@ def save_diagnostic_view(request):
                       })
 
 
+# @csrf_exempt
 def delete_diagnostic_view(request):
-    print(request.GET)
-    if request.GET:
-        diagnostic_id = request.GET['diagnostic_id']
+    if request.method == 'POST':
+        response = json.loads(request.body)
+        diagnostic_id = response['diagnostic_id']
+        pupil_id = response['pupil_id']
         Diagnostics.objects.filter(id=diagnostic_id).delete()
-        diagnostics = Diagnostics.objects.filter(pupil_id=request.GET['pupil_id'])
-        diags = {}
-        for diag in diagnostics:
-            diags[diag.id] = diag.date_of_creation.strftime('%d/%m/%Y')
-
-        print(diagnostic_id)
+        list_diags_query = Diagnostics.objects.filter(pupil_id=pupil_id)
+        list_diags = []
+        for diag in list_diags_query:
+            list_diags.append({'id': diag.id, 'date': diag.date_of_creation})
         return JsonResponse({
-            "status": "ok",
-            'diagnostic_dates': diags,
+            "csrf": request.COOKIES['csrftoken'],
+            "diagnostics_list": list_diags,
         })
     return JsonResponse({"status": "err"})
 

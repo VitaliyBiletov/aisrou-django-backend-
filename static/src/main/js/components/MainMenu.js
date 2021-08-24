@@ -14,6 +14,7 @@ class MainMenu extends React.Component {
                 value: null,
                 isInvalid: false
             },
+            csrf:'',
         }
     }
 
@@ -22,9 +23,10 @@ class MainMenu extends React.Component {
         .then((response) => {
             this.setState({
                 listPupils: response.data.pupils,
-                selectedPupil: response.data.pupils[0]
+                selectedPupil: response.data.pupils[0],
+                csrf: response.data['csrf'],
             })
-            this.getList(this.state.selectedPupil.id)
+            this.setDiagnosticsListReq(this.state.selectedPupil.id)
         })
     }
 
@@ -61,10 +63,14 @@ class MainMenu extends React.Component {
                 selectedPupil: selectedPupil,
             }
         )
-        this.getList(selectedPupil.id)
+        this.setDiagnosticsListReq(selectedPupil.id)
     }
 
-    getList = (id) => {
+    setDiagnosticList = data => {
+        this.setState({listDiags: data})
+    }
+
+    setDiagnosticsListReq = (id) => {
         console.log(id)
         axios.post('/list_diags/', {
             selected_pupil_id: id
@@ -90,7 +96,12 @@ class MainMenu extends React.Component {
                         handleChange={this.handleChange}
                         handleChangeDate={this.handleChangeDate}
                     />
-                    <ListDiagnostics selectedPupil={this.state.selectedPupil} listDiags={this.state.listDiags}/>
+                    <ListDiagnostics
+                        csrf={this.state.csrf}
+                        selectedPupil={this.state.selectedPupil}
+                        listDiags={this.state.listDiags}
+                        setDiagnosticsList={this.setDiagnosticList}
+                    />
                 </div>
         )
     }
@@ -146,9 +157,31 @@ function ListDiagnostics(props){
     const handleEditDiagnostic = e => {
         axios.post('diagnostic/edit',{'id': id})
             .then(res => window.location = '/diagnostic')
+            .catch(err => console.log(err))
+    }
+
+    const handleDeleteDiagnostic = e => {
+        const csrfToken = props.csrf
+        console.log('d_id: ', id)
+        if (!id) {
+            console.log('Выберите диагностику')
+        } else {
+            //Запрос на удаление
+            axios({
+                method: 'post',
+                url: 'diagnostic/delete',
+                data: {'diagnostic_id': id, 'pupil_id': props.selectedPupil.id },
+                headers: {"X-CSRFToken": csrfToken},
+            })
+                .then(res => {
+                    props.setDiagnosticsList(res.data['diagnostics_list'])
+                })
+            console.log('Удалить - ', id)
+        }
     }
 
     const handleChange = e => {
+        console.log(e.target.value)
         setId(e.target.value)
     }
 
@@ -160,16 +193,21 @@ function ListDiagnostics(props){
                 { props.listDiags.length > 0 ? (
                     <select
                         size={props.listDiags.length}
+                        onChange={handleChange}
                     >
-                        {props.listDiags.map(diag => <option onClick={handleChange} key={diag.id} value={diag.id}>id: {diag.id} | Дата: {diag.date}</option>)}
+                        {props.listDiags.map(diag => <option key={diag.id} value={diag.id}>id: {diag.id} | Дата: {diag.date}</option>)}
                     </select> ) : <p>Обследований нет!</p> }
                 <div className="d-flex flex-row btns mt-3">
                     <button
                         className='btn btn-primary mr-2'
-                        disabled={props.listDiags.length > 0 ? false: true}
+                        disabled={ props.listDiags.length <= 0 }
                         onClick={handleEditDiagnostic}
                     >Изменить</button>
-                    <button className='btn btn-danger' disabled={props.listDiags.length > 0 ? false: true}>Удалить</button>
+                    <button
+                        className='btn btn-danger'
+                        disabled={ props.listDiags.length <= 0 }
+                        onClick={handleDeleteDiagnostic}
+                    >Удалить</button>
                 </div>
             </div>
         </div>

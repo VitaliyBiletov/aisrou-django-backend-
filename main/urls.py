@@ -17,6 +17,7 @@ urlpatterns = [
     url(r'^diagnostic\/load-data$', load_data),
     url(r'^diagnostic\/edit$', edit_diagnostic_view, name='edit_diagnostic'),
     url(r'^diagnostic\/save$', save_diagnostic_view, name='save_diagnostic'),
+    url(r'^diagnostic\/delete$', delete_diagnostic_view, name='delete_diagnostic'),
     url(r"^diagnostic\/.+$", diagnostic_view),
     path('diagnostic/', diagnostic_view, name='diagnostic'),
 
