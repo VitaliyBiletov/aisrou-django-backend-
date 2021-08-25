@@ -10,4 +10,5 @@ media
 /node_modules/
 /venv/
 /ubuntuVenvNotebook/
+/ubuntuVenvPC/
 /templates/dist/
