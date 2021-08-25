@@ -105,7 +105,7 @@ def list_pupils_view(request):
     for logo_group in LogoGroups.objects.filter(custom_user_id=user_id):
         pupils.append({
             'id': str(logo_group.pupil_id),
-            'pupil': Pupil.objects.get(id=logo_group.pupil_id).__str__(),
+            'name': Pupil.objects.get(id=logo_group.pupil_id).__str__(),
         })
     return JsonResponse({'pupils': pupils, 'csrf': request.COOKIES['csrftoken']})
 

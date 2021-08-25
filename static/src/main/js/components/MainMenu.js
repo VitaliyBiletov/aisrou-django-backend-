@@ -2,117 +2,41 @@ import React, {useState} from 'react'
 import ReactDOM from 'react-dom'
 import axios from "axios";
 import 'animate.css/animate.css'
+import CreateDiagnostic from './CreateDiagnostic'
 
 class MainMenu extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             listPupils: [],
-            selectedPupil:{},
-            listDiags:[],
-            date: {
-                value: null,
-                isInvalid: false
-            },
+            selected_pupil:'',
             csrf:'',
         }
     }
 
-    componentDidMount= () => {
+    componentDidMount(){
+        console.log('did mount')
         axios.post('/list_pupils/')
         .then((response) => {
+            const { pupils } = response.data
             this.setState({
-                listPupils: response.data.pupils,
-                selectedPupil: response.data.pupils[0],
+                listPupils: pupils,
+                selected_pupil: {},
                 csrf: response.data['csrf'],
             })
-            this.setDiagnosticsListReq(this.state.selectedPupil.id)
         })
     }
 
-    handleClick = (e) => {
-        e.preventDefault()
-        const { date } = this.state
-        if (!date.value){
-            this.setState({date:
-                    {value:null, isInvalid: true}
-            })
-        } else {
-            this.setState({date:
-                    {...this.state.date, isInvalid: false}
-            })
-            axios.post('diagnostic/create',
-            {
-                'type':'create',
-                'selected_pupil_id': this.state.selectedPupil,
-                'date': this.state.date,
-            })
-            .then((res) => {
-               window.location = '/diagnostic'
-            }
-                // ReactDOM.render(<Diagnostic/>, document.getElementById('content'))
-            )
-        }
-    }
-
-    handleChange = (e) => {
-        const listPupils = this.state.listPupils
-        const selectedPupil = listPupils.find(pupil => pupil.id == e.target.value)
-        this.setState(
-        {
-                selectedPupil: selectedPupil,
-            }
-        )
-        this.setDiagnosticsListReq(selectedPupil.id)
-    }
-
-    setDiagnosticList = data => {
-        this.setState({listDiags: data})
-    }
-
-    setDiagnosticsListReq = (id) => {
-        console.log(id)
-        axios.post('/list_diags/', {
-            selected_pupil_id: id
-        } )
-            .then((response) => {
-                console.log(response)
-            this.setState({listDiags: response.data.list_diags})
-        })
-    }
-
-    handleChangeDate = (e) => {
-        this.setState({date: {value: e.target.value, isInvalid: false}})
+    handleChange = e => {
+        this.setState({selected_pupil: this.state.listPupils.find(pupil => pupil.id == e.target.value)})
     }
 
     render() {
+        console.log('state of main menu: ', this.state)
         return (
-                <div className='form-create-diag'>
-                    <CreateDiagnostic
-                        selectedPupil={this.state.selectedPupil}
-                        date={this.state.date}
-                        listPupils={this.state.listPupils}
-                        handleClick={this.handleClick}
-                        handleChange={this.handleChange}
-                        handleChangeDate={this.handleChangeDate}
-                    />
-                    <ListDiagnostics
-                        csrf={this.state.csrf}
-                        selectedPupil={this.state.selectedPupil}
-                        listDiags={this.state.listDiags}
-                        setDiagnosticsList={this.setDiagnosticList}
-                    />
-                </div>
-        )
-    }
-}
-
-function CreateDiagnostic(props){
-    return (
-        <div className="form-diagnostic">
-            <p className='title'>Создание диагностики</p>
-            <div className="form-container">
-                <div className="form-group">
+                <React.Fragment>
+                    <div className="form-container">
+                    <div className="form text-center col-md-6">
                     <label
                         htmlFor="list_pupils">Выберите учащегося:
                     </label>
@@ -120,35 +44,28 @@ function CreateDiagnostic(props){
                         name="pupil_id"
                         id="list_pupils"
                         className='form-control'
-                        value={ props.selectedPupil.id }
-                        onChange={ props.handleChange }>
-                        {props.listPupils.map((pupil) => (
-                        <option value={pupil.id} key={pupil.id}>{pupil.pupil}</option>
-                        ))}
-                    </select>
-                </div>
-                <div className="form-group">
-                    <label
-                        htmlFor="date_of_creation">
-                        Дата заполнения:
-                    </label>
-                    <input
-                        id="date_of_creation"
-                        name="date_of_creation"
-                        type="date"
-                        className={props.date.isInvalid ? 'form-control is-invalid':'form-control'}
-                        onChange={props.handleChangeDate}/>
-                </div>
-                <button
-                    className="btn btn-success menu-btn"
-                    onClick={ props.handleClick }
-                    id="create-diag">
-                    Создать
-                </button>
-            </div>
-        </div>
+                        value={this.state.selected_pupil.id || 'default'}
+                        onChange={this.handleChange}
+                    >
+                        <option value="default" disabled={true} hidden={true}>-------</option>
+                        {this.state.listPupils.map(pupil => <option key={pupil.id} value={pupil.id}>{pupil.name}</option>
 
-    )
+                        )}
+                    </select>
+                    </div>
+                </div>
+                <div className='form-create-diag'>
+                    { !$.isEmptyObject(this.state.selected_pupil) ? <CreateDiagnostic selected_pupil={this.state.selected_pupil}/> : null}
+                    {/*<ListDiagnostics*/}
+                        {/*csrf={this.state.csrf}*/}
+                        {/*selectedPupil={this.state.selectedPupil}*/}
+                        {/*listDiags={this.state.listDiags}*/}
+                        {/*setDiagnosticsList={this.setDiagnosticList}*/}
+                    {/*/>*/}
+                </div>
+                </React.Fragment>
+        )
+    }
 }
 
 function ListDiagnostics(props){
