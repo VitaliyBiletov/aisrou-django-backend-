@@ -117,7 +117,7 @@ def list_diags_view(request):
     list_diags = []
     for diag in list_diags_query:
         list_diags.append({'id': diag.id, 'date': diag.date_of_creation})
-    return JsonResponse({'list_diags': list_diags})
+    return JsonResponse({'list_of_diagnostics': list_diags})
 
 
 @login_required
