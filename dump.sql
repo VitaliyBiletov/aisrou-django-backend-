@@ -46,7 +46,7 @@ CREATE TABLE `admin_panel_customuser` (
 
 LOCK TABLES `admin_panel_customuser` WRITE;
 /*!40000 ALTER TABLE `admin_panel_customuser` DISABLE KEYS */;
-INSERT INTO `admin_panel_customuser` VALUES (1,'pbkdf2_sha256$260000$NtuijZb43pDn7H2V9GWbue$eXXPYyvTqw/8LaYOsBJJWmZfdOZDSgr0BXTZixFy05w=','2021-08-25 08:52:45.488576',1,'admin','','','admin@yandex.ru',1,1,'2021-08-19 07:40:51.752699',NULL),(2,'pbkdf2_sha256$260000$SNhCuVxesdEO6KX9KqbZZC$CJAtMIUf/XmPqq0m5nzszvSJOIPSF0XKXwcNhQz9ew8=','2021-08-26 06:26:43.923289',0,'belova','Екатерина','Белова','belova@yandex.ru',0,1,'2021-08-19 07:41:47.857471','Дмитриевна');
+INSERT INTO `admin_panel_customuser` VALUES (1,'pbkdf2_sha256$260000$NtuijZb43pDn7H2V9GWbue$eXXPYyvTqw/8LaYOsBJJWmZfdOZDSgr0BXTZixFy05w=','2021-08-25 08:52:45.488576',1,'admin','','','admin@yandex.ru',1,1,'2021-08-19 07:40:51.752699',NULL),(2,'pbkdf2_sha256$260000$SNhCuVxesdEO6KX9KqbZZC$CJAtMIUf/XmPqq0m5nzszvSJOIPSF0XKXwcNhQz9ew8=','2021-08-26 22:32:27.479059',0,'belova','Екатерина','Белова','belova@yandex.ru',0,1,'2021-08-19 07:41:47.857471','Дмитриевна');
 /*!40000 ALTER TABLE `admin_panel_customuser` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -355,7 +355,7 @@ CREATE TABLE `django_session` (
 
 LOCK TABLES `django_session` WRITE;
 /*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
-INSERT INTO `django_session` VALUES ('0211hk3qwqvbkk9etbrv0wt2icc2k4zj','.eJxVjDsOwjAQBe_iGllZr_HGlPQ5g-Xf4gCypTipEHeHSCmgfTPzXsL5bS1u63lxcxIXAeL0uwUfH7nuIN19vTUZW12XOchdkQftcmopP6-H-3dQfC_f2ujECOAH5JHIkoIhgbI6MhmNYEbwzPoMVhmLASmohNoExqiQOGbx_gCwYTbn:1mGdXV:MLn07uoXLRMl8kCgTzOfByrsU-PDzvYzU85JZvMHfZY','2021-09-02 08:36:41.126213'),('5fs58zoltenoefant14c4vf84hkqier8','.eJxVjk0OwiAQhe_C2hCmgYIu3XuGZhimLWrAFLowxrtLTRe6fH9f3ksMuNZ5WAsvQwziJDpx-PU80o3TFoQrpilLyqku0cutIve0yEsOfD_v3T_AjGVu6xGNtV6NbJwmbwkwaNCW2fSOug60sUcfnFJH1wRqIE2mBxcMk1bjBq3PBzcSLYyVmw4Rp5RLjfR9DvD-AEccQyM:1mIpU6:UXGNUzgJ22TMbgDxT4DCRj_8M7Dm49ucF7kk2UW6_9Y','2021-09-08 09:46:14.361835'),('fxfnetuqgufh0cxbjw1kxhtkgi87dbs4','.eJxVjk0OwiAQhe_C2hBooKBL956hGWamLWrAFLowxrtLTRe6fH9f3ksMsNZ5WAsvQyRxEp04_HoB8MZpC-gKacoSc6pLDHKryD0t8pKJ7-e9-weYocxtPYJ1LqiRrTcYHGogo41jtr3HrtPGumMgr9TRNwFGo0Hba0-W0ahxg9bngxsJF4bKTVOEKeVSI36fu_cHBFFC-A:1mIT9r:kbHhRXxeoiuvPdlC9tBrfc_6BSyvkZ6brFMSkvSrTfk','2021-09-07 09:55:51.969924'),('pz7gs576tvey21asguwi7yszi0sltjum','.eJxVjEsOwjAMRO-SNYqSyG5Sluw5Q-TYLimgVupnVXF3WqkLWM68N7OZTOtS8zrrlHsxVxPM5bcrxC8dDiBPGh6j5XFYpr7YQ7Enne19FH3fTvfvoNJc93VHGGNxnWICLpE9CXiIqtgkDsEDxrZIcq5NeyDwDIyNT4LK4Doxny_i7jei:1mI5ux:lA6Nvxrqcl5q3wT4pB7v_npnt_vBSz5irSHmrGlH8BI','2021-09-06 09:06:55.549598'),('wu7gaxqevk6v95xmv4jl5e493jhauuu8','.eJxVjEsOwjAMRO-SNYqSyG5Sluw5Q-TYLimgVupnVXF3WqkLWM68N7OZTOtS8zrrlHsxVxPM5bcrxC8dDiBPGh6j5XFYpr7YQ7Enne19FH3fTvfvoNJc93VHGGNxnWICLpE9CXiIqtgkDsEDxrZIcq5NeyDwDIyNT4LK4Doxny_i7jei:1mJ8qZ:CfFywldGQMbNiSHrNpekq5fqDgdLY83afq2XDDS8lpk','2021-09-09 06:26:43.929162');
+INSERT INTO `django_session` VALUES ('0211hk3qwqvbkk9etbrv0wt2icc2k4zj','.eJxVjDsOwjAQBe_iGllZr_HGlPQ5g-Xf4gCypTipEHeHSCmgfTPzXsL5bS1u63lxcxIXAeL0uwUfH7nuIN19vTUZW12XOchdkQftcmopP6-H-3dQfC_f2ujECOAH5JHIkoIhgbI6MhmNYEbwzPoMVhmLASmohNoExqiQOGbx_gCwYTbn:1mGdXV:MLn07uoXLRMl8kCgTzOfByrsU-PDzvYzU85JZvMHfZY','2021-09-02 08:36:41.126213'),('5fs58zoltenoefant14c4vf84hkqier8','.eJxVjk0OwiAQhe_C2hCmgYIu3XuGZhimLWrAFLowxrtLTRe6fH9f3ksMuNZ5WAsvQwziJDpx-PU80o3TFoQrpilLyqku0cutIve0yEsOfD_v3T_AjGVu6xGNtV6NbJwmbwkwaNCW2fSOug60sUcfnFJH1wRqIE2mBxcMk1bjBq3PBzcSLYyVmw4Rp5RLjfR9DvD-AEccQyM:1mIpU6:UXGNUzgJ22TMbgDxT4DCRj_8M7Dm49ucF7kk2UW6_9Y','2021-09-08 09:46:14.361835'),('8akqqt9g63om4ufgunm7ut3l504a7ngy','.eJxVjk0OwiAQhe_C2hCoUKhL956hGYZpixowQBfGeHep6UKX7-_Le7ER1rqMa6E8Bs9OrGOHX88B3ihugb9CnBPHFGsOjm8VvqeFX5Kn-3nv_gEWKEtbT6CNcWIibRU6gxK8ksoQ6d5i10mlzeC8FWKwTYCSqFD30npNqMS0QevzQY2EmaBS0z7AHFOpAb_P5fH9AUcgQyU:1mJOoi:p4A8q6hYm7rcP9EC0vAcnWYiWPrPDfSdJOvYD_8hP30','2021-09-09 23:29:52.275807'),('9mojj9x8rjwfpoz7puk6jncy6c6nkf6p','.eJxVjk0OwiAQhe_C2hAgUKhL956hGYZpixowhS4a492lpgtdvr8v78UGWOs8rIWWIQZ2Zoqdfj0PeKe0B-EGacocc6pL9Hyv8CMt_JoDPS5H9w8wQ5nbegRjrRcjGafRW5QQtNSWyHQOlZLa2N4HJ0TvmgAtUaPppAuGUItxh9btSY2EC0GlpkOEKeVSI36fS_X-AEceQyQ:1mJGWU:EXwboW8h15yN8OxwWyJD6gMbGHe3s2emLaAZL5MUm1Y','2021-09-09 14:38:30.374554'),('d3xzllhc3fwpq74jfmpcx5b5a55wyi1a','.eJxVjEsOwjAMRO-SNYqSyG5Sluw5Q-TYLimgVupnVXF3WqkLWM68N7OZTOtS8zrrlHsxVxPM5bcrxC8dDiBPGh6j5XFYpr7YQ7Enne19FH3fTvfvoNJc93VHGGNxnWICLpE9CXiIqtgkDsEDxrZIcq5NeyDwDIyNT4LK4Doxny_i7jei:1mJLc8:RrPwZyBSizPRUUa5q_SuBQOnbWYd7xIEgyEIkgl1OSM','2021-09-09 20:04:40.655388'),('fxfnetuqgufh0cxbjw1kxhtkgi87dbs4','.eJxVjk0OwiAQhe_C2hBooKBL956hGWamLWrAFLowxrtLTRe6fH9f3ksMsNZ5WAsvQyRxEp04_HoB8MZpC-gKacoSc6pLDHKryD0t8pKJ7-e9-weYocxtPYJ1LqiRrTcYHGogo41jtr3HrtPGumMgr9TRNwFGo0Hba0-W0ahxg9bngxsJF4bKTVOEKeVSI36fu_cHBFFC-A:1mIT9r:kbHhRXxeoiuvPdlC9tBrfc_6BSyvkZ6brFMSkvSrTfk','2021-09-07 09:55:51.969924'),('pz7gs576tvey21asguwi7yszi0sltjum','.eJxVjEsOwjAMRO-SNYqSyG5Sluw5Q-TYLimgVupnVXF3WqkLWM68N7OZTOtS8zrrlHsxVxPM5bcrxC8dDiBPGh6j5XFYpr7YQ7Enne19FH3fTvfvoNJc93VHGGNxnWICLpE9CXiIqtgkDsEDxrZIcq5NeyDwDIyNT4LK4Doxny_i7jei:1mI5ux:lA6Nvxrqcl5q3wT4pB7v_npnt_vBSz5irSHmrGlH8BI','2021-09-06 09:06:55.549598'),('wu7gaxqevk6v95xmv4jl5e493jhauuu8','.eJxVjEsOwjAMRO-SNYqSyG5Sluw5Q-TYLimgVupnVXF3WqkLWM68N7OZTOtS8zrrlHsxVxPM5bcrxC8dDiBPGh6j5XFYpr7YQ7Enne19FH3fTvfvoNJc93VHGGNxnWICLpE9CXiIqtgkDsEDxrZIcq5NeyDwDIyNT4LK4Doxny_i7jei:1mJ8qZ:CfFywldGQMbNiSHrNpekq5fqDgdLY83afq2XDDS8lpk','2021-09-09 06:26:43.929162');
 /*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -377,7 +377,7 @@ CREATE TABLE `main_diagnostics` (
   KEY `main_diagnostics_user_id_0fa994c4_fk_admin_panel_customuser_id` (`user_id`),
   CONSTRAINT `main_diagnostics_pupil_id_c241e1a8_fk_admin_panel_pupil_id` FOREIGN KEY (`pupil_id`) REFERENCES `admin_panel_pupil` (`id`),
   CONSTRAINT `main_diagnostics_user_id_0fa994c4_fk_admin_panel_customuser_id` FOREIGN KEY (`user_id`) REFERENCES `admin_panel_customuser` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -386,7 +386,7 @@ CREATE TABLE `main_diagnostics` (
 
 LOCK TABLES `main_diagnostics` WRITE;
 /*!40000 ALTER TABLE `main_diagnostics` DISABLE KEYS */;
-INSERT INTO `main_diagnostics` VALUES (5,'2021-08-02',1,2,-1),(8,'2021-08-17',1,2,-1),(9,'2021-08-25',2,2,1),(10,'2021-08-04',1,2,-1),(11,'2021-08-05',1,2,-1);
+INSERT INTO `main_diagnostics` VALUES (8,'2021-08-17',1,2,-1),(10,'2021-08-04',1,2,-1);
 /*!40000 ALTER TABLE `main_diagnostics` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -406,7 +406,7 @@ CREATE TABLE `main_sensomotorlevel` (
   PRIMARY KEY (`id`),
   KEY `main_sensomotorlevel_diagnostic_id_12e98076_fk_main_diag` (`diagnostic_id`),
   CONSTRAINT `main_sensomotorlevel_diagnostic_id_12e98076_fk_main_diag` FOREIGN KEY (`diagnostic_id`) REFERENCES `main_diagnostics` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -415,7 +415,7 @@ CREATE TABLE `main_sensomotorlevel` (
 
 LOCK TABLES `main_sensomotorlevel` WRITE;
 /*!40000 ALTER TABLE `main_sensomotorlevel` DISABLE KEYS */;
-INSERT INTO `main_sensomotorlevel` VALUES (5,'-------------',NULL,NULL,5),(8,'-------------',NULL,NULL,8),(9,'-------------',NULL,NULL,9),(10,'-------------',NULL,NULL,10),(11,'-------------',NULL,NULL,11);
+INSERT INTO `main_sensomotorlevel` VALUES (8,'-------------',NULL,NULL,8),(10,'-------------',NULL,NULL,10);
 /*!40000 ALTER TABLE `main_sensomotorlevel` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -440,7 +440,7 @@ CREATE TABLE `main_statesoffunctions` (
   PRIMARY KEY (`id`),
   KEY `main_statesoffunctions_diagnostic_id_id_ca0e4525` (`diagnostic_id`),
   CONSTRAINT `main_statesoffunctio_diagnostic_id_3bb18278_fk_main_diag` FOREIGN KEY (`diagnostic_id`) REFERENCES `main_diagnostics` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -449,7 +449,7 @@ CREATE TABLE `main_statesoffunctions` (
 
 LOCK TABLES `main_statesoffunctions` WRITE;
 /*!40000 ALTER TABLE `main_statesoffunctions` DISABLE KEYS */;
-INSERT INTO `main_statesoffunctions` VALUES (5,'','','','','','','',5,''),(8,'','','','','','','',8,''),(9,'','','','','','','',9,''),(10,'','','','','','','',10,''),(11,'','','','','','','',11,'');
+INSERT INTO `main_statesoffunctions` VALUES (8,'','','','','','','',8,''),(10,'','','','','','','',10,'');
 /*!40000 ALTER TABLE `main_statesoffunctions` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -462,4 +462,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-26  9:27:13
+-- Dump completed on 2021-08-27  2:30:28

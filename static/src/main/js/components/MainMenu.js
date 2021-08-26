@@ -5,6 +5,7 @@ import 'animate.css/animate.css'
 import CreateDiagnostic from './CreateDiagnostic'
 import DiagnosticEditor from "./DiagnosticEditor";
 
+
 class MainMenu extends React.Component {
     constructor(props) {
         super(props);
