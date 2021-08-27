@@ -46,7 +46,7 @@ CREATE TABLE `admin_panel_customuser` (
 
 LOCK TABLES `admin_panel_customuser` WRITE;
 /*!40000 ALTER TABLE `admin_panel_customuser` DISABLE KEYS */;
-INSERT INTO `admin_panel_customuser` VALUES (1,'pbkdf2_sha256$260000$NtuijZb43pDn7H2V9GWbue$eXXPYyvTqw/8LaYOsBJJWmZfdOZDSgr0BXTZixFy05w=','2021-08-25 08:52:45.488576',1,'admin','','','admin@yandex.ru',1,1,'2021-08-19 07:40:51.752699',NULL),(2,'pbkdf2_sha256$260000$SNhCuVxesdEO6KX9KqbZZC$CJAtMIUf/XmPqq0m5nzszvSJOIPSF0XKXwcNhQz9ew8=','2021-08-26 22:32:27.479059',0,'belova','Екатерина','Белова','belova@yandex.ru',0,1,'2021-08-19 07:41:47.857471','Дмитриевна');
+INSERT INTO `admin_panel_customuser` VALUES (1,'pbkdf2_sha256$260000$NtuijZb43pDn7H2V9GWbue$eXXPYyvTqw/8LaYOsBJJWmZfdOZDSgr0BXTZixFy05w=','2021-08-27 08:17:56.463490',1,'admin','','','admin@yandex.ru',1,1,'2021-08-19 07:40:51.752699',NULL),(2,'pbkdf2_sha256$260000$SNhCuVxesdEO6KX9KqbZZC$CJAtMIUf/XmPqq0m5nzszvSJOIPSF0XKXwcNhQz9ew8=','2021-08-27 09:40:03.269157',0,'belova','Екатерина','Белова','belova@yandex.ru',0,1,'2021-08-19 07:41:47.857471','Дмитриевна');
 /*!40000 ALTER TABLE `admin_panel_customuser` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -268,7 +268,7 @@ CREATE TABLE `django_admin_log` (
   CONSTRAINT `django_admin_log_content_type_id_c4bce8eb_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
   CONSTRAINT `django_admin_log_user_id_c564eba6_fk_admin_panel_customuser_id` FOREIGN KEY (`user_id`) REFERENCES `admin_panel_customuser` (`id`),
   CONSTRAINT `django_admin_log_chk_1` CHECK ((`action_flag` >= 0))
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -277,7 +277,7 @@ CREATE TABLE `django_admin_log` (
 
 LOCK TABLES `django_admin_log` WRITE;
 /*!40000 ALTER TABLE `django_admin_log` DISABLE KEYS */;
-INSERT INTO `django_admin_log` VALUES (1,'2021-08-19 07:43:59.400466','1','LogoGroups object (1)',1,'[{\"added\": {}}]',11,1),(2,'2021-08-23 09:06:30.590105','3','LogoGroups object (3)',3,'',11,1),(3,'2021-08-25 08:53:53.445250','2','Петров Петр',1,'[{\"added\": {}}]',10,1),(4,'2021-08-25 08:53:56.924289','4','LogoGroups object (4)',1,'[{\"added\": {}}]',11,1);
+INSERT INTO `django_admin_log` VALUES (1,'2021-08-19 07:43:59.400466','1','LogoGroups object (1)',1,'[{\"added\": {}}]',11,1),(2,'2021-08-23 09:06:30.590105','3','LogoGroups object (3)',3,'',11,1),(3,'2021-08-25 08:53:53.445250','2','Петров Петр',1,'[{\"added\": {}}]',10,1),(4,'2021-08-25 08:53:56.924289','4','LogoGroups object (4)',1,'[{\"added\": {}}]',11,1),(5,'2021-08-26 07:23:08.518857','9','9',3,'',6,1),(6,'2021-08-27 07:05:08.632057','19','SensoMotorLevel object (19)',2,'[{\"changed\": {\"fields\": [\"\\u0424\\u043e\\u043d\\u0435\\u043c\\u0430\\u0442\\u0438\\u0447\\u0435\\u0441\\u043a\\u043e\\u0435 \\u0432\\u043e\\u0441\\u043f\\u0440\\u0438\\u0442\\u044f\\u0442\\u0438\\u0435\"]}}]',8,1),(7,'2021-08-27 07:05:44.034678','18','SensoMotorLevel object (18)',2,'[{\"changed\": {\"fields\": [\"\\u0424\\u043e\\u043d\\u0435\\u043c\\u0430\\u0442\\u0438\\u0447\\u0435\\u0441\\u043a\\u043e\\u0435 \\u0432\\u043e\\u0441\\u043f\\u0440\\u0438\\u0442\\u044f\\u0442\\u0438\\u0435\"]}}]',8,1),(8,'2021-08-27 07:05:55.494915','17','SensoMotorLevel object (17)',2,'[{\"changed\": {\"fields\": [\"\\u0424\\u043e\\u043d\\u0435\\u043c\\u0430\\u0442\\u0438\\u0447\\u0435\\u0441\\u043a\\u043e\\u0435 \\u0432\\u043e\\u0441\\u043f\\u0440\\u0438\\u0442\\u044f\\u0442\\u0438\\u0435\"]}}]',8,1),(9,'2021-08-27 07:05:59.804379','16','SensoMotorLevel object (16)',2,'[{\"changed\": {\"fields\": [\"\\u0424\\u043e\\u043d\\u0435\\u043c\\u0430\\u0442\\u0438\\u0447\\u0435\\u0441\\u043a\\u043e\\u0435 \\u0432\\u043e\\u0441\\u043f\\u0440\\u0438\\u0442\\u044f\\u0442\\u0438\\u0435\"]}}]',8,1),(10,'2021-08-27 07:08:51.040234','19','SensoMotorLevel object (19)',2,'[{\"changed\": {\"fields\": [\"\\u0424\\u043e\\u043d\\u0435\\u043c\\u0430\\u0442\\u0438\\u0447\\u0435\\u0441\\u043a\\u043e\\u0435 \\u0432\\u043e\\u0441\\u043f\\u0440\\u0438\\u0442\\u044f\\u0442\\u0438\\u0435\"]}}]',8,1);
 /*!40000 ALTER TABLE `django_admin_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -320,7 +320,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -329,7 +329,7 @@ CREATE TABLE `django_migrations` (
 
 LOCK TABLES `django_migrations` WRITE;
 /*!40000 ALTER TABLE `django_migrations` DISABLE KEYS */;
-INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2021-08-19 07:40:34.083017'),(2,'contenttypes','0002_remove_content_type_name','2021-08-19 07:40:34.174666'),(3,'auth','0001_initial','2021-08-19 07:40:34.538588'),(4,'auth','0002_alter_permission_name_max_length','2021-08-19 07:40:34.619012'),(5,'auth','0003_alter_user_email_max_length','2021-08-19 07:40:34.631839'),(6,'auth','0004_alter_user_username_opts','2021-08-19 07:40:34.644388'),(7,'auth','0005_alter_user_last_login_null','2021-08-19 07:40:34.656492'),(8,'auth','0006_require_contenttypes_0002','2021-08-19 07:40:34.671428'),(9,'auth','0007_alter_validators_add_error_messages','2021-08-19 07:40:34.690155'),(10,'auth','0008_alter_user_username_max_length','2021-08-19 07:40:34.700569'),(11,'auth','0009_alter_user_last_name_max_length','2021-08-19 07:40:34.713161'),(12,'auth','0010_alter_group_name_max_length','2021-08-19 07:40:34.738828'),(13,'auth','0011_update_proxy_permissions','2021-08-19 07:40:34.752723'),(14,'auth','0012_alter_user_first_name_max_length','2021-08-19 07:40:34.766672'),(15,'admin_panel','0001_initial','2021-08-19 07:40:35.333890'),(16,'admin','0001_initial','2021-08-19 07:40:35.515127'),(17,'admin','0002_logentry_remove_auto_add','2021-08-19 07:40:35.534162'),(18,'admin','0003_logentry_add_action_flag_choices','2021-08-19 07:40:35.549570'),(19,'admin_panel','0002_pupil_date_of_birth','2021-08-19 07:40:35.585814'),(20,'admin_panel','0003_pupil_home_address','2021-08-19 07:40:35.620228'),(21,'admin_panel','0004_auto_20210603_1216','2021-08-19 07:40:35.677613'),(22,'main','0001_initial','2021-08-19 07:40:35.733450'),(23,'main','0002_delete_articulatorymotorskills','2021-08-19 07:40:35.751316'),(24,'main','0003_diagnostics_pupil_id','2021-08-19 07:40:35.815237'),(25,'main','0004_auto_20210528_1642','2021-08-19 07:40:35.898342'),(26,'main','0005_auto_20210528_1653','2021-08-19 07:40:35.925287'),(27,'main','0006_statesoffunctions','2021-08-19 07:40:36.026877'),(28,'main','0007_auto_20210603_1216','2021-08-19 07:40:36.591404'),(29,'main','0008_auto_20210603_1219','2021-08-19 07:40:37.134542'),(30,'main','0009_auto_20210603_1220','2021-08-19 07:40:37.316993'),(31,'main','0010_auto_20210603_1236','2021-08-19 07:40:37.338025'),(32,'main','0011_diagnostics_current_class','2021-08-19 07:40:37.386220'),(33,'main','0012_auto_20210607_1203','2021-08-19 07:40:37.539059'),(34,'main','0013_auto_20210704_2249','2021-08-19 07:40:38.055795'),(35,'main','0014_auto_20210704_2251','2021-08-19 07:40:38.221978'),(36,'main','0015_sensomotorlevel','2021-08-19 07:40:38.408855'),(37,'main','0016_remove_statesoffunctions_additional_information','2021-08-19 07:40:38.501208'),(38,'main','0017_statesoffunctions_additional_information','2021-08-19 07:40:38.563986'),(39,'main','0018_auto_20210813_2214','2021-08-19 07:40:38.630613'),(40,'main','0019_auto_20210813_2215','2021-08-19 07:40:39.401939'),(41,'sessions','0001_initial','2021-08-19 07:40:39.511982');
+INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2021-08-19 07:40:34.083017'),(2,'contenttypes','0002_remove_content_type_name','2021-08-19 07:40:34.174666'),(3,'auth','0001_initial','2021-08-19 07:40:34.538588'),(4,'auth','0002_alter_permission_name_max_length','2021-08-19 07:40:34.619012'),(5,'auth','0003_alter_user_email_max_length','2021-08-19 07:40:34.631839'),(6,'auth','0004_alter_user_username_opts','2021-08-19 07:40:34.644388'),(7,'auth','0005_alter_user_last_login_null','2021-08-19 07:40:34.656492'),(8,'auth','0006_require_contenttypes_0002','2021-08-19 07:40:34.671428'),(9,'auth','0007_alter_validators_add_error_messages','2021-08-19 07:40:34.690155'),(10,'auth','0008_alter_user_username_max_length','2021-08-19 07:40:34.700569'),(11,'auth','0009_alter_user_last_name_max_length','2021-08-19 07:40:34.713161'),(12,'auth','0010_alter_group_name_max_length','2021-08-19 07:40:34.738828'),(13,'auth','0011_update_proxy_permissions','2021-08-19 07:40:34.752723'),(14,'auth','0012_alter_user_first_name_max_length','2021-08-19 07:40:34.766672'),(15,'admin_panel','0001_initial','2021-08-19 07:40:35.333890'),(16,'admin','0001_initial','2021-08-19 07:40:35.515127'),(17,'admin','0002_logentry_remove_auto_add','2021-08-19 07:40:35.534162'),(18,'admin','0003_logentry_add_action_flag_choices','2021-08-19 07:40:35.549570'),(19,'admin_panel','0002_pupil_date_of_birth','2021-08-19 07:40:35.585814'),(20,'admin_panel','0003_pupil_home_address','2021-08-19 07:40:35.620228'),(21,'admin_panel','0004_auto_20210603_1216','2021-08-19 07:40:35.677613'),(22,'main','0001_initial','2021-08-19 07:40:35.733450'),(23,'main','0002_delete_articulatorymotorskills','2021-08-19 07:40:35.751316'),(24,'main','0003_diagnostics_pupil_id','2021-08-19 07:40:35.815237'),(25,'main','0004_auto_20210528_1642','2021-08-19 07:40:35.898342'),(26,'main','0005_auto_20210528_1653','2021-08-19 07:40:35.925287'),(27,'main','0006_statesoffunctions','2021-08-19 07:40:36.026877'),(28,'main','0007_auto_20210603_1216','2021-08-19 07:40:36.591404'),(29,'main','0008_auto_20210603_1219','2021-08-19 07:40:37.134542'),(30,'main','0009_auto_20210603_1220','2021-08-19 07:40:37.316993'),(31,'main','0010_auto_20210603_1236','2021-08-19 07:40:37.338025'),(32,'main','0011_diagnostics_current_class','2021-08-19 07:40:37.386220'),(33,'main','0012_auto_20210607_1203','2021-08-19 07:40:37.539059'),(34,'main','0013_auto_20210704_2249','2021-08-19 07:40:38.055795'),(35,'main','0014_auto_20210704_2251','2021-08-19 07:40:38.221978'),(36,'main','0015_sensomotorlevel','2021-08-19 07:40:38.408855'),(37,'main','0016_remove_statesoffunctions_additional_information','2021-08-19 07:40:38.501208'),(38,'main','0017_statesoffunctions_additional_information','2021-08-19 07:40:38.563986'),(39,'main','0018_auto_20210813_2214','2021-08-19 07:40:38.630613'),(40,'main','0019_auto_20210813_2215','2021-08-19 07:40:39.401939'),(41,'sessions','0001_initial','2021-08-19 07:40:39.511982'),(42,'main','0020_alter_sensomotorlevel_phonemic_perception','2021-08-27 06:37:06.514679'),(43,'main','0021_alter_sensomotorlevel_phonemic_perception','2021-08-27 06:38:39.610888'),(44,'main','0022_alter_sensomotorlevel_phonemic_perception','2021-08-27 07:06:06.296789'),(45,'main','0023_alter_sensomotorlevel_phonemic_perception','2021-08-27 07:09:03.052716');
 /*!40000 ALTER TABLE `django_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -355,7 +355,7 @@ CREATE TABLE `django_session` (
 
 LOCK TABLES `django_session` WRITE;
 /*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
-INSERT INTO `django_session` VALUES ('0211hk3qwqvbkk9etbrv0wt2icc2k4zj','.eJxVjDsOwjAQBe_iGllZr_HGlPQ5g-Xf4gCypTipEHeHSCmgfTPzXsL5bS1u63lxcxIXAeL0uwUfH7nuIN19vTUZW12XOchdkQftcmopP6-H-3dQfC_f2ujECOAH5JHIkoIhgbI6MhmNYEbwzPoMVhmLASmohNoExqiQOGbx_gCwYTbn:1mGdXV:MLn07uoXLRMl8kCgTzOfByrsU-PDzvYzU85JZvMHfZY','2021-09-02 08:36:41.126213'),('5fs58zoltenoefant14c4vf84hkqier8','.eJxVjk0OwiAQhe_C2hCmgYIu3XuGZhimLWrAFLowxrtLTRe6fH9f3ksMuNZ5WAsvQwziJDpx-PU80o3TFoQrpilLyqku0cutIve0yEsOfD_v3T_AjGVu6xGNtV6NbJwmbwkwaNCW2fSOug60sUcfnFJH1wRqIE2mBxcMk1bjBq3PBzcSLYyVmw4Rp5RLjfR9DvD-AEccQyM:1mIpU6:UXGNUzgJ22TMbgDxT4DCRj_8M7Dm49ucF7kk2UW6_9Y','2021-09-08 09:46:14.361835'),('8akqqt9g63om4ufgunm7ut3l504a7ngy','.eJxVjk0OwiAQhe_C2hCoUKhL956hGYZpixowQBfGeHep6UKX7-_Le7ER1rqMa6E8Bs9OrGOHX88B3ihugb9CnBPHFGsOjm8VvqeFX5Kn-3nv_gEWKEtbT6CNcWIibRU6gxK8ksoQ6d5i10mlzeC8FWKwTYCSqFD30npNqMS0QevzQY2EmaBS0z7AHFOpAb_P5fH9AUcgQyU:1mJOoi:p4A8q6hYm7rcP9EC0vAcnWYiWPrPDfSdJOvYD_8hP30','2021-09-09 23:29:52.275807'),('9mojj9x8rjwfpoz7puk6jncy6c6nkf6p','.eJxVjk0OwiAQhe_C2hAgUKhL956hGYZpixowhS4a492lpgtdvr8v78UGWOs8rIWWIQZ2Zoqdfj0PeKe0B-EGacocc6pL9Hyv8CMt_JoDPS5H9w8wQ5nbegRjrRcjGafRW5QQtNSWyHQOlZLa2N4HJ0TvmgAtUaPppAuGUItxh9btSY2EC0GlpkOEKeVSI36fS_X-AEceQyQ:1mJGWU:EXwboW8h15yN8OxwWyJD6gMbGHe3s2emLaAZL5MUm1Y','2021-09-09 14:38:30.374554'),('d3xzllhc3fwpq74jfmpcx5b5a55wyi1a','.eJxVjEsOwjAMRO-SNYqSyG5Sluw5Q-TYLimgVupnVXF3WqkLWM68N7OZTOtS8zrrlHsxVxPM5bcrxC8dDiBPGh6j5XFYpr7YQ7Enne19FH3fTvfvoNJc93VHGGNxnWICLpE9CXiIqtgkDsEDxrZIcq5NeyDwDIyNT4LK4Doxny_i7jei:1mJLc8:RrPwZyBSizPRUUa5q_SuBQOnbWYd7xIEgyEIkgl1OSM','2021-09-09 20:04:40.655388'),('fxfnetuqgufh0cxbjw1kxhtkgi87dbs4','.eJxVjk0OwiAQhe_C2hBooKBL956hGWamLWrAFLowxrtLTRe6fH9f3ksMsNZ5WAsvQyRxEp04_HoB8MZpC-gKacoSc6pLDHKryD0t8pKJ7-e9-weYocxtPYJ1LqiRrTcYHGogo41jtr3HrtPGumMgr9TRNwFGo0Hba0-W0ahxg9bngxsJF4bKTVOEKeVSI36fu_cHBFFC-A:1mIT9r:kbHhRXxeoiuvPdlC9tBrfc_6BSyvkZ6brFMSkvSrTfk','2021-09-07 09:55:51.969924'),('pz7gs576tvey21asguwi7yszi0sltjum','.eJxVjEsOwjAMRO-SNYqSyG5Sluw5Q-TYLimgVupnVXF3WqkLWM68N7OZTOtS8zrrlHsxVxPM5bcrxC8dDiBPGh6j5XFYpr7YQ7Enne19FH3fTvfvoNJc93VHGGNxnWICLpE9CXiIqtgkDsEDxrZIcq5NeyDwDIyNT4LK4Doxny_i7jei:1mI5ux:lA6Nvxrqcl5q3wT4pB7v_npnt_vBSz5irSHmrGlH8BI','2021-09-06 09:06:55.549598'),('wu7gaxqevk6v95xmv4jl5e493jhauuu8','.eJxVjEsOwjAMRO-SNYqSyG5Sluw5Q-TYLimgVupnVXF3WqkLWM68N7OZTOtS8zrrlHsxVxPM5bcrxC8dDiBPGh6j5XFYpr7YQ7Enne19FH3fTvfvoNJc93VHGGNxnWICLpE9CXiIqtgkDsEDxrZIcq5NeyDwDIyNT4LK4Doxny_i7jei:1mJ8qZ:CfFywldGQMbNiSHrNpekq5fqDgdLY83afq2XDDS8lpk','2021-09-09 06:26:43.929162');
+INSERT INTO `django_session` VALUES ('0211hk3qwqvbkk9etbrv0wt2icc2k4zj','.eJxVjDsOwjAQBe_iGllZr_HGlPQ5g-Xf4gCypTipEHeHSCmgfTPzXsL5bS1u63lxcxIXAeL0uwUfH7nuIN19vTUZW12XOchdkQftcmopP6-H-3dQfC_f2ujECOAH5JHIkoIhgbI6MhmNYEbwzPoMVhmLASmohNoExqiQOGbx_gCwYTbn:1mGdXV:MLn07uoXLRMl8kCgTzOfByrsU-PDzvYzU85JZvMHfZY','2021-09-02 08:36:41.126213'),('37mom5cvppaxi9ww12aa9y828vycmk9d','.eJxVjDsOwjAQBe_iGllZr_HGlPQ5g-Xf4gCypTipEHeHSCmgfTPzXsL5bS1u63lxcxIXAeL0uwUfH7nuIN19vTUZW12XOchdkQftcmopP6-H-3dQfC_f2ujECOAH5JHIkoIhgbI6MhmNYEbwzPoMVhmLASmohNoExqiQOGbx_gCwYTbn:1mJVR7:hBXqvzidRz6ULq_mfypLjuWdRjXk-kwTonHwx9hAqZE','2021-09-10 06:33:57.730834'),('5fs58zoltenoefant14c4vf84hkqier8','.eJxVjk0OwiAQhe_C2hCmgYIu3XuGZhimLWrAFLowxrtLTRe6fH9f3ksMuNZ5WAsvQwziJDpx-PU80o3TFoQrpilLyqku0cutIve0yEsOfD_v3T_AjGVu6xGNtV6NbJwmbwkwaNCW2fSOug60sUcfnFJH1wRqIE2mBxcMk1bjBq3PBzcSLYyVmw4Rp5RLjfR9DvD-AEccQyM:1mIpU6:UXGNUzgJ22TMbgDxT4DCRj_8M7Dm49ucF7kk2UW6_9Y','2021-09-08 09:46:14.361835'),('cb9oq9aui1s6s4r7110awbp2ak5ten9d','.eJxVjDsOwjAQBe_iGllZr_HGlPQ5g-Xf4gCypTipEHeHSCmgfTPzXsL5bS1u63lxcxIXAeL0uwUfH7nuIN19vTUZW12XOchdkQftcmopP6-H-3dQfC_f2ujECOAH5JHIkoIhgbI6MhmNYEbwzPoMVhmLASmohNoExqiQOGbx_gCwYTbn:1mJWl2:spq3E0bfDRFUjJIx0IiUf3isec5Ed1NtCnUIPnMZe_Y','2021-09-10 07:58:36.876775'),('fxfnetuqgufh0cxbjw1kxhtkgi87dbs4','.eJxVjk0OwiAQhe_C2hBooKBL956hGWamLWrAFLowxrtLTRe6fH9f3ksMsNZ5WAsvQyRxEp04_HoB8MZpC-gKacoSc6pLDHKryD0t8pKJ7-e9-weYocxtPYJ1LqiRrTcYHGogo41jtr3HrtPGumMgr9TRNwFGo0Hba0-W0ahxg9bngxsJF4bKTVOEKeVSI36fu_cHBFFC-A:1mIT9r:kbHhRXxeoiuvPdlC9tBrfc_6BSyvkZ6brFMSkvSrTfk','2021-09-07 09:55:51.969924'),('i485wga1cqlgtnap6cq4v62kx72sgtm8','.eJxVjk0OwiAQhe_C2hBooFCX7j1DM8xMLWrAFLowxrtLTRe6fH9f3kuMsNZ5XAsvYyRxFJ04_HoB8MZpC-gK6ZIl5lSXGORWkXta5DkT30979w8wQ5nbegLrXFATW28wONRARhvHbHuPXaeNdUMgr9TgmwCj0aDttSfLaNS0QevzwY3EFGtTFOGScqkRv7_18P4AvkdCXQ:1mJX7q:dvzKEt735-SRvAORe7sk0rYh8z2g7v1nv69jOlSGAW4','2021-09-10 08:22:10.427177'),('pz7gs576tvey21asguwi7yszi0sltjum','.eJxVjEsOwjAMRO-SNYqSyG5Sluw5Q-TYLimgVupnVXF3WqkLWM68N7OZTOtS8zrrlHsxVxPM5bcrxC8dDiBPGh6j5XFYpr7YQ7Enne19FH3fTvfvoNJc93VHGGNxnWICLpE9CXiIqtgkDsEDxrZIcq5NeyDwDIyNT4LK4Doxny_i7jei:1mI5ux:lA6Nvxrqcl5q3wT4pB7v_npnt_vBSz5irSHmrGlH8BI','2021-09-06 09:06:55.549598'),('s2x0gskd95ly5jlkk5u7nyydf2hkid1p','.eJxVjk0OwiAQhe_C2hBooKBL956hGWamLWrAFLowxrtLTRe6fH9f3ksMsNZ5WAsvQyRxEp04_HoB8MZpC-gKacoSc6pLDHKryD0t8pKJ7-e9-weYocxtPYJ1LqiRrTcYHGogo41jtr3HrtPGumMgr9TRNwFGo0Hba0-W0ahxg9bngxuJKdamKMKUcqkRv7-1f38AvkVCXA:1mJYLa:UGg0JoEvNOu7alcMXTFfWbZHR-s9HgNIZXDFs7H_U-s','2021-09-10 09:40:26.486344'),('vacoxpm7qoq3dw5ov9lr0l4bo1s4mmsr','.eJxVjDsOwjAQBe_iGllZr_HGlPQ5g-Xf4gCypTipEHeHSCmgfTPzXsL5bS1u63lxcxIXAeL0uwUfH7nuIN19vTUZW12XOchdkQftcmopP6-H-3dQfC_f2ujECOAH5JHIkoIhgbI6MhmNYEbwzPoMVhmLASmohNoExqiQOGbx_gCwYTbn:1mJX3k:ZANGxTi4NhQgWPcDPDUHbzlCT3CeiWODy9FF3MUYvwA','2021-09-10 08:17:56.469341'),('w4jd3eoc7g3one9bvyi7hu0dtliidirv','.eJxVjDsOwjAQBe_iGllZr_HGlPQ5g-Xf4gCypTipEHeHSCmgfTPzXsL5bS1u63lxcxIXAeL0uwUfH7nuIN19vTUZW12XOchdkQftcmopP6-H-3dQfC_f2ujECOAH5JHIkoIhgbI6MhmNYEbwzPoMVhmLASmohNoExqiQOGbx_gCwYTbn:1mJ9iz:2ER1zkO8nFqmYHPD6EFdy42v8zAAEqgMGFdLFLGgg2g','2021-09-09 07:22:57.740368'),('wu7gaxqevk6v95xmv4jl5e493jhauuu8','.eJxVjk0OwiAQhe_C2hBohoIu3XuGZhimLWrAFLowxrtLTRe6fH9f3ksMuNZ5WAsvQwziJDpx-PU80o3TFoQrpilLyqku0cutIve0yEsOfD_v3T_AjGVu6xGNtV6NbByQt6QxgAbLbHpHXafB2KMPTqmjawJBE5DptQuGCdS4QevzwY1EC2PlpkPEKeVSI32fa_f-AEcqQyo:1mJBks:9NfhdXKWXn1zbX3-qLr7unj_LsrXlJnml5dfnKwuWto','2021-09-09 09:33:02.398529'),('ybxpy8emzfayu6zj8pj3zjgyf79ai6w6','.eJxVjk0OwiAQhe_C2hBooFCX7j1DM8xMLWrAFLowxrtLTRe6fH9f3kuMsNZ5XAsvYyRxFJ04_HoB8MZpC-gK6ZIl5lSXGORWkXta5DkT30979w8wQ5nbegLrXFATW28wONRARhvHbHuPXaeNdUMgr9TgmwCj0aDttSfLaNS0QevzwY3EFGtTFOGScqkRv7_18P4AvkdCXQ:1mJX9s:Tmuvl5ApCGxmSL4r_1TRG9wVuNm4ZrPGshQ90ethM8M','2021-09-10 08:24:16.445286');
 /*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -377,7 +377,7 @@ CREATE TABLE `main_diagnostics` (
   KEY `main_diagnostics_user_id_0fa994c4_fk_admin_panel_customuser_id` (`user_id`),
   CONSTRAINT `main_diagnostics_pupil_id_c241e1a8_fk_admin_panel_pupil_id` FOREIGN KEY (`pupil_id`) REFERENCES `admin_panel_pupil` (`id`),
   CONSTRAINT `main_diagnostics_user_id_0fa994c4_fk_admin_panel_customuser_id` FOREIGN KEY (`user_id`) REFERENCES `admin_panel_customuser` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -386,7 +386,7 @@ CREATE TABLE `main_diagnostics` (
 
 LOCK TABLES `main_diagnostics` WRITE;
 /*!40000 ALTER TABLE `main_diagnostics` DISABLE KEYS */;
-INSERT INTO `main_diagnostics` VALUES (8,'2021-08-17',1,2,-1),(10,'2021-08-04',1,2,-1);
+INSERT INTO `main_diagnostics` VALUES (16,'2021-08-04',2,2,1),(17,'2021-08-05',2,2,1),(18,'2021-08-02',1,2,-1),(19,'2021-07-27',1,2,-1);
 /*!40000 ALTER TABLE `main_diagnostics` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -406,7 +406,7 @@ CREATE TABLE `main_sensomotorlevel` (
   PRIMARY KEY (`id`),
   KEY `main_sensomotorlevel_diagnostic_id_12e98076_fk_main_diag` (`diagnostic_id`),
   CONSTRAINT `main_sensomotorlevel_diagnostic_id_12e98076_fk_main_diag` FOREIGN KEY (`diagnostic_id`) REFERENCES `main_diagnostics` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -415,7 +415,7 @@ CREATE TABLE `main_sensomotorlevel` (
 
 LOCK TABLES `main_sensomotorlevel` WRITE;
 /*!40000 ALTER TABLE `main_sensomotorlevel` DISABLE KEYS */;
-INSERT INTO `main_sensomotorlevel` VALUES (8,'-------------',NULL,NULL,8),(10,'-------------',NULL,NULL,10);
+INSERT INTO `main_sensomotorlevel` VALUES (16,NULL,NULL,NULL,16),(17,NULL,NULL,NULL,17),(18,NULL,NULL,NULL,18),(19,'0:3&1:3&2:1&3:2&4:2&5:2&6:2&7:2&8:1&9:1&10:1&11:1&12:0',NULL,NULL,19);
 /*!40000 ALTER TABLE `main_sensomotorlevel` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -440,7 +440,7 @@ CREATE TABLE `main_statesoffunctions` (
   PRIMARY KEY (`id`),
   KEY `main_statesoffunctions_diagnostic_id_id_ca0e4525` (`diagnostic_id`),
   CONSTRAINT `main_statesoffunctio_diagnostic_id_3bb18278_fk_main_diag` FOREIGN KEY (`diagnostic_id`) REFERENCES `main_diagnostics` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -449,7 +449,7 @@ CREATE TABLE `main_statesoffunctions` (
 
 LOCK TABLES `main_statesoffunctions` WRITE;
 /*!40000 ALTER TABLE `main_statesoffunctions` DISABLE KEYS */;
-INSERT INTO `main_statesoffunctions` VALUES (8,'','','','','','','',8,''),(10,'','','','','','','',10,'');
+INSERT INTO `main_statesoffunctions` VALUES (16,'','','','','','','',16,''),(17,'','','','','','','',17,''),(18,'','','','','','','',18,''),(19,'123','123','333','','','','',19,'');
 /*!40000 ALTER TABLE `main_statesoffunctions` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -462,4 +462,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-27  2:30:28
+-- Dump completed on 2021-08-27 12:45:35

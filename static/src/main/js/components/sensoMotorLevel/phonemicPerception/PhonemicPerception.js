@@ -14,8 +14,9 @@ export default class PhonemicPerception extends React.Component {
     super(props)
     this.title = props.name
     this.updateState = props.updateState
+      console.log('pp state', this.props.state)
     this.state = {
-      pairsOfSounds: this.props.getState('sensoMotorLevel').phonemicPerception,
+      pairsOfSounds: this.props.state,
       activePairId: 0,
       helpVisible: false,
       isClose: false,
@@ -75,8 +76,9 @@ export default class PhonemicPerception extends React.Component {
     })
 
     const activePair = pairsOfSounds.find((pair) => pair.id == this.state.activePairId)
-
+    console.log(this.state.pairsOfSounds)
     return (
+
       <div className='phonemic-perception'>
         <div className="heading">{ this.title }</div>
         <div onClick={this.openHelp} className='helpIcon'>?</div>

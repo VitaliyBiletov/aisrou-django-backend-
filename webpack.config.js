@@ -24,8 +24,9 @@ module.exports = {
             title: 'diagnostic',
             filename: path.resolve(__dirname,'templates', 'dist','diagnostic.html'),
             template: path.resolve(__dirname,'templates','main','diagnostic.html'),
-            cache: false,
-            chunks: ['diagnostic']
+            cache: true,
+            chunks: ['diagnostic'],
+            inject: 'body',
         }),
     ],
     module: {

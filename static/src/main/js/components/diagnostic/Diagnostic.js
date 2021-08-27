@@ -10,6 +10,7 @@ import ReactDOM from "react-dom"
 import SensoMotorLevel from "../sensoMotorLevel/SensoMotorLevel";
 import axios from "axios";
 import $ from 'jquery'
+import Loader from "../Loader";
 
 const items = [
                 {id: 0, link:'state-of-function', title: 'Состояние функций'},
@@ -48,7 +49,8 @@ export default class Diagnostic extends React.Component {
                     {id:11, value:''},
                     {id:12, value:''},
                 ]
-            }
+            },
+            loading: false,
         }
     }
 
@@ -56,10 +58,12 @@ export default class Diagnostic extends React.Component {
         // window.onbeforeunload = function(e) {
         //   e.returnValue = '';
         // };
+
+        console.log('did mount')
         axios.post('/diagnostic/load-data',{
             data: this.state
         })
-            .then(res => this.setState(res.data.data))
+            .then(res =>this.setState({...res.data.data, loading: true}))
     }
 
     updateState = (newState) => {
@@ -70,7 +74,8 @@ export default class Diagnostic extends React.Component {
         return this.state[name]
     }
 
-    handleSendData = (e) => {
+    handleSaveData = (e) => {
+        console.log(this.state)
         axios.post('save', {'data': this.state})
     }
 
@@ -90,6 +95,7 @@ export default class Diagnostic extends React.Component {
                             <NavLink activeClassName="active" key={item.id} to={item.link}>{item.title}</NavLink>
                        ))}
                     </div>
+                { this.state.loading ? (
                     <div className="diagnostic-content">
                         <Switch>
                             <Route path='/diagnostic/state-of-function'>
@@ -101,7 +107,7 @@ export default class Diagnostic extends React.Component {
                             </Route>
                             <Route path='/diagnostic/senso-motor-level'>
                                 <SensoMotorLevel
-                                    getState={this.getState}
+                                    state={this.state.sensoMotorLevel}
                                     updateState={this.updateState}
                                     name='Сенсо-моторный уровень'/>
                             </Route>
@@ -109,11 +115,11 @@ export default class Diagnostic extends React.Component {
                                 <DiagnosticMain />
                             </Route>
                         </Switch>
-                    </div>
+                    </div>) : <Loader/>}
             </Router>
                 <div className='fixed-bottom bar-bottom'>
                     <div className='container'>
-                        <button className='btn btn-primary m-2' onClick={this.handleSendData}>Сохранить</button>
+                        <button className='btn btn-primary m-2' onClick={this.handleSaveData}>Сохранить</button>
                         <button className='btn btn-primary m-2'>Назад</button>
                     </div>
                 </div>

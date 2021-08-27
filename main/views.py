@@ -62,11 +62,23 @@ def diagnostic_view(request):
 @csrf_exempt
 def load_data(request):
     data = json.loads(request.body)['data']
-    stateOfFunctions = StatesOfFunctions.objects.get(diagnostic_id=request.session['diagnostic_id'])
-    stateOfFunctionsDict = stateOfFunctions.__dict__
+    diagnostic_id = request.session['diagnostic_id']
+    print(diagnostic_id)
+    state_of_functions = StatesOfFunctions.objects.get(diagnostic_id=diagnostic_id)
+    state_of_functions_dict = state_of_functions.__dict__
     for i in data['stateOfFunctions']:
-        data['stateOfFunctions'][i] = stateOfFunctionsDict[i]
+        data['stateOfFunctions'][i] = state_of_functions_dict[i]
+
+    senso_motor_level = SensoMotorLevel.objects.get(diagnostic_id=diagnostic_id)
+    senso_motor_level_dict = []
+    for item in senso_motor_level.phonemic_perception.split('&'):
+        id, value = item.split(':')
+        senso_motor_level_dict.append({'id': id, 'value': value})
+    print(senso_motor_level_dict)
+    data['sensoMotorLevel']['phonemicPerception'] = senso_motor_level_dict
     return JsonResponse({'data': data})
+
+
 
 @login_required
 @csrf_exempt
@@ -88,7 +100,7 @@ def open_diagnostic_view(request, type):
                 current_class=class_now
             )
             StatesOfFunctions.objects.create(diagnostic_id=diagnostic.id)
-            SensoMotorLevel.objects.create(diagnostic_id=diagnostic.id, phonemic_perception='-------------')
+            SensoMotorLevel.objects.create(diagnostic_id=diagnostic.id, phonemic_perception=None)
             request.session['diagnostic_id'] = diagnostic.id
             return JsonResponse({'status': 'ok'})
         if type == 'edit':
@@ -142,7 +154,11 @@ def save_diagnostic_view(request):
 
     sensoMotorLevel = SensoMotorLevel.objects.get(diagnostic_id = d_id)
     phonemic_perception = response["sensoMotorLevel"]["phonemicPerception"]
-    sensoMotorLevel.phonemic_perception = json.dumps(phonemic_perception)
+    phonemic_perception_date = []
+    for item in phonemic_perception:
+        phonemic_perception_date.append("{}:{}".format(item['id'], item['value']))
+    phonemic_perception_str = '&'.join(phonemic_perception_date)
+    sensoMotorLevel.phonemic_perception = phonemic_perception_str
     sensoMotorLevel.save()
     return HttpResponse('Данные успешно сохранены!')
         # for state in response['stateOfFunctions']:

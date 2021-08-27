@@ -20,18 +20,7 @@ export default class Buttons extends React.Component {
 
     onClick = e => {
         e.preventDefault()
-        $('#text').animate({
-            opacity: 0,
-            marginLeft: -150
-        }, 100, () => {
-            this.setValue(e.target.value)
-            $('#text').css({
-                marginLeft: 150
-            }).animate({
-                opacity: 1,
-                marginLeft: 0
-            }, 100)
-        })
+        this.setValue(e.target.value)
     }
 
     render() {

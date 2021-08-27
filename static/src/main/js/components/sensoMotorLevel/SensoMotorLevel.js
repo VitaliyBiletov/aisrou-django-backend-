@@ -5,7 +5,8 @@ export default class SensoMotorLevel extends React.Component {
     constructor(props) {
         super(props);
         this.updateState = props.updateState
-        this.getState = props.getState
+        this.state = this.props.state
+        console.log('sml = ',this.props.state)
     }
 
     render() {
@@ -14,7 +15,7 @@ export default class SensoMotorLevel extends React.Component {
                 <p className='section-heading'>{this.props.name}</p>
                 <PhonemicPerception
                     updateState={this.updateState}
-                    getState={this.getState}
+                    state={this.state.phonemicPerception}
                     name='Фонематическое восприятие'/>
             </React.Fragment>
         )

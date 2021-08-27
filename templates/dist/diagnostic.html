@@ -1,4 +1,3 @@
-{% load bootstrap4 %}
 <!Doctype html>
 <html lang="en">
 <head>
@@ -6,10 +5,12 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    {% bootstrap_css %}
-    {% bootstrap_javascript jquery='full' %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+{#    {% bootstrap_css %}#}
+{#    {% bootstrap_javascript jquery='full' %}#}
     <title>Обследование</title>
-<script defer src="../../static/dist/js/diagnostic.cfa4b5eb5c0890d3d374.js"></script></head>
+</head>
 <body>
     <div class="nav-top d-flex bg-dark text-light justify-content-between">
         <a class="navbar-brand" href="/">АИС РОУ</a>
@@ -34,5 +35,5 @@
         </div>
 </div>
     <div id='diagnostic-container'></div>
-</body>
+<script defer src="../../static/dist/js/diagnostic.3e55e6db18e82c184086.js"></script></body>
 </html>
