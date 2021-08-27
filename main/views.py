@@ -71,13 +71,18 @@ def load_data(request):
 
     senso_motor_level = SensoMotorLevel.objects.get(diagnostic_id=diagnostic_id)
     senso_motor_level_dict = []
-    for item in senso_motor_level.phonemic_perception.split('&'):
-        id, value = item.split(':')
-        senso_motor_level_dict.append({'id': id, 'value': value})
-    print(senso_motor_level_dict)
-    data['sensoMotorLevel']['phonemicPerception'] = senso_motor_level_dict
+    if (senso_motor_level.phonemic_perception):
+        for item in senso_motor_level.phonemic_perception.split('&'):
+            id, value = item.split(':')
+            print(value)
+            if (value is not None) and (not value == 'None'):
+                value = int(value)
+            else:
+                value = None
+            senso_motor_level_dict.append({'id': int(id), 'value': value})
+        print(senso_motor_level_dict)
+        data['sensoMotorLevel']['phonemicPerception'] = senso_motor_level_dict
     return JsonResponse({'data': data})
-
 
 
 @login_required
@@ -147,12 +152,12 @@ def save_diagnostic_view(request):
     response = json.loads(request.body)['data']
     d_id = request.session['diagnostic_id']
 
-    stateOfFunctions = StatesOfFunctions.objects.get(diagnostic_id = d_id)
+    stateOfFunctions = StatesOfFunctions.objects.get(diagnostic_id=d_id)
     for name in response['stateOfFunctions']:
         stateOfFunctions.__setattr__(name, response['stateOfFunctions'][name])
     stateOfFunctions.save()
 
-    sensoMotorLevel = SensoMotorLevel.objects.get(diagnostic_id = d_id)
+    sensoMotorLevel = SensoMotorLevel.objects.get(diagnostic_id=d_id)
     phonemic_perception = response["sensoMotorLevel"]["phonemicPerception"]
     phonemic_perception_date = []
     for item in phonemic_perception:
@@ -161,9 +166,8 @@ def save_diagnostic_view(request):
     sensoMotorLevel.phonemic_perception = phonemic_perception_str
     sensoMotorLevel.save()
     return HttpResponse('Данные успешно сохранены!')
-        # for state in response['stateOfFunctions']:
-        #     print(response['stateOfFunctions'][state])
-
+    # for state in response['stateOfFunctions']:
+    #     print(response['stateOfFunctions'][state])
 
     # # Если метод POST то сохраняем
     # if request.POST:

@@ -40,7 +40,6 @@ export default class DiagnosticEditor extends React.Component {
 
     handleEditDiagnostic = e => {
         const {diagnosticId} = this.state
-        console.log(diagnosticId)
         if (!diagnosticId) {
             console.log('Выберите диагностику')
         }
@@ -67,7 +66,6 @@ export default class DiagnosticEditor extends React.Component {
                 })
                     .then(res => {
                         const {data} = res
-                        console.log(data)
                         this.setState({
                             listOfDiagnostics: data.diagnostics_list,
                         })
@@ -80,9 +78,13 @@ export default class DiagnosticEditor extends React.Component {
         this.setState({diagnosticId: Number($(e.target).closest('tr').attr('data-value'))})
     }
 
+    handleDoubleClickTr = e => {
+        this.setState({diagnosticId: Number($(e.target).closest('tr').attr('data-value'))})
+        this.handleEditDiagnostic()
+    }
+
 
     render() {
-        console.log('state of change diagnostic', this.state)
         const {listOfDiagnostics, diagnosticId} = this.state;
         return (
             <React.Fragment>
@@ -96,6 +98,7 @@ export default class DiagnosticEditor extends React.Component {
                             handleChangeDiagnostic = { this.handleChangeDiagnostic }
                             handleCheckBoxChange = { this.handleCheckBoxChange }
                             handleClickTr={ this.handleClickTr }
+                            handleDoubleClickTr={ this.handleDoubleClickTr }
                             value = { diagnosticId }
                         />
                         <div className="d-flex flex-row btns mt-3">
@@ -136,10 +139,11 @@ function ListOfDiagnostics(props){
                 <tbody>{
                     list.map(({id, date}, index) =>
                         <tr
+                            onDoubleClick={props.handleDoubleClickTr}
                             onClick={props.handleClickTr}
                             data-value={id}
                             key={id}
-                            style={{cursor: 'pointer'}}
+                            style={{cursor: 'pointer', userSelect: 'none' }}
                             className={`diagnostic-editor-tr ${id == value ? 'table-primary': null}`}>
                             <th>{ index }</th>
                             <td>{ id }</td>

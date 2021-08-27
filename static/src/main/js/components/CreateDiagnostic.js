@@ -51,7 +51,6 @@ export default class CreateDiagnostic extends React.Component {
     }
 
     render(){
-    console.log('state of create diagnostic: ', this.state)
     return (
         <div className="form-diagnostic">
             <p className='title'>Создание диагностики</p>

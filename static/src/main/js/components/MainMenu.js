@@ -33,7 +33,6 @@ class MainMenu extends React.Component {
     }
 
     render() {
-        console.log('state of main menu: ', this.state)
         return (
                 <React.Fragment>
                     <div className="form-container">
