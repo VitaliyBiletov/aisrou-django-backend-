@@ -6,15 +6,13 @@ import {
     NavLink
 } from 'react-router-dom'
 import StateOfFunctions from "../stateOfFunctions/StateOfFunctions"
-import ReactDOM from "react-dom"
 import SensoMotorLevel from "../sensoMotorLevel/SensoMotorLevel";
 import axios from "axios"
 import Loader from "../Loader"
-import {createStore} from 'redux'
-import { Provider } from 'react-redux'
-import {rootReducer} from "../../redux/rootReducer"
-import { composeWithDevTools } from 'redux-devtools-extension'
-import applyMiddleware from "redux/src/applyMiddleware";
+import {connect} from 'react-redux'
+import {updateInitialState} from "../../redux/actions";
+import {store} from '../App'
+
 
 const items = [
     {id: 0, link: 'state-of-function', title: 'Состояние функций'},
@@ -28,67 +26,21 @@ const items = [
     {id: 8, link: 'writing', title: 'Письмо'},
 ]
 
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware()))
-
-export default class Diagnostic extends React.Component {
+class Diagnostic extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            stateOfFunctions: {
-                hearing: '', vision: '', breath: '', voice: '',
-                prosody: '', articulation_apparatus: '',
-                motor_skills: '', additional_information: ''
-            },
-            sensoMotorLevel: {
-                phonemicPerception: [
-                    {id: 0, value: null},
-                    {id: 1, value: null},
-                    {id: 2, value: null},
-                    {id: 3, value: null},
-                    {id: 4, value: null},
-                    {id: 5, value: null},
-                    {id: 6, value: null},
-                    {id: 7, value: null},
-                    {id: 8, value: null},
-                    {id: 9, value: null},
-                    {id: 10, value: null},
-                    {id: 11, value: null},
-                    {id: 12, value: null},
-                ]
-            },
-            loading: false,
-        }
     }
 
     componentDidMount() {
         // window.onbeforeunload = function(e) {
         //   e.returnValue = '';
         // };
-
-        axios.post('/diagnostic/load-data', {
-            data: this.state
-        })
-            .then(res => {
-                this.setState({...res.data.data, loading: true})
-            })
-    }
-
-    updateState = (newState) => {
-        this.setState(newState)
-    }
-
-    getState = (name) => {
-        return this.state[name]
+        const {updateInitialState} = this.props
+        updateInitialState(store.getState())
     }
 
     handleSaveData = (e) => {
-        axios.post('save', {'data': this.state})
-    }
-
-    handleChange = (name) => (e) => {
-        let copyState = this.state[name]
-        copyState[e.target.name] = e.target.value
-        this.setState({[name]: copyState})
+        axios.post('save', {'data': store.getState()})
     }
 
     handleClickBack = (e) => {
@@ -96,7 +48,6 @@ export default class Diagnostic extends React.Component {
     }
 
     render() {
-        console.log(this.state)
         return (
             <React.Fragment>
                 <Router>
@@ -105,27 +56,18 @@ export default class Diagnostic extends React.Component {
                             <NavLink activeClassName="active" key={item.id} to={item.link}>{item.title}</NavLink>
                         ))}
                     </div>
-                    {this.state.loading ? (
-                        <div className="diagnostic-content">
-                            <Switch>
-                                <Route path='/diagnostic/state-of-function'>
-                                    <StateOfFunctions
-                                        getState={this.state.stateOfFunctions}
-                                        updateState={this.updateState}
-                                        onChange={this.handleChange}
-                                        name='Состояние функций'/>
-                                </Route>
-                                <Route path='/diagnostic/senso-motor-level'>
-                                    <SensoMotorLevel
-                                        state={this.state.sensoMotorLevel}
-                                        updateState={this.updateState}
-                                        name='Сенсо-моторный уровень'/>
-                                </Route>
-                                <Route path='/diagnostic/'>
-                                    <DiagnosticMain/>
-                                </Route>
-                            </Switch>
-                        </div>) : <Loader/>}
+                    {/*/!*{this.state.loading ? (*!/*/}
+                    <div className="diagnostic-content">
+                        <Switch>
+                            <Route path='/diagnostic/state-of-function'>
+                                <StateOfFunctions/>
+                            </Route>
+                            <Route path='/diagnostic/'>
+                                <DiagnosticMain/>
+                            </Route>
+                        </Switch>
+                    </div>
+                    {/*/!*) : <Loader/>}*!/*/}
                 </Router>
                 <div className='fixed-bottom bar-bottom'>
                     <div className='container'>
@@ -142,10 +84,8 @@ function DiagnosticMain(props) {
     return (<p>Главная страница</p>)
 }
 
-const diagnostic = (
-    <Provider store={store}>
-        <Diagnostic/>
-    </Provider>
-)
+const mapDispatchToProps = {
+    updateInitialState
+};
 
-ReactDOM.render(diagnostic, document.getElementById('diagnostic-container'))
+export default connect(null, mapDispatchToProps)(Diagnostic)

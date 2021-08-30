@@ -61,28 +61,31 @@ def diagnostic_view(request):
 
 @csrf_exempt
 def load_data(request):
-    data = json.loads(request.body)['data']
+    print(json.loads(request.body))
+    diagnostic = json.loads(request.body)['diagnostic']
     diagnostic_id = request.session['diagnostic_id']
-    print(diagnostic_id)
+    # print(diagnostic_id)
     state_of_functions = StatesOfFunctions.objects.get(diagnostic_id=diagnostic_id)
     state_of_functions_dict = state_of_functions.__dict__
-    for i in data['stateOfFunctions']:
-        data['stateOfFunctions'][i] = state_of_functions_dict[i]
-
-    senso_motor_level = SensoMotorLevel.objects.get(diagnostic_id=diagnostic_id)
-    senso_motor_level_dict = []
-    if (senso_motor_level.phonemic_perception):
-        for item in senso_motor_level.phonemic_perception.split('&'):
-            id, value = item.split(':')
-            print(value)
-            if (value is not None) and (not value == 'None'):
-                value = int(value)
-            else:
-                value = None
-            senso_motor_level_dict.append({'id': int(id), 'value': value})
-        print(senso_motor_level_dict)
-        data['sensoMotorLevel']['phonemicPerception'] = senso_motor_level_dict
-    return JsonResponse({'data': data})
+    for item in diagnostic['stateOfFunctions']:
+        diagnostic['stateOfFunctions'].update({item: state_of_functions_dict[item]})
+    print(diagnostic)
+    # print(state_of_functions_dict)
+    #     print(value)
+    #
+    # senso_motor_level = SensoMotorLevel.objects.get(diagnostic_id=diagnostic_id)
+    # senso_motor_level_dict = []
+    # if (senso_motor_level.phonemic_perception):
+    #     for item in senso_motor_level.phonemic_perception.split('&'):
+    #         id, value = item.split(':')
+    #         if (value is not None) and (not value == 'None'):
+    #             value = int(value)
+    #         else:
+    #             value = None
+    #         senso_motor_level_dict.append({'id': int(id), 'value': value})
+    #
+    #     diagnostic['senso_motor_level']['phonemic_perception'] = senso_motor_level_dict
+    return JsonResponse({'diagnostic': diagnostic})
 
 
 @login_required
@@ -149,7 +152,8 @@ def edit_diagnostic_view(request):
 @login_required
 @csrf_exempt
 def save_diagnostic_view(request):
-    response = json.loads(request.body)['data']
+    response = json.loads(request.body)['data']['diagnostic']
+    print(response)
     d_id = request.session['diagnostic_id']
 
     stateOfFunctions = StatesOfFunctions.objects.get(diagnostic_id=d_id)
@@ -165,55 +169,27 @@ def save_diagnostic_view(request):
     phonemic_perception_str = '&'.join(phonemic_perception_date)
     sensoMotorLevel.phonemic_perception = phonemic_perception_str
     sensoMotorLevel.save()
-    return HttpResponse('Данные успешно сохранены!')
-    # for state in response['stateOfFunctions']:
-    #     print(response['stateOfFunctions'][state])
 
-    # # Если метод POST то сохраняем
-    # if request.POST:
-    #     print('Сохранение POST')
-    #     # print(request.POST)
-    #     data = request.POST.copy()
-    #     diagnostic_id = request.session['diagnostic_id']
-    #     data['diagnostic'] = diagnostic_id
-    #     phonemic_perception = data['phonemicPerception']
-    #     data.pop('phonemicPerception')
-    #     print(data)
-    #     print('phonemic_perception = ', str(phonemic_perception))
-    #     print('data = ', data)
+    return HttpResponse('Данные успешно сохранены!')
+    # if request.GET:
+    #     print('Изменение GET')
+    #     print(request.GET)
+    #     diagnostic_id = request.GET['diagnostic_id']
+    #     print(diagnostic_id)
+    #     request.session['diagnostic_id'] = diagnostic_id
     #     diagnostic = Diagnostics.objects.get(pk=diagnostic_id)
-    #     current_section_sof = StatesOfFunctions.objects.get(diagnostic=diagnostic)
-    #     current_section_sml = SensoMotorLevel.objects.get(diagnostic=diagnostic)
-    #     current_section_sml.phonemic_perception = phonemic_perception
-    #     current_section_sml.save()
-    #     form = StatesOfFunctionsForm(data, instance=current_section_sof)
-    #     if form.is_valid:
-    #         form.save()
-    #         print("Состояние функций успешно сохранено")
-    #     else:
-    #         print(form.errors)
-    #
-    #     return HttpResponse('Данные успешно сохранены!')
-    # # Если метод GET то отображаем нужную диагностику
-    # else:
-    if request.GET:
-        print('Изменение GET')
-        print(request.GET)
-        diagnostic_id = request.GET['diagnostic_id']
-        print(diagnostic_id)
-        request.session['diagnostic_id'] = diagnostic_id
-        diagnostic = Diagnostics.objects.get(pk=diagnostic_id)
-        current_section_sof = StatesOfFunctions.objects.get(diagnostic_id=diagnostic_id)
-        scores = SensoMotorLevel.objects.get(diagnostic_id=diagnostic_id)
-        form = StatesOfFunctionsForm(instance=current_section_sof)
-        return render(request,
-                      'main/diagnostic.html',
-                      {
-                          'form': form,
-                          'select_pupil': Pupil.objects.get(id=diagnostic.pupil_id),
-                          'diagnostic': diagnostic,
-                          'scores': scores.phonemic_perception,
-                      })
+    #     current_section_sof = StatesOfFunctions.objects.get(diagnostic_id=diagnostic_id)
+    #     scores = SensoMotorLevel.objects.get(diagnostic_id=diagnostic_id)
+    #     form = StatesOfFunctionsForm(instance=current_section_sof)
+    #     return render(request,
+    #                   'main/diagnostic.html',
+    #                   {
+    #                       'form': form,
+    #                       'select_pupil': Pupil.objects.get(id=diagnostic.pupil_id),
+    #                       'diagnostic': diagnostic,
+    #                       'scores': scores.phonemic_perception,
+    #                   })
+
 
 
 # @csrf_exempt
