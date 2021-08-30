@@ -8,9 +8,13 @@ import {
 import StateOfFunctions from "../stateOfFunctions/StateOfFunctions"
 import ReactDOM from "react-dom"
 import SensoMotorLevel from "../sensoMotorLevel/SensoMotorLevel";
-import axios from "axios";
-import $ from 'jquery'
-import Loader from "../Loader";
+import axios from "axios"
+import Loader from "../Loader"
+import {createStore} from 'redux'
+import { Provider } from 'react-redux'
+import {rootReducer} from "../../redux/rootReducer"
+import { composeWithDevTools } from 'redux-devtools-extension'
+import applyMiddleware from "redux/src/applyMiddleware";
 
 const items = [
     {id: 0, link: 'state-of-function', title: 'Состояние функций'},
@@ -23,6 +27,8 @@ const items = [
     {id: 7, link: 'reading', title: 'Чтение'},
     {id: 8, link: 'writing', title: 'Письмо'},
 ]
+
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware()))
 
 export default class Diagnostic extends React.Component {
     constructor(props) {
@@ -136,4 +142,10 @@ function DiagnosticMain(props) {
     return (<p>Главная страница</p>)
 }
 
-ReactDOM.render(<Diagnostic/>, document.getElementById('diagnostic-container'))
+const diagnostic = (
+    <Provider store={store}>
+        <Diagnostic/>
+    </Provider>
+)
+
+ReactDOM.render(diagnostic, document.getElementById('diagnostic-container'))
