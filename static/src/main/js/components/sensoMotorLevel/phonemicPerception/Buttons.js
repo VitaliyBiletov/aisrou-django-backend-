@@ -1,40 +1,46 @@
 import React from "react"
+import {setValuePairSounds} from "../../../redux/actions";
+import {connect} from 'react-redux'
+import {updateInitialState} from "../../../redux/actions";
 
-const colors = ['red', 'yellow', 'blue', 'green']
+const buttons = ['red', 'yellow', 'blue', 'green']
 
-export default class Buttons extends React.Component {
+class Buttons extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            buttonsInfo: [
-                {value: 0},
-                {value: 1},
-                {value: 2},
-                {value: 3},
-            ],
-        }
-        this.setValue = this.props.setValue
     }
 
-    onClick = e => {
+    handleClick = e => {
         e.preventDefault()
-        this.setValue(e.target.value)
+        this.props.setValuePairSounds(+e.target.value)
     }
 
     render() {
         return (
             <div className="row justify-content-center mt-3">
                 <div className='buttonsContainer col-auto col-sm-auto col-md-auto'>
-                    {this.state.buttonsInfo.map(button => (
+                    {buttons.map((button, index) => (
                         <button
-                            key={button.value}
-                            className={`scores-btn ${colors[button.value]} mx-2`}
-                            value={button.value}
-                            onClick={this.onClick}
-                        >{button.value}</button>
+                            key={index}
+                            className={`scores-btn ${buttons[index]} mx-2`}
+                            value={index}
+                            onClick={this.handleClick}
+                        >{index}</button>
                     ))}
                 </div>
             </div>
         );
     }
 }
+
+const mapDispatchToProps = {
+    setValuePairSounds
+};
+
+const mapStateToProps = state => {
+    return {
+        activeIndex: state.diagnostic.sensoMotorLevel.phonemicPerception.activeIndex
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Buttons)

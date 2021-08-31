@@ -5,7 +5,6 @@ import Text from './Text'
 import Help from './Help'
 import 'animate.css/animate.css'
 import classNames from 'classnames'
-import {pairsOfSounds} from './pairsOfSounds.json'
 import {connect} from 'react-redux'
 
 const colors = ['red', 'yellow', 'blue', 'green']
@@ -41,18 +40,14 @@ export default class PhonemicPerception extends React.Component {
             'animate__flipOutY': this.state.isClose,
         })
 
-        const activePair = pairsOfSounds[this.state.activeIndex]
-
         return (
             <div className='phonemic-perception'>
                 <div className="heading">Фонематическое восприятие</div>
                 <div onClick={this.openHelp} className='helpIcon'>?</div>
                 <div className='phonemic-perception-container'>
                     <StatusBar/>
-                               {/*setActivePair={this.setActivePair}*/}
-                               {/*activeIndex={this.state.activeIndex}/>*/}
-                    {/*<Text activePair={activePair}/>*/}
-                    {/*<Buttons />*/}
+                    <Text />
+                    <Buttons />
                 </div>
                 {this.state.helpVisible && (
                     <div className={classes}>

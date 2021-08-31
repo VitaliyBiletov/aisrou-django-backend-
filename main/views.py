@@ -61,9 +61,10 @@ def diagnostic_view(request):
 
 @csrf_exempt
 def load_data(request):
-    print(request.body)
+    print(json.loads(request.body))
     diagnostic = json.loads(request.body)['diagnostic']
     diagnostic_id = request.session['diagnostic_id']
+
     state_of_functions = StatesOfFunctions.objects.get(diagnostic_id=diagnostic_id)
     state_of_functions_dict = state_of_functions.__dict__
     for item in diagnostic['stateOfFunctions']:
@@ -71,17 +72,18 @@ def load_data(request):
 
     senso_motor_level = SensoMotorLevel.objects.get(diagnostic_id=diagnostic_id)
     senso_motor_level_dict = []
-    if (senso_motor_level.phonemic_perception):
-        for item in senso_motor_level.phonemic_perception.split('&'):
-            id, value = item.split(':')
-            if (value is not None) and (not value == 'None'):
-                value = int(value)
-            else:
-                value = None
-            senso_motor_level_dict.append({'id': int(id), 'value': value})
-
-    diagnostic['sensoMotorLevel']['phonemicPerception']['pairsOfSounds'] = senso_motor_level_dict
-    print(diagnostic)
+    print(senso_motor_level.phonemic_perception)
+    # if (senso_motor_level.phonemic_perception):
+    #     for item in senso_motor_level.phonemic_perception.split('&'):
+    #         id, value = item.split(':')
+    #         if (value is not None) and (not value == 'None'):
+    #             value = int(value)
+    #         else:
+    #             value = None
+    #         senso_motor_level_dict.append({'id': int(id), 'value': value})
+    #
+    # diagnostic['sensoMotorLevel']['phonemicPerception']['pairsOfSounds'] = senso_motor_level_dict
+    # print(senso_motor_level_dict)
     return JsonResponse({'diagnostic': diagnostic})
 
 
@@ -104,8 +106,9 @@ def open_diagnostic_view(request, type):
                 date_of_creation=date_of_creation,
                 current_class=class_now
             )
+            templateStr = "0:None&1:None&2:None&3:None&4:None&5:None&6:None&7:None&8:None&9:None&10:None&11:None&12:None"
             StatesOfFunctions.objects.create(diagnostic_id=diagnostic.id)
-            SensoMotorLevel.objects.create(diagnostic_id=diagnostic.id, phonemic_perception=None)
+            SensoMotorLevel.objects.create(diagnostic_id=diagnostic.id, phonemic_perception=templateStr)
             request.session['diagnostic_id'] = diagnostic.id
             return JsonResponse({'status': 'ok'})
         if type == 'edit':
@@ -158,11 +161,13 @@ def save_diagnostic_view(request):
     stateOfFunctions.save()
 
     sensoMotorLevel = SensoMotorLevel.objects.get(diagnostic_id=d_id)
-    phonemic_perception = response["sensoMotorLevel"]["phonemicPerception"]
+    phonemic_perception = response["sensoMotorLevel"]["phonemicPerception"]["pairsOfSounds"]
+
     phonemic_perception_date = []
     for item in phonemic_perception:
         phonemic_perception_date.append("{}:{}".format(item['id'], item['value']))
     phonemic_perception_str = '&'.join(phonemic_perception_date)
+    print(phonemic_perception_str)
     sensoMotorLevel.phonemic_perception = phonemic_perception_str
     sensoMotorLevel.save()
 

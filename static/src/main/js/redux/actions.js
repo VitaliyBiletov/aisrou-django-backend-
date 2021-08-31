@@ -2,7 +2,8 @@ import {
     STATE_OF_FUNCTIONS_INPUT_VALUE,
     UPDATE_INITIAL_STATE,
     SENSO_MOTOR_LEVEL_INPUT_VALUE,
-    SET_ACTIVE_INDEX
+    SET_ACTIVE_INDEX,
+    SET_VALUE_OF_PAIR_SOUNDS
 } from "./types";
 import axios from "axios/index";
 
@@ -28,6 +29,16 @@ export function setActiveIndex(index){
             payload: index
         })
 }}
+
+export function setValuePairSounds(value) {
+    return function (dispatch) {
+        dispatch({
+            type: SET_VALUE_OF_PAIR_SOUNDS,
+            payload: value
+        })
+    }
+
+}
 
 export function updateInitialState(state) {
     return function (dispatch) {
