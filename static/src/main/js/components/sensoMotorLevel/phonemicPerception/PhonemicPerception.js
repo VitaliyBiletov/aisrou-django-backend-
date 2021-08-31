@@ -6,46 +6,17 @@ import Help from './Help'
 import 'animate.css/animate.css'
 import classNames from 'classnames'
 import {pairsOfSounds} from './pairsOfSounds.json'
+import {connect} from 'react-redux'
 
 const colors = ['red', 'yellow', 'blue', 'green']
 
 export default class PhonemicPerception extends React.Component {
     constructor(props) {
         super(props)
-        this.title = props.name
-        this.updateState = props.updateState
         this.state = {
-            pairsOfSounds: this.props.state,
-            activeIndex: 0,
             helpVisible: false,
             isClose: false,
         }
-    }
-
-    setActivePair = (index) => {
-        this.setState({activeIndex: index})
-    }
-
-    setValue = (value) => {
-        const {activeIndex} = this.state
-        const nextIndex = activeIndex == (pairsOfSounds.length - 1) ? 0 : activeIndex + 1
-        const newState = this.state.pairsOfSounds.map((pair, index) => {
-            if (index == activeIndex) {
-                this.setState({activeIndex: nextIndex})
-                return {id: pair.id, value: +value}
-            }
-            return pair
-        })
-
-        this.setState({pairsOfSounds: newState})
-
-        const phonemicPerception = this.state.pairsOfSounds.map(({id, value}) => {
-            return {id, value}
-        })
-
-        this.updateState(
-            {sensoMotorLevel: {phonemicPerception: phonemicPerception}}
-        )
     }
 
     openHelp = e => {
@@ -63,7 +34,6 @@ export default class PhonemicPerception extends React.Component {
     }
 
     render() {
-
         const classes = classNames({
             'helpContainer': true,
             'animate__animated': true,
@@ -75,14 +45,14 @@ export default class PhonemicPerception extends React.Component {
 
         return (
             <div className='phonemic-perception'>
-                <div className="heading">{this.title}</div>
+                <div className="heading">Фонематическое восприятие</div>
                 <div onClick={this.openHelp} className='helpIcon'>?</div>
                 <div className='phonemic-perception-container'>
-                    <StatusBar pairsOfSounds={this.state.pairsOfSounds}
-                               setActivePair={this.setActivePair}
-                               activeIndex={this.state.activeIndex}/>
-                    <Text activePair={activePair}/>
-                    <Buttons setValue={this.setValue}/>
+                    <StatusBar/>
+                               {/*setActivePair={this.setActivePair}*/}
+                               {/*activeIndex={this.state.activeIndex}/>*/}
+                    {/*<Text activePair={activePair}/>*/}
+                    {/*<Buttons />*/}
                 </div>
                 {this.state.helpVisible && (
                     <div className={classes}>
@@ -93,3 +63,11 @@ export default class PhonemicPerception extends React.Component {
         )
     }
 }
+//
+// const mapStateToProps = state => {
+//     return {
+//         pairsOfSounds: state.diagnostic.sensoMotorLevel.phonemicPerception.pairsOfSounds
+//     }
+// }
+//
+// export default connect(mapStateToProps, null)(PhonemicPerception)

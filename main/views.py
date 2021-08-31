@@ -61,30 +61,27 @@ def diagnostic_view(request):
 
 @csrf_exempt
 def load_data(request):
-    print(json.loads(request.body))
+    print(request.body)
     diagnostic = json.loads(request.body)['diagnostic']
     diagnostic_id = request.session['diagnostic_id']
-    # print(diagnostic_id)
     state_of_functions = StatesOfFunctions.objects.get(diagnostic_id=diagnostic_id)
     state_of_functions_dict = state_of_functions.__dict__
     for item in diagnostic['stateOfFunctions']:
         diagnostic['stateOfFunctions'].update({item: state_of_functions_dict[item]})
+
+    senso_motor_level = SensoMotorLevel.objects.get(diagnostic_id=diagnostic_id)
+    senso_motor_level_dict = []
+    if (senso_motor_level.phonemic_perception):
+        for item in senso_motor_level.phonemic_perception.split('&'):
+            id, value = item.split(':')
+            if (value is not None) and (not value == 'None'):
+                value = int(value)
+            else:
+                value = None
+            senso_motor_level_dict.append({'id': int(id), 'value': value})
+
+    diagnostic['sensoMotorLevel']['phonemicPerception']['pairsOfSounds'] = senso_motor_level_dict
     print(diagnostic)
-    # print(state_of_functions_dict)
-    #     print(value)
-    #
-    # senso_motor_level = SensoMotorLevel.objects.get(diagnostic_id=diagnostic_id)
-    # senso_motor_level_dict = []
-    # if (senso_motor_level.phonemic_perception):
-    #     for item in senso_motor_level.phonemic_perception.split('&'):
-    #         id, value = item.split(':')
-    #         if (value is not None) and (not value == 'None'):
-    #             value = int(value)
-    #         else:
-    #             value = None
-    #         senso_motor_level_dict.append({'id': int(id), 'value': value})
-    #
-    #     diagnostic['senso_motor_level']['phonemic_perception'] = senso_motor_level_dict
     return JsonResponse({'diagnostic': diagnostic})
 
 
@@ -153,7 +150,6 @@ def edit_diagnostic_view(request):
 @csrf_exempt
 def save_diagnostic_view(request):
     response = json.loads(request.body)['data']['diagnostic']
-    print(response)
     d_id = request.session['diagnostic_id']
 
     stateOfFunctions = StatesOfFunctions.objects.get(diagnostic_id=d_id)

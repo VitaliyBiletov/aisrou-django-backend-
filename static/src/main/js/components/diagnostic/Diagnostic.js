@@ -32,9 +32,6 @@ class Diagnostic extends React.Component {
     }
 
     componentDidMount() {
-        // window.onbeforeunload = function(e) {
-        //   e.returnValue = '';
-        // };
         const {updateInitialState} = this.props
         updateInitialState(store.getState())
     }
@@ -61,6 +58,9 @@ class Diagnostic extends React.Component {
                         <Switch>
                             <Route path='/diagnostic/state-of-function'>
                                 <StateOfFunctions/>
+                            </Route>
+                            <Route path='/diagnostic/senso-motor-level'>
+                                <SensoMotorLevel/>
                             </Route>
                             <Route path='/diagnostic/'>
                                 <DiagnosticMain/>

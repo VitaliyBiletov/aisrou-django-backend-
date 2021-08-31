@@ -1,30 +1,33 @@
 import React from 'react'
 import $ from 'jquery'
 import {pairsOfSounds} from './pairsOfSounds.json'
+import {connect} from 'react-redux'
+import {setActiveIndex} from "../../../redux/actions";
 
 const colors = ['red', 'yellow', 'blue', 'green']
 
-export default class StatusBar extends React.Component {
+class StatusBar extends React.Component {
     constructor(props) {
         super(props)
     }
 
     handleClick = e => {
         const index = e.target.getAttribute('data-index')
-        if (index != this.props.activeIndex) {
-            $('#text').animate({
-                opacity: 0,
-                marginLeft: -150
-            }, 100, () => {
-                this.props.setActivePair(+index)
-                $('#text').css({
-                    marginLeft: 150
-                }).animate({
-                    opacity: 1,
-                    marginLeft: 0
-                }, 100)
-            })
-        }
+        this.props.setActiveIndex(+index)
+        // if (index != this.props.activeIndex) {
+        //     $('#text').animate({
+        //         opacity: 0,
+        //         marginLeft: -150
+        //     }, 100, () => {
+        //         this.props.setActiveIndex(+index)
+        //         $('#text').css({
+        //             marginLeft: 150
+        //         }).animate({
+        //             opacity: 1,
+        //             marginLeft: 0
+        //         }, 100)
+        //     })
+        // }
     }
 
     render() {
@@ -51,3 +54,16 @@ export default class StatusBar extends React.Component {
         )
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        pairsOfSounds: state.diagnostic.sensoMotorLevel.phonemicPerception.pairsOfSounds,
+        activeIndex: state.diagnostic.sensoMotorLevel.phonemicPerception.activeIndex
+    }
+}
+
+const mapDispatchToProps = {
+    setActiveIndex,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(StatusBar)
