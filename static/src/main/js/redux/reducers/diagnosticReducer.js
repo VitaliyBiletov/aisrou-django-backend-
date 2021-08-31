@@ -50,7 +50,8 @@ export const diagnosticReducer = (state = initialState, action) => {
                     })
                 }
             )
-            return Object.assign({}, state, { sensoMotorLevel: {phonemicPerception: {...phonemicPerception, ...pairsOfSounds, }} })
+            const nextIndex = phonemicPerception.activeIndex + 1 == PAIRS_OF_SOUNDS.length ? 0 : phonemicPerception.activeIndex + 1
+            return Object.assign({}, state, { sensoMotorLevel: {phonemicPerception: {...phonemicPerception,activeIndex:nextIndex, ...pairsOfSounds, }} })
         default:
             return state
     }
