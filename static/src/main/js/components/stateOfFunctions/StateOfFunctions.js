@@ -1,10 +1,10 @@
 import React from 'react'
-import {fields} from './fields.json'
+import {FIELDS} from './fieldsList'
 import {connect} from 'react-redux'
 import {stateOfFunctionsInputValue} from "../../redux/actions";
 
 
-const StateOfFunctions = ({stateOfFunctions, stateOfFunctionsInputValue}) => {
+const StateOfFunctions = ({stateOfFunctions, stateOfFunctionsInputValue, name}) => {
 
     const handleChange = e => {
         const name = e.target.name
@@ -14,10 +14,9 @@ const StateOfFunctions = ({stateOfFunctions, stateOfFunctionsInputValue}) => {
 
     return (
         <React.Fragment>
-            <p className='section-heading'>Состояние функций</p>
             <div className='state-of-functions'>
                 <div className='form mt-4'>
-                    {fields.map((item, index) => {
+                    {FIELDS.map((item, index) => {
                         return (
                             <div className='form-group' key={index}>
                                 <label className='col-form-label' htmlFor={item.name}>{item.title}</label>

@@ -41,20 +41,22 @@ export default class PhonemicPerception extends React.Component {
         })
 
         return (
-            <div className='phonemic-perception'>
-                <div className="heading">Фонематическое восприятие</div>
-                <div onClick={this.openHelp} className='helpIcon'>?</div>
-                <div className='phonemic-perception-container'>
-                    <StatusBar/>
-                    <Text />
-                    <Buttons />
-                </div>
-                {this.state.helpVisible && (
-                    <div className={classes}>
-                        <Help closeHelp={this.closeHelp}/>
+            <React.Fragment>
+                <div className='phonemic-perception'>
+                    <div className="heading">Фонематическое восприятие</div>
+                    <div onClick={this.openHelp} className='helpIcon'>?</div>
+                    <div className='phonemic-perception-container'>
+                        <StatusBar/>
+                        <Text />
+                        <Buttons />
                     </div>
-                )}
-            </div>
+                    {this.state.helpVisible && (
+                        <div className={classes}>
+                            <Help closeHelp={this.closeHelp}/>
+                        </div>
+                    )}
+                </div>
+            </React.Fragment>
         )
     }
 }

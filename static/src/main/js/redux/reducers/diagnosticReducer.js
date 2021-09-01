@@ -5,9 +5,6 @@ import {
     SET_VALUE_OF_PAIR_SOUNDS
 } from "../types";
 import {PAIRS_OF_SOUNDS} from '../../components/sensoMotorLevel/phonemicPerception/pairsOfSounds'
-import {sensoMotorLevelInputValue} from "../actions";
-
-console.log(PAIRS_OF_SOUNDS)
 
 const initialState = {
     stateOfFunctions: {

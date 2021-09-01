@@ -9,6 +9,7 @@ import StateOfFunctions from "../stateOfFunctions/StateOfFunctions"
 import SensoMotorLevel from "../sensoMotorLevel/SensoMotorLevel";
 import axios from "axios"
 import Loader from "../Loader"
+import Noty from 'noty'
 import {connect} from 'react-redux'
 import {updateInitialState} from "../../redux/actions";
 import {store} from '../App'
@@ -38,6 +39,10 @@ class Diagnostic extends React.Component {
 
     handleSaveData = (e) => {
         axios.post('save', {'data': store.getState()})
+            .then(()=>{
+                const successNoty = generatedNoty('success', 'Изменения сохранены!')
+                successNoty.show()
+            })
     }
 
     handleClickBack = (e) => {
@@ -57,10 +62,10 @@ class Diagnostic extends React.Component {
                     <div className="diagnostic-content">
                         <Switch>
                             <Route path='/diagnostic/state-of-function'>
-                                <StateOfFunctions/>
+                                <StateOfFunctions name='Состояние функций'/>
                             </Route>
                             <Route path='/diagnostic/senso-motor-level'>
-                                <SensoMotorLevel/>
+                                <SensoMotorLevel name='Сенсо-моторный уровень'/>
                             </Route>
                             <Route path='/diagnostic/'>
                                 <DiagnosticMain/>
@@ -71,7 +76,7 @@ class Diagnostic extends React.Component {
                 </Router>
                 <div className='fixed-bottom bar-bottom'>
                     <div className='container'>
-                        <button className='btn btn-primary m-2' onClick={this.handleSaveData}>Сохранить</button>
+                        <button className='btn btn-success m-2' onClick={this.handleSaveData}>Сохранить</button>
                         <button className='btn btn-primary m-2' onClick={this.handleClickBack}>Назад</button>
                     </div>
                 </div>
@@ -87,5 +92,20 @@ function DiagnosticMain(props) {
 const mapDispatchToProps = {
     updateInitialState
 };
+
+function generatedNoty(type, text) {
+    return new Noty({
+            layout:'topCenter',
+            theme:'bootstrap-v3',
+            type:'success',
+            text: 'Изменения сохранены!',
+            progressBar: false,
+            animation:{
+                open: 'animate__animated animate__fadeInDown',
+                close: 'animate__animated animate__fadeOutUp'
+            },
+            timeout: 1000,
+        })
+}
 
 export default connect(null, mapDispatchToProps)(Diagnostic)
