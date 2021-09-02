@@ -1,7 +1,7 @@
 import React from "react"
-import {setValuePairSounds} from "../../../redux/actions";
+import {setActiveIndex, setValuePairSounds} from "../../redux/actions";
 import {connect} from 'react-redux'
-import {updateInitialState} from "../../../redux/actions";
+
 
 const buttons = ['red', 'yellow', 'blue', 'green']
 
@@ -11,14 +11,13 @@ class Buttons extends React.Component {
     }
 
     handleClick = e => {
-        e.preventDefault()
-        this.props.setValuePairSounds(+e.target.value)
+        this.props.setValuePairSounds(+e.target.value, this.props.name)
     }
 
     render() {
         return (
             <div className="row justify-content-center mt-3">
-                <div className='buttonsContainer col-auto col-sm-auto col-md-auto'>
+                <div className='buttons-container col-auto col-sm-auto col-md-auto'>
                     {buttons.map((button, index) => (
                         <button
                             key={index}
@@ -34,13 +33,7 @@ class Buttons extends React.Component {
 }
 
 const mapDispatchToProps = {
-    setValuePairSounds
-};
-
-const mapStateToProps = state => {
-    return {
-        activeIndex: state.diagnostic.sensoMotorLevel.phonemicPerception.activeIndex
-    }
+    setValuePairSounds, setActiveIndex,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Buttons)
+export default connect(null, mapDispatchToProps)(Buttons)

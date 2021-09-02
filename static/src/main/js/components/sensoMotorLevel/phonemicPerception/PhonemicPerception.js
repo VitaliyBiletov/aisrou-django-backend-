@@ -1,15 +1,18 @@
 import React from 'react'
-import StatusBar from "./StatusBar";
-import Buttons from './Buttons'
-import Text from './Text'
-import Help from './Help'
+import StatusBar from "../../template/StatusBar";
+import Buttons from '../../template/Buttons'
+import Text from '../../template/Text'
+import Help from '../../template/Help'
 import 'animate.css/animate.css'
 import classNames from 'classnames'
 import {connect} from 'react-redux'
+import {setActiveIndex, setValuePairSounds} from "../../../redux/actions";
+import {PAIRS_OF_SOUNDS} from "./pairsOfSounds";
+import _ from 'lodash'
 
 const colors = ['red', 'yellow', 'blue', 'green']
 
-export default class PhonemicPerception extends React.Component {
+class PhonemicPerception extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -41,14 +44,23 @@ export default class PhonemicPerception extends React.Component {
         })
 
         return (
-            <React.Fragment>
-                <div className='phonemic-perception'>
-                    <div className="heading">Фонематическое восприятие</div>
+                <div className='section phonemic-perception'>
+                    <div className="heading">{ this.props.title }</div>
                     <div onClick={this.openHelp} className='helpIcon'>?</div>
-                    <div className='phonemic-perception-container'>
-                        <StatusBar/>
-                        <Text />
-                        <Buttons />
+                    <div className='section-container'>
+                        <StatusBar
+                            dataFromState={this.props.values}
+                            data={PAIRS_OF_SOUNDS}
+                            name='phonemicPerception'
+                            activeIndex={this.props.activeIndex}
+                        />
+
+                        <Text
+                            activeIndex={this.props.activeIndex}
+                            data={PAIRS_OF_SOUNDS}
+                        />
+                        <Buttons
+                            name='phonemicPerception'/>
                     </div>
                     {this.state.helpVisible && (
                         <div className={classes}>
@@ -56,15 +68,13 @@ export default class PhonemicPerception extends React.Component {
                         </div>
                     )}
                 </div>
-            </React.Fragment>
         )
     }
 }
-//
-// const mapStateToProps = state => {
-//     return {
-//         pairsOfSounds: state.diagnostic.sensoMotorLevel.phonemicPerception.pairsOfSounds
-//     }
-// }
-//
-// export default connect(mapStateToProps, null)(PhonemicPerception)
+
+const mapStateToProps = state => {
+    const {values, activeIndex} = state.diagnostic.sensoMotorLevel.phonemicPerception
+    return {values, activeIndex}
+}
+
+export default connect(mapStateToProps, null)(PhonemicPerception)

@@ -43,6 +43,10 @@ class Diagnostic extends React.Component {
                 const successNoty = generatedNoty('success', 'Изменения сохранены!')
                 successNoty.show()
             })
+            .catch(err => {
+                const errNoty = generatedNoty('error', err.message)
+                errNoty.show()
+        })
     }
 
     handleClickBack = (e) => {
@@ -97,8 +101,8 @@ function generatedNoty(type, text) {
     return new Noty({
             layout:'topCenter',
             theme:'bootstrap-v3',
-            type:'success',
-            text: 'Изменения сохранены!',
+            type: type,
+            text: text,
             progressBar: false,
             animation:{
                 open: 'animate__animated animate__fadeInDown',

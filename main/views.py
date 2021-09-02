@@ -3,13 +3,13 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from admin_panel.models import LogoGroups, Pupil
 from main.models import Diagnostics, StatesOfFunctions, SensoMotorLevel
 from .forms import StatesOfFunctionsForm
 from datetime import datetime
+import os
 
 TAB_HEADERS = {
     'state_functions': 'Состояние функций',
@@ -63,7 +63,7 @@ def diagnostic_view(request):
 def load_data(request):
     diagnostic = json.loads(request.body)['diagnostic']
     diagnostic_id = request.session['diagnostic_id']
-
+    # print(diagnostic)
     state_of_functions = StatesOfFunctions.objects.get(diagnostic_id=diagnostic_id)
     state_of_functions_dict = state_of_functions.__dict__
     for item in diagnostic['stateOfFunctions']:
@@ -80,8 +80,17 @@ def load_data(request):
                 value = None
             senso_motor_level_dict.append({'id': int(id), 'value': value})
 
-    diagnostic['sensoMotorLevel']['phonemicPerception']['pairsOfSounds'] = senso_motor_level_dict
+    diagnostic['sensoMotorLevel']['phonemicPerception']['values'] = senso_motor_level_dict
     return JsonResponse({'diagnostic': diagnostic})
+
+@csrf_exempt
+def load_pictures(request, id):
+    print(request.GET)
+    print('id', id)
+    dir = os.path.dirname(os.path.dirname(__file__))
+    pathToPics = os.path.join(dir,'static','src','main','img','syllables',id,)
+    listOfPictures = os.listdir(path=pathToPics)
+    return JsonResponse({'listOfPictures':listOfPictures})
 
 
 @login_required
@@ -158,7 +167,7 @@ def save_diagnostic_view(request):
     stateOfFunctions.save()
 
     sensoMotorLevel = SensoMotorLevel.objects.get(diagnostic_id=d_id)
-    phonemic_perception = response["sensoMotorLevel"]["phonemicPerception"]["pairsOfSounds"]
+    phonemic_perception = response["sensoMotorLevel"]["phonemicPerception"]["values"]
 
     phonemic_perception_date = []
     for item in phonemic_perception:

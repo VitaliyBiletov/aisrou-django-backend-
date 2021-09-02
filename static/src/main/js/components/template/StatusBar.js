@@ -1,8 +1,6 @@
 import React from 'react'
-import $ from 'jquery'
+import {setActiveIndex, setValuePairSounds} from "../../redux/actions";
 import {connect} from 'react-redux'
-import {setActiveIndex} from "../../../redux/actions";
-import {PAIRS_OF_SOUNDS} from './pairsOfSounds'
 
 const colors = ['red', 'yellow', 'blue', 'green']
 
@@ -14,25 +12,24 @@ class StatusBar extends React.Component {
     handleClick = e => {
         const index = e.target.getAttribute('data-index')
         if (index != this.props.activeIndex) {
-            this.props.setActiveIndex(+index)
+            this.props.setActiveIndex(+index, this.props.name)
         }
-
     }
 
     render() {
         return (
             <React.Fragment>
                 <div className="state-table-container">
-                    <table className='state-table' data-scores='{{scores}}'>
+                    <table className='state-table'>
                         <tbody>
                         <tr>
-                            {this.props.pairsOfSoundsFormState.map((pair, index) => {
+                            {this.props.dataFromState.map((item, index) => {
                                 return (
                                     <td onClick={this.handleClick}
                                         key={index}
-                                        data-tooltip={PAIRS_OF_SOUNDS[pair.id].text}
+                                        data-tooltip={this.props.data[item.id].text}
                                         data-index={index}
-                                        className={`${colors[pair.value] || ''} ${ this.props.activeIndex == index ? 'active-cell' : ''}`}>
+                                        className={`${colors[item.value] || ''} ${ this.props.activeIndex == index ? 'active-cell' : ''}`}>
                                     </td>)
                             })}
                         </tr>
@@ -44,15 +41,9 @@ class StatusBar extends React.Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        pairsOfSoundsFormState: state.diagnostic.sensoMotorLevel.phonemicPerception.pairsOfSounds,
-        activeIndex: state.diagnostic.sensoMotorLevel.phonemicPerception.activeIndex
-    }
-}
-
 const mapDispatchToProps = {
     setActiveIndex,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(StatusBar)
+export default connect(null, mapDispatchToProps)(StatusBar)
+
