@@ -1,5 +1,6 @@
 import React from 'react'
 import PhonemicPerception from "./phonemicPerception/PhonemicPerception"
+import Grammar from "./grammar/Grammar"
 import {updateInitialState} from "../../redux/actions";
 
 export default class SensoMotorLevel extends React.Component {
@@ -16,6 +17,7 @@ export default class SensoMotorLevel extends React.Component {
             <React.Fragment>
                 <p className='section-heading'>{this.props.name}</p>
                 <PhonemicPerception name='Фонематическое восприятие'/>
+                <Grammar name='Гамматический строй речи'/>
             </React.Fragment>
         )
     }
