@@ -85,12 +85,10 @@ def load_data(request):
 
 @csrf_exempt
 def load_pictures(request, id):
-    print(request.GET)
-    print('id', id)
-    dir = os.path.dirname(os.path.dirname(__file__))
-    pathToPics = os.path.join(dir,'static','src','main','img','syllables',id,)
-    listOfPictures = os.listdir(path=pathToPics)
-    return JsonResponse({'listOfPictures':listOfPictures})
+    path_to_dir = os.path.dirname(os.path.dirname(__file__))
+    path_to_pics = os.path.join(path_to_dir,'static','src','main','img','syllables',id,)
+    listOfPictures = os.listdir(path=path_to_pics)
+    return JsonResponse({'listOfPictures': sorted(listOfPictures)})
 
 
 @login_required

@@ -1,13 +1,13 @@
 export const SYLLABLES = [
   {
     id: 0,
-    text: 'а',
+    text: '[а]',
     type: 'vowel',
     value: null
   },
   {
     id: 1,
-    text: 'о',
+    text: '[о]',
     type: 'vowel',
     value: null
   },
