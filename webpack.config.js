@@ -5,8 +5,8 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 
 module.exports = {
     entry: {
-        main: '/static/src/main/js/index',
-        diagnostic: '/static/src/main/js/index-diagnostic'
+        main: ['babel-polyfill', '/static/src/main/js/index'],
+        diagnostic: ['babel-polyfill','/static/src/main/js/index-diagnostic']
     },
     output: {
         path: path.resolve(__dirname, "static", "dist"),

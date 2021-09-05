@@ -12,42 +12,37 @@ import _ from 'lodash'
 
 const colors = ['red', 'yellow', 'blue', 'green']
 
+const hints = [
+    {id:0, color:'red', text:'Отказ от выполнения, полная невозможность воспроизведения пробы'},
+    {id:1, color:'yellow', text:'Неточное воспроизведение обоих членов пары с перестановкой слогов, их заменой и пропусками'},
+    {id:2, color:'blue', text:'Первый член воспроизводится правильно, второй уподобляется первому (ба-па-ба-па)'},
+    {id:3, color:'green', text:'Точное и правильное воспроизведение в темпе предъявления'},
+]
+
 class PhonemicPerception extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             helpVisible: false,
-            isClose: false,
         }
     }
 
     openHelp = e => {
         this.setState({
             helpVisible: true,
-            isClose: false,
         })
     }
 
     closeHelp = e => {
-        this.setState({
-            isClose: true,
-        })
-        setTimeout(() => this.setState({helpVisible: false}), 800)
+        this.setState({helpVisible: false})
     }
 
     render() {
-        const classes = classNames({
-            'helpContainer': true,
-            'animate__animated': true,
-            'animate__flipInY': this.state.helpVisible,
-            'animate__flipOutY': this.state.isClose,
-        })
-
         return (
-                <div className='section phonemic-perception'>
-                    <div className="heading">{ this.props.title }</div>
-                    <div onClick={this.openHelp} className='helpIcon'>?</div>
-                    <div className='section-container'>
+                <div className='diagnostic-subsection phonemic-perception'>
+                    <div className="subsection-heading">{ this.props.title }</div>
+                    <div onClick={this.openHelp} className='help-icon'>?</div>
+                    <div className='subsection-container'>
                         <StatusBar
                             dataFromState={this.props.values}
                             data={PAIRS_OF_SOUNDS}
@@ -63,9 +58,11 @@ class PhonemicPerception extends React.Component {
                             name='phonemicPerception'/>
                     </div>
                     {this.state.helpVisible && (
-                        <div className={classes}>
-                            <Help closeHelp={this.closeHelp}/>
-                        </div>
+                        <Help
+                            isVisible={this.state.helpVisible}
+                            hints={hints}
+                            closeHelp={this.closeHelp}
+                        />
                     )}
                 </div>
         )

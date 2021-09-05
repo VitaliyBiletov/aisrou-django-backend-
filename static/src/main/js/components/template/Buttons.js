@@ -17,11 +17,11 @@ class Buttons extends React.Component {
     render() {
         return (
             <div className="row justify-content-center mt-3">
-                <div className='buttons-container col-auto col-sm-auto col-md-auto'>
+                <div className='score-buttons-container col-auto col-sm-auto col-md-auto'>
                     {buttons.map((button, index) => (
                         <button
                             key={index}
-                            className={`scores-btn ${buttons[index]} mx-2`}
+                            className={`${buttons[index]} mx-2`}
                             value={index}
                             onClick={this.handleClick}
                         >{index}</button>

@@ -40,6 +40,7 @@
     "axios": "^0.21.1",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.2.2",
+    "babel-polyfill": "^6.26.0",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
     "css-loader": "^5.2.7",
     "fbjs": "^3.0.0",

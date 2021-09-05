@@ -4,7 +4,7 @@ import {
     SENSO_MOTOR_LEVEL_INPUT_VALUE,
     SET_ACTIVE_INDEX,
     SET_VALUE_OF_PAIR_SOUNDS,
-    SET_LIST_OF_PICTURES
+    // SET_LIST_OF_PICTURES
 } from "./types";
 import axios from "axios/index";
 
@@ -40,18 +40,18 @@ export function setValuePairSounds(value, name) {
     }
 }
 
-export function setAListOfPictures(id) {
-    return function (dispatch) {
-        axios.get(`/diagnostic/load-pictures/${id}/`)
-            .then(res => {
-                dispatch({
-                    type: SET_LIST_OF_PICTURES,
-                    payload: res.data.listOfPictures
-                })
-            })
-            .catch(err => console.error(err))
-    }
-}
+// export function setAListOfPictures(id) {
+//     return function (dispatch) {
+//         axios.get(`/diagnostic/load-pictures/${id}/`)
+//             .then(res => {
+//                 dispatch({
+//                     type: SET_LIST_OF_PICTURES,
+//                     payload: res.data.listOfPictures
+//                 })
+//             })
+//             .catch(err => console.error(err))
+//     }
+// }
 
 export function updateInitialState(state) {
     return function (dispatch) {

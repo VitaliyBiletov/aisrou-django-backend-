@@ -55,15 +55,15 @@ class Diagnostic extends React.Component {
 
     render() {
         return (
-            <React.Fragment>
+            <div className="diagnostic">
                 <Router>
                     <div className='diagnostic-nav'>
                         {items.map(item => (
-                            <NavLink activeClassName="active" key={item.id} to={item.link}>{item.title}</NavLink>
+                            <NavLink activeClassName="nav-link-active" key={item.id} to={item.link}>{item.title}</NavLink>
                         ))}
                     </div>
                     {/*/!*{this.state.loading ? (*!/*/}
-                    <div className="diagnostic-content">
+                    <div className="diagnostic-section">
                         <Switch>
                             <Route path='/diagnostic/state-of-function'>
                                 <StateOfFunctions name='Состояние функций'/>
@@ -84,7 +84,7 @@ class Diagnostic extends React.Component {
                         <button className='btn btn-primary m-2' onClick={this.handleClickBack}>Назад</button>
                     </div>
                 </div>
-            </React.Fragment>
+            </div>
         )
     }
 }

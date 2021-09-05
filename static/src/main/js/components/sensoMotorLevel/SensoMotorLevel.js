@@ -8,17 +8,13 @@ export default class SensoMotorLevel extends React.Component {
         super(props);
     }
 
-    componentDidMount(){
-
-    }
-
     render() {
         return (
-            <React.Fragment>
-                <p className='section-heading'>{this.props.name}</p>
+            <div className="senso-motor-level">
+                <p className='diagnostic-section-heading'>{this.props.name}</p>
                 <PhonemicPerception title='Фонематическое восприятие'/>
                 <Grammar name='Гамматический строй речи'/>
-            </React.Fragment>
+            </div>
         )
     }
 }

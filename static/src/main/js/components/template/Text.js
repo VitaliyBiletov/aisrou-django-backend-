@@ -10,7 +10,7 @@ export default class Text extends React.Component {
     render() {
         return (
               <div className='text-container'>
-                <p id="text">{this.props.data[this.props.activeIndex].text}</p>
+                <p>{this.props.data[this.props.activeIndex].text}</p>
               </div>
         )
     }

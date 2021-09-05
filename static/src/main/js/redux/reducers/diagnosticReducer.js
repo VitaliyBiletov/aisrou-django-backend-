@@ -3,7 +3,7 @@ import {
     UPDATE_INITIAL_STATE,
     SET_ACTIVE_INDEX,
     SET_VALUE_OF_PAIR_SOUNDS,
-    SET_LIST_OF_PICTURES
+    // SET_LIST_OF_PICTURES
 } from "../types";
 import {PAIRS_OF_SOUNDS} from '../../components/sensoMotorLevel/phonemicPerception/pairsOfSounds'
 import {SYLLABLES} from "../../components/sensoMotorLevel/grammar/syllables";
@@ -29,7 +29,6 @@ const initialState = {
             name: 'grammar',
             values: SYLLABLES.map(syllable => ({id: syllable.id, value: syllable.value})),
             activeIndex: 0,
-            listOfPictures:[]
         }
     }
 }
@@ -44,11 +43,11 @@ export const diagnosticReducer = (state = initialState, action) => {
             let copyState = Object.assign({},state)
             _.set(copyState, `sensoMotorLevel.${action.payload.name}.activeIndex`, action.payload.index)
             return copyState
-        case SET_LIST_OF_PICTURES:
-            let copyState3 = Object.assign({},state)
-            _.set(copyState3, `sensoMotorLevel.grammar.listOfPictures`, action.payload)
-            console.log(copyState3)
-            return copyState3
+        // case SET_LIST_OF_PICTURES:
+        //     let copyState3 = Object.assign({},state)
+        //     _.set(copyState3, `sensoMotorLevel.grammar.listOfPictures`, action.payload)
+        //     console.log(copyState3)
+        //     return copyState3
         case SET_VALUE_OF_PAIR_SOUNDS:
             let copyState2 = Object.assign({},state)
             const index = _.get(copyState2, `sensoMotorLevel.${action.payload.name}.activeIndex`)

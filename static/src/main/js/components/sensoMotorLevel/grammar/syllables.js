@@ -13,276 +13,276 @@ export const SYLLABLES = [
   },
   {
     id: 2,
-    text: 'э',
+    text: '[э]',
     type: 'vowel',
     value: null
   },
   {
     id: 3,
-    text: 'п',
+    text: '[п]',
     type: 'consonant',
     variety: 'solid',
     value: null
   },
   {
     id: 4,
-    text: 'п\'',
+    text: '[п\']',
     type: 'consonant',
     variety: 'soft',
     value: null
   },
   {
     id: 5,
-    text: 'б',
+    text: '[б]',
     type: 'consonant',
     variety: 'solid',
     value: null
   },
   {
     id: 6,
-    text: 'б\'',
+    text: '[б\']',
     type: 'consonant',
     variety: 'soft',
     value: null
   },
   {
     id: 7,
-    text: 'м',
+    text: '[м]',
     type: 'consonant',
     variety: 'solid',
     value: null
   },
   {
     id: 8,
-    text: 'м\'',
+    text: '[м\']',
     type: 'consonant',
     variety: 'soft',
     value: null
   },
   {
     id: 9,
-    text: 'и',
+    text: '[и]',
     type: 'vowel',
     value: null
   },
   {
     id: 10,
-    text: 'ы',
+    text: '[ы]',
     type: 'vowel',
     value: null
   },
   {
     id: 11,
-    text: 'у',
+    text: '[у]',
     type: 'vowel',
     value: null
   },
   {
     id: 12,
-    text: 'ф',
+    text: '[ф]',
     type: 'consonant',
     variety: 'solid',
     value: null
   },
   {
     id: 13,
-    text: 'ф\'',
+    text: '[ф\']',
     type: 'consonant',
     variety: 'soft',
     value: null
   },
   {
     id: 14,
-    text: 'в',
+    text: '[в]',
     type: 'consonant',
     variety: 'solid',
     value: null
   },
   {
     id: 15,
-    text: 'в\'',
+    text: '[в\']',
     type: 'consonant',
     variety: 'soft',
     value: null
   },
   {
     id: 16,
-    text: 'т',
+    text: '[т]',
     type: 'consonant',
     variety: 'solid',
     value: null
   },
   {
     id: 17,
-    text: 'т\'',
+    text: '[т\']',
     type: 'consonant',
     variety: 'soft',
     value: null
   },
   {
     id: 18,
-    text: 'д',
+    text: '[д]',
     type: 'consonant',
     variety: 'solid',
     value: null
   },
   {
     id: 19,
-    text: 'д\'',
+    text: '[д\']',
     type: 'consonant',
     variety: 'soft',
     value: null
   },
   {
     id: 20,
-    text: 'н',
+    text: '[н]',
     type: 'consonant',
     variety: 'solid',
     value: null
   },
   {
     id: 21,
-    text: 'н\'',
+    text: '[н\']',
     type: 'consonant',
     variety: 'soft',
     value: null
   },
   {
     id: 22,
-    text: 'к',
+    text: '[к]',
     type: 'consonant',
     variety: 'solid',
     value: null
   },
   {
     id: 23,
-    text: 'к\'',
+    text: '[к\']',
     type: 'consonant',
     variety: 'soft',
     value: null
   },
   {
     id: 24,
-    text: 'г',
+    text: '[г]',
     type: 'consonant',
     variety: 'solid',
     value: null
   },
   {
     id: 25,
-    text: 'г\'',
+    text: '[г\']',
     type: 'consonant',
     variety: 'soft',
     value: null
   },
   {
     id: 26,
-    text: 'х',
+    text: '[х]',
     type: 'consonant',
     variety: 'solid',
     value: null
   },
   {
     id: 27,
-    text: 'х\'',
+    text: '[х\']',
     type: 'consonant',
     variety: 'soft',
     value: null
   },
   {
     id: 28,
-    text: 'й\'',
+    text: '[й\']',
     type: 'consonant',
     variety: 'soft',
     value: null
   },
   {
     id: 29,
-    text: 'с',
+    text: '[с]',
     type: 'consonant',
     variety: 'solid',
     value: null
   },
   {
     id: 30,
-    text: 'с\'',
+    text: '[с\']',
     type: 'consonant',
     variety: 'soft',
     value: null
   },
   {
     id: 31,
-    text: 'з',
+    text: '[з]',
     type: 'consonant',
     variety: 'solid',
     value: null
   },
   {
     id: 32,
-    text: 'з\'',
+    text: '[з\']',
     type: 'consonant',
     variety: 'soft',
     value: null
   },
 {
     id: 33,
-    text: 'ц',
+    text: '[ц]',
     type: 'consonant',
     variety: 'solid',
     value: null
   },
   {
     id: 34,
-    text: 'ш',
+    text: '[ш]',
     type: 'consonant',
     variety: 'solid',
     value: null
   },
   {
     id: 35,
-    text: 'ж',
+    text: '[ж]',
     type: 'consonant',
     variety: 'solid',
     value: null
   },
   {
     id: 36,
-    text: 'ч\'',
+    text: '[ч\']',
     type: 'consonant',
     variety: 'soft',
     value: null
   },
   {
     id: 37,
-    text: 'щ',
+    text: '[щ]',
     type: 'consonant',
     variety: 'solid',
     value: null
   },
   {
     id: 38,
-    text: 'л',
+    text: '[л]',
     type: 'consonant',
     variety: 'solid',
     value: null
   },
   {
     id: 39,
-    text: 'л\'',
+    text: '[л\']',
     type: 'consonant',
     variety: 'soft',
     value: null
   },
   {
     id: 40,
-    text: 'р',
+    text: '[р]',
     type: 'consonant',
     variety: 'solid',
     value: null
   },
   {
     id: 41,
-    text: 'р\'',
+    text: '[р\']',
     type: 'consonant',
     variety: 'soft',
     value: null
