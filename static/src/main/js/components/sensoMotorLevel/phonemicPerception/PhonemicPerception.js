@@ -1,96 +1,77 @@
 import React from 'react'
-import StatusBar from "./StatusBar";
-import Buttons from './Buttons'
-import Text from './Text'
-import Help from './Help'
+import StatusBar from "../../template/StatusBar";
+import Buttons from '../../template/Buttons'
+import Text from '../../template/Text'
+import Help from '../../template/Help'
 import 'animate.css/animate.css'
 import classNames from 'classnames'
-import { pairsOfSounds } from './pairsOfSounds.json'
+import {connect} from 'react-redux'
+import {setActiveIndex, setValuePairSounds} from "../../../redux/actions";
+import {PAIRS_OF_SOUNDS} from "./pairsOfSounds";
+import _ from 'lodash'
 
 const colors = ['red', 'yellow', 'blue', 'green']
 
-export default class PhonemicPerception extends React.Component {
-  constructor(props) {
-    super(props)
-    this.title = props.name
-    this.updateState = props.updateState
-    this.state = {
-      pairsOfSounds: this.props.getState('sensoMotorLevel').phonemicPerception,
-      activePairId: 0,
-      helpVisible: false,
-      isClose: false,
-    }
-  }
+const hints = [
+    {id:0, color:'red', text:'Отказ от выполнения, полная невозможность воспроизведения пробы'},
+    {id:1, color:'yellow', text:'Неточное воспроизведение обоих членов пары с перестановкой слогов, их заменой и пропусками'},
+    {id:2, color:'blue', text:'Первый член воспроизводится правильно, второй уподобляется первому (ба-па-ба-па)'},
+    {id:3, color:'green', text:'Точное и правильное воспроизведение в темпе предъявления'},
+]
 
-  setActivePair = (id) => {
-    this.setState({activePairId: id})
-  }
-
-  setValue = (value) => {
-    const activePairId = this.state.activePairId
-    const nextActiveId = activePairId == pairsOfSounds.length - 1 ? 0 : activePairId + 1
-    const newState = this.state.pairsOfSounds.map(pair => {
-      if (pair.id == activePairId){
-       return { id: pair.id, value: +value}
-      }
-      if (pair.id == nextActiveId){
-        this.setState({ activePairId: pair.id })
-      }
-      return pair
-    })
-
-    this.setState({pairsOfSounds: newState})
-
-    const phonemicPerception = this.state.pairsOfSounds.map(({id, value}) => {
-      return {id, value}
-    })
-
-    this.updateState(
-        {
-          sensoMotorLevel: { phonemicPerception: phonemicPerception }
+class PhonemicPerception extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            helpVisible: false,
         }
-    )
-  }
+    }
 
-  openHelp = e => {
-    this.setState({
-      helpVisible: true,
-      isClose: false,
-    })
-  }
+    openHelp = e => {
+        this.setState({
+            helpVisible: true,
+        })
+    }
 
-  closeHelp = e => {
-    this.setState({
-      isClose: true,
-    })
-    setTimeout(() => this.setState({helpVisible: false}), 800)
-  }
+    closeHelp = e => {
+        this.setState({helpVisible: false})
+    }
 
-  render() {
-    const classes = classNames({
-      'helpContainer': true,
-      'animate__animated': true,
-      'animate__flipInY': this.state.helpVisible,
-      'animate__flipOutY': this.state.isClose,
-    })
+    render() {
+        return (
+                <div className='diagnostic-subsection phonemic-perception'>
+                    <div className="subsection-heading">{ this.props.title }</div>
+                    <div onClick={this.openHelp} className='help-icon'>?</div>
+                    <div className='subsection-container'>
+                        <StatusBar
+                            dataFromState={this.props.values}
+                            data={PAIRS_OF_SOUNDS}
+                            name='phonemicPerception'
+                            activeIndex={this.props.activeIndex}
+                        />
 
-    const activePair = pairsOfSounds.find((pair) => pair.id == this.state.activePairId)
-
-    return (
-      <div className='phonemic-perception'>
-        <div className="heading">{ this.title }</div>
-        <div onClick={this.openHelp} className='helpIcon'>?</div>
-        <div className='phonemic-perception-container'>
-          <StatusBar pairsOfSounds={this.state.pairsOfSounds} setActivePair={ this.setActivePair } activePairId={ this.state.activePairId }/>
-          <Text activePair={ activePair } />
-          <Buttons setValue={ this.setValue }/>
-        </div>
-        { this.state.helpVisible && (
-          <div className={ classes }>
-            <Help closeHelp={this.closeHelp}/>
-          </div>
-        )}
-      </div>
-      )
-  }
+                        <Text
+                            activeIndex={this.props.activeIndex}
+                            data={PAIRS_OF_SOUNDS}
+                        />
+                        <Buttons
+                            name='phonemicPerception'/>
+                    </div>
+                    {this.state.helpVisible && (
+                        <Help
+                            isVisible={this.state.helpVisible}
+                            hints={hints}
+                            closeHelp={this.closeHelp}
+                        />
+                    )}
+                </div>
+        )
+    }
 }
+
+const mapStateToProps = state => {
+    const {values, activeIndex} = state.diagnostic.sensoMotorLevel.phonemicPerception
+    return {values, activeIndex}
+}
+
+export default connect(mapStateToProps, null)(PhonemicPerception)

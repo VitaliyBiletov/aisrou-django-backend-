@@ -1,4 +1,4 @@
-import './components/diagnostic/Diagnostic'
-import 'react-bootstrap'
+import '../sass/main/index.sass'
 import '../sass/diagnostic/index.sass'
-import '../sass/style.sass'
+import './components/App'
+

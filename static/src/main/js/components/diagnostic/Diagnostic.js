@@ -6,124 +6,110 @@ import {
     NavLink
 } from 'react-router-dom'
 import StateOfFunctions from "../stateOfFunctions/StateOfFunctions"
-import ReactDOM from "react-dom"
 import SensoMotorLevel from "../sensoMotorLevel/SensoMotorLevel";
-import axios from "axios";
-import $ from 'jquery'
+import axios from "axios"
+import Loader from "../Loader"
+import Noty from 'noty'
+import {connect} from 'react-redux'
+import {updateInitialState} from "../../redux/actions";
+import {store} from '../App'
+
 
 const items = [
-                {id: 0, link:'state-of-function', title: 'Состояние функций'},
-                {id: 1, link:'senso-motor-level', title: 'Сенсо-моторный уровень'},
-                {id: 2, link:'grammar', title: 'Грамматический строй речи'},
-                {id: 3, link:'vocabulary', title: 'Словарный запас'},
-                {id: 4, link:'coherent-speech', title: 'Связная речь'},
-                {id: 5, link:'language-analysis', title: 'Языковой анализ'},
-                {id: 6, link:'word-formation', title: 'Словообразование'},
-                {id: 7, link:'reading', title: 'Чтение'},
-                {id: 8, link:'writing', title: 'Письмо'},
-            ]
+    {id: 0, link: 'state-of-function', title: 'Состояние функций'},
+    {id: 1, link: 'senso-motor-level', title: 'Сенсо-моторный уровень'},
+    {id: 2, link: 'grammar', title: 'Грамматический строй речи'},
+    {id: 3, link: 'vocabulary', title: 'Словарный запас'},
+    {id: 4, link: 'coherent-speech', title: 'Связная речь'},
+    {id: 5, link: 'language-analysis', title: 'Языковой анализ'},
+    {id: 6, link: 'word-formation', title: 'Словообразование'},
+    {id: 7, link: 'reading', title: 'Чтение'},
+    {id: 8, link: 'writing', title: 'Письмо'},
+]
 
-export default class Diagnostic extends React.Component {
+class Diagnostic extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            stateOfFunctions: {
-                hearing:'',vision:'',breath:'',voice:'',
-                prosody:'',articulation_apparatus:'',
-                motor_skills:'',additional_information:''
-            },
-            sensoMotorLevel: {
-                phonemicPerception: [
-                    {id:0, value:''},
-                    {id:1, value:''},
-                    {id:2, value:''},
-                    {id:3, value:''},
-                    {id:4, value:''},
-                    {id:5, value:''},
-                    {id:6, value:''},
-                    {id:7, value:''},
-                    {id:8, value:''},
-                    {id:9, value:''},
-                    {id:10, value:''},
-                    {id:11, value:''},
-                    {id:12, value:''},
-                ]
-            }
-        }
     }
 
     componentDidMount() {
-        // window.onbeforeunload = function(e) {
-        //   e.returnValue = '';
-        // };
-        axios.post('/diagnostic/load-data',{
-            data: this.state
+        const {updateInitialState} = this.props
+        updateInitialState(store.getState())
+    }
+
+    handleSaveData = (e) => {
+        axios.post('save', {'data': store.getState()})
+            .then(()=>{
+                const successNoty = generatedNoty('success', 'Изменения сохранены!')
+                successNoty.show()
+            })
+            .catch(err => {
+                const errNoty = generatedNoty('error', err.message)
+                errNoty.show()
         })
-            .then(res => this.setState(res.data.data))
     }
 
-    updateState = (newState) => {
-        this.setState(newState)
-    }
-
-    getState = (name) => {
-        return this.state[name]
-    }
-
-    handleSendData = (e) => {
-        axios.post('save', {'data': this.state})
-    }
-
-    handleChange = (name) => (e) => {
-        let copyState = this.state[name]
-        copyState[e.target.name] = e.target.value
-        this.setState({ [name]: copyState })
+    handleClickBack = (e) => {
+        window.location = '/'
     }
 
     render() {
-        console.log(this.state)
         return (
-            <React.Fragment>
-            <Router>
+            <div className="diagnostic">
+                <Router>
                     <div className='diagnostic-nav'>
-                       {items.map( item => (
-                            <NavLink activeClassName="active" key={item.id} to={item.link}>{item.title}</NavLink>
-                       ))}
+                        {items.map(item => (
+                            <NavLink activeClassName="nav-link-active" key={item.id} to={item.link}>{item.title}</NavLink>
+                        ))}
                     </div>
-                    <div className="diagnostic-content">
+                    {/*/!*{this.state.loading ? (*!/*/}
+                    <div className="diagnostic-section">
                         <Switch>
                             <Route path='/diagnostic/state-of-function'>
-                                <StateOfFunctions
-                                    getState={this.state.stateOfFunctions}
-                                    updateState={this.updateState}
-                                    onChange={this.handleChange}
-                                    name='Состояние функций'/>
+                                <StateOfFunctions name='Состояние функций'/>
                             </Route>
                             <Route path='/diagnostic/senso-motor-level'>
-                                <SensoMotorLevel
-                                    getState={this.getState}
-                                    updateState={this.updateState}
-                                    name='Сенсо-моторный уровень'/>
+                                <SensoMotorLevel name='Сенсо-моторный уровень'/>
                             </Route>
                             <Route path='/diagnostic/'>
-                                <DiagnosticMain />
+                                <DiagnosticMain/>
                             </Route>
                         </Switch>
                     </div>
-            </Router>
+                    {/*/!*) : <Loader/>}*!/*/}
+                </Router>
                 <div className='fixed-bottom bar-bottom'>
                     <div className='container'>
-                        <button className='btn btn-primary m-2' onClick={this.handleSendData}>Сохранить</button>
-                        <button className='btn btn-primary m-2'>Назад</button>
+                        <button className='btn btn-success m-2' onClick={this.handleSaveData}>Сохранить</button>
+                        <button className='btn btn-primary m-2' onClick={this.handleClickBack}>Назад</button>
                     </div>
                 </div>
-            </React.Fragment>
+            </div>
         )
     }
 }
 
-function DiagnosticMain(props){
+function DiagnosticMain(props) {
     return (<p>Главная страница</p>)
 }
 
-ReactDOM.render(<Diagnostic />, document.getElementById('diagnostic-container'))
+const mapDispatchToProps = {
+    updateInitialState
+};
+
+function generatedNoty(type, text) {
+    return new Noty({
+            layout:'topCenter',
+            theme:'bootstrap-v3',
+            type: type,
+            text: text,
+            progressBar: false,
+            animation:{
+                open: 'animate__animated animate__fadeInDown',
+                close: 'animate__animated animate__fadeOutUp'
+            },
+            timeout: 1000,
+        })
+}
+
+export default connect(null, mapDispatchToProps)(Diagnostic)

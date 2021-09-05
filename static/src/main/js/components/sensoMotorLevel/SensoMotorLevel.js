@@ -1,22 +1,21 @@
 import React from 'react'
 import PhonemicPerception from "./phonemicPerception/PhonemicPerception"
+import Grammar from "./grammar/Grammar"
+import {updateInitialState} from "../../redux/actions";
 
 export default class SensoMotorLevel extends React.Component {
     constructor(props) {
         super(props);
-        this.updateState = props.updateState
-        this.getState = props.getState
     }
 
     render() {
         return (
-            <React.Fragment>
-                <p className='section-heading'>{this.props.name}</p>
-                <PhonemicPerception
-                    updateState={this.updateState}
-                    getState={this.getState}
-                    name='Фонематическое восприятие'/>
-            </React.Fragment>
+            <div className="senso-motor-level">
+                <p className='diagnostic-section-heading'>{this.props.name}</p>
+                <PhonemicPerception title='Фонематическое восприятие'/>
+                <Grammar name='Гамматический строй речи'/>
+            </div>
         )
     }
 }
+

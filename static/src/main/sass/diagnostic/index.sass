@@ -1,8 +1,12 @@
+@import "nav-top"
 @import "help"
 @import "state-of-functions"
-@import "phonemic-perception"
-@import "nav-top"
+@import "senso-motor-level"
 @import "bar-bottom"
+@import "~animate.css/animate.css"
+@import "~noty/src/noty"
+@import "~noty/lib/themes/bootstrap-v3.css"
+@import "~noty/lib/noty.css"
 
 $heightPhonemic : 300px
 
@@ -27,22 +31,37 @@ $heightPhonemic : 300px
       text-shadow: 0.5px 0.5px 0.5px black
     &:last-child
       border: none
-    &:active
-      background: #945050
+  .nav-link-active
+    background: #945050
+    color: #fff !important
+    text-shadow: 0.5px 0.5px 0.5px black
 
-.active
-  background: #945050
-  color: #fff !important
-  text-shadow: 0.5px 0.5px 0.5px black
+.diagnostic
+  margin-bottom: 150px
 
-.section-heading
+.diagnostic-section-heading
   width: 600px
   margin: 10px auto
   text-align: center
   font-size: 17pt
   border-bottom: 1px solid #945050
 
+.diagnostic-subsection
+  position: relative
+  width: 700px
+  margin: 30px auto
+  padding-bottom: 10px
+  box-shadow: 0 0 2px black
+  .subsection-heading
+    color: #fff
+    background: #343a40
+    text-align: center
+  .subsection-container
+    display: flex
+    flex-direction: column
+    width: 640px
+    margin: 15px auto
 
-
-
+.noty_bar
+  box-shadow: 0 0 5px black
 

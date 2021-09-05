@@ -1,0 +1,173 @@
+$heightPhonemic : 300px
+$border-radius-td: 20px
+
+%state-table
+  .state-table
+    display: block
+    border-radius: $border-radius-td
+    -webkit-border-radius: $border-radius-td
+    -moz-border-radius: $border-radius-td
+    -khtml-border-radius: $border-radius-td
+    border: 1px solid #385874
+    padding: 3px
+    background: #385874
+
+%state-table-td
+  width: 50px
+  border-top: none !important
+  border-right: none
+  box-shadow: inset 0 0 2px 1px black
+  transition: 0.1s
+  background: white
+
+%border-left-t-b
+  border-top-left-radius: $border-radius-td
+  border-bottom-left-radius: $border-radius-td
+  transition: 100ms
+
+%border-right-t-b
+  border-top-right-radius: $border-radius-td
+  border-bottom-right-radius: $border-radius-td
+  transition: 100ms
+
+//--PHONEMIC-PERCEPTION component--//
+
+.phonemic-perception
+    @extend %state-table
+    td
+      height: 50px
+      @extend %state-table-td
+      &:hover
+        cursor: pointer
+        background-color: #dfe3e9
+        box-shadow: inset 0 0 6px 1px black !important
+      &:first-child
+        @extend %border-left-t-b
+      &:last-child
+        border-right: none
+        @extend %border-right-t-b
+
+    .active-cell
+      box-shadow: inset 0 0 6px 1px black !important
+    [data-tooltip]
+      position: relative
+      &::before
+        content: attr(data-tooltip)
+        position: absolute
+        left: -50%
+        right: 0
+        top: 5em
+        border-radius: 5px
+        width: max-content
+        background-color: #d8ebff
+        //text-align: center
+        font-size: 9pt
+        padding: 5px
+        font-weight: bold
+        color: #32526e
+        pointer-events: none
+        opacity: 0
+        transition: 0.3s
+      &:hover::before
+        opacity: 0.7
+
+//---GRAMMAR component---//
+
+.grammar
+  $width-active-cell: 170px
+  @extend %state-table
+
+  td
+    height: 30px
+    @extend %state-table-td
+    &:hover
+      cursor: pointer
+      background-color: #dfe3e9
+      width: $width-active-cell
+    &:first-child
+      @extend %border-left-t-b
+    &:last-child
+      border-right: none
+      @extend %border-right-t-b
+
+  .active-cell
+    width: $width-active-cell
+    &::before
+      opacity: 1 !important
+
+  .grammar-images
+    display: flex
+    justify-content: center
+    img
+      width: 200px
+    p
+      text-align: center
+    .grammar-image
+      border: 1px solid gray
+      margin: 5px
+      p
+        background: #e5f3ff
+
+  [data-tooltip]
+    position: relative
+    &::before
+      content: attr(data-tooltip)
+      position: absolute
+      left: 0
+      top: 0
+      width: 100%
+      text-align: center
+      font-size: 15pt
+      font-weight: bold
+      color: #32526e
+      pointer-events: none
+      opacity: 0
+      transition: 0.3s
+    &:hover::before
+      opacity: 1
+
+//---------------------------------------------//
+
+.text-container
+  width: max-content
+  margin: 25px auto
+  p
+    font-size: 25pt
+    background-color: #e5f3ff
+    padding: 10px 50px
+    text-align: center
+    border-radius: 10px
+    color: #385874
+    font-weight: bold
+
+.score-buttons-container
+  margin: 5px
+  button
+    font-size: 16pt
+    opacity: 0.9
+    margin-top: 0px
+    width: 4em
+    text-shadow: 1px 1px 2px black
+    color: #fff
+    border: none
+    border-radius: 10px
+    outline: none !important
+    transition: 300ms
+    &:hover
+      opacity: 1
+    &:active
+      transform: scale(0.9)
+
+.red
+  background-color: #ff4040 !important
+
+.yellow
+  background-color: #f9ff50 !important
+
+.blue
+  background-color: #2099ff !important
+
+.green
+  background-color: #5eaf5e !important
+
+

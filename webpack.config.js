@@ -1,11 +1,12 @@
 const path = require('path');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 
 module.exports = {
     entry: {
-        main: '/static/src/main/js/index',
-        diagnostic: '/static/src/main/js/index-diagnostic'
+        main: ['babel-polyfill', '/static/src/main/js/index'],
+        diagnostic: ['babel-polyfill','/static/src/main/js/index-diagnostic']
     },
     output: {
         path: path.resolve(__dirname, "static", "dist"),
@@ -15,17 +16,21 @@ module.exports = {
         new CleanWebpackPlugin(),
         new HTMLWebpackPlugin({
             title: 'main',
-            filename: path.resolve(__dirname,'templates', 'dist','index.html'),
-            template: path.resolve(__dirname,'templates','main','index.html'),
+            filename: path.resolve(__dirname, 'templates', 'dist', 'index.html'),
+            template: path.resolve(__dirname, 'templates', 'main', 'index.html'),
             cache: false,
             chunks: ['main']
         }),
         new HTMLWebpackPlugin({
             title: 'diagnostic',
-            filename: path.resolve(__dirname,'templates', 'dist','diagnostic.html'),
-            template: path.resolve(__dirname,'templates','main','diagnostic.html'),
-            cache: false,
-            chunks: ['diagnostic']
+            filename: path.resolve(__dirname, 'templates', 'dist', 'diagnostic.html'),
+            template: path.resolve(__dirname, 'templates', 'main', 'diagnostic.html'),
+            cache: true,
+            chunks: ['diagnostic'],
+            inject: 'head',
+        }),
+        new MiniCssExtractPlugin({
+            filename: "css/[name].[contenthash].css",
         }),
     ],
     module: {
@@ -34,18 +39,15 @@ module.exports = {
                 test: /\.(js|jsx)?$/, // определяем тип файлов
                 exclude: /(node_modules)/,  // исключаем из обработки папку node_modules
                 loader: "babel-loader",   // определяем загрузчик
-                options:{
-                    presets:["@babel/preset-env", "@babel/preset-react"]    // используемые плагины
+                options: {
+                    presets: ["@babel/preset-env", "@babel/preset-react"]    // используемые плагины
                 }
             },
             {
                 test: /\.s[ac]ss$/i,
                 use: [
-                    // Creates `style` nodes from JS strings
-                    "style-loader",
-                    // Translates CSS into CommonJS
+                    MiniCssExtractPlugin.loader,
                     "css-loader",
-                    // Compiles Sass to CSS
                     "sass-loader",
                 ],
             },
@@ -57,7 +59,7 @@ module.exports = {
                 test: /\.json/,
                 type: 'javascript/auto',
                 use: ['json-loader'],
-              },
+            },
         ]
     },
 }
