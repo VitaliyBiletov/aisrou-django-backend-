@@ -1,5 +1,5 @@
 import React from "react"
-import {setActiveIndex, setValuePairSounds} from "../../redux/actions";
+import {setActiveIndex, setValueToState} from "../../redux/actions";
 import {connect} from 'react-redux'
 
 
@@ -11,7 +11,7 @@ class Buttons extends React.Component {
     }
 
     handleClick = e => {
-        this.props.setValuePairSounds(+e.target.value, this.props.name)
+        this.props.setValueToState(+e.target.value, this.props.name)
     }
 
     render() {
@@ -33,7 +33,7 @@ class Buttons extends React.Component {
 }
 
 const mapDispatchToProps = {
-    setValuePairSounds, setActiveIndex,
+    setValueToState, setActiveIndex,
 }
 
 export default connect(null, mapDispatchToProps)(Buttons)

@@ -109,14 +109,15 @@ class SensoMotorLevel(models.Model):
         verbose_name='Фонематическое воспритятие',
         blank=True,
         null=True,
-        max_length=100
+        max_length=100,
+        default="0:&1:&2:&3:&4:&5:&6:&7:&8:&9:&10:&11:&12:"
     )
 
     sound_pronunciation = models.CharField(
         verbose_name='Звукопроизношение',
         blank=True,
         null=True,
-        max_length=100,
+        max_length=350,
     )
 
     sound_syllable_structure = models.CharField(

@@ -36,14 +36,14 @@ export default class CreateDiagnostic extends React.Component {
             this.setState({date:
                     {...date, isInvalid: false}
             })
-            axios.post('diagnostic/create',
+            axios.post('/create/',
             {
                 'type':'create',
                 'selected_pupil_id': this.props.selected_pupil,
                 'date': date,
             })
             .then((res) => {
-               window.location = '/diagnostic'
+               window.location = '/create/'
             }
                 // ReactDOM.render(<Diagnostic/>, document.getElementById('content'))
             )

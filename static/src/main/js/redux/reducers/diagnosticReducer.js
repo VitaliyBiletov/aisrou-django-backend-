@@ -2,11 +2,11 @@ import {
     STATE_OF_FUNCTIONS_INPUT_VALUE,
     UPDATE_INITIAL_STATE,
     SET_ACTIVE_INDEX,
-    SET_VALUE_OF_PAIR_SOUNDS,
+    SET_VALUE_TO_STATE,
     // SET_LIST_OF_PICTURES
 } from "../types";
 import {PAIRS_OF_SOUNDS} from '../../components/sensoMotorLevel/phonemicPerception/pairsOfSounds'
-import {SYLLABLES} from "../../components/sensoMotorLevel/grammar/syllables";
+import {SYLLABLES} from "../../components/sensoMotorLevel/soundPronunciation/syllables";
 import {sensoMotorLevelInputValue} from "../actions";
 
 const initialState = {
@@ -23,11 +23,11 @@ const initialState = {
     sensoMotorLevel:{
         phonemicPerception:{
             name: 'phonemicPerception',
-            values: PAIRS_OF_SOUNDS.map(pair => ({id: pair.id, value: pair.value})),
+            values: PAIRS_OF_SOUNDS.map(pair => ({id: pair.id, value: null})),
             activeIndex: 0, },
-        grammar: {
-            name: 'grammar',
-            values: SYLLABLES.map(syllable => ({id: syllable.id, value: syllable.value})),
+        soundPronunciation: {
+            name: 'soundPronunciation',
+            values: SYLLABLES.map(syllable => ({id: syllable.id, value: null})),
             activeIndex: 0,
         }
     }
@@ -43,12 +43,7 @@ export const diagnosticReducer = (state = initialState, action) => {
             let copyState = Object.assign({},state)
             _.set(copyState, `sensoMotorLevel.${action.payload.name}.activeIndex`, action.payload.index)
             return copyState
-        // case SET_LIST_OF_PICTURES:
-        //     let copyState3 = Object.assign({},state)
-        //     _.set(copyState3, `sensoMotorLevel.grammar.listOfPictures`, action.payload)
-        //     console.log(copyState3)
-        //     return copyState3
-        case SET_VALUE_OF_PAIR_SOUNDS:
+        case SET_VALUE_TO_STATE:
             let copyState2 = Object.assign({},state)
             const index = _.get(copyState2, `sensoMotorLevel.${action.payload.name}.activeIndex`)
             _.set(copyState2, `sensoMotorLevel.${action.payload.name}.values[${index}].value`, action.payload.value)

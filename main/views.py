@@ -49,8 +49,9 @@ class SDLogoutView(LogoutView):
 
 @login_required
 @csrf_exempt
-def diagnostic_view(request):
-    diag = Diagnostics.objects.get(id=request.session['diagnostic_id'])
+def diagnostic_view(request, **kwargs):
+    diag = Diagnostics.objects.get(id=kwargs['diag_id'])
+    request.session['diagnostic_id'] = kwargs['diag_id']
     pupil = Pupil.objects.get(id=diag.pupil_id)
     pupil_class = current_class(pupil.class_number, pupil.date, diag.date_of_creation)
 
@@ -63,37 +64,49 @@ def diagnostic_view(request):
 def load_data(request):
     diagnostic = json.loads(request.body)['diagnostic']
     diagnostic_id = request.session['diagnostic_id']
-    # print(diagnostic)
     state_of_functions = StatesOfFunctions.objects.get(diagnostic_id=diagnostic_id)
     state_of_functions_dict = state_of_functions.__dict__
     for item in diagnostic['stateOfFunctions']:
         diagnostic['stateOfFunctions'].update({item: state_of_functions_dict[item]})
 
     senso_motor_level = SensoMotorLevel.objects.get(diagnostic_id=diagnostic_id)
-    senso_motor_level_dict = []
-    if (senso_motor_level.phonemic_perception):
+    phonemic_perception = []
+    sound_pronunciation = []
+    if senso_motor_level.phonemic_perception:
         for item in senso_motor_level.phonemic_perception.split('&'):
             id, value = item.split(':')
             if (value is not None) and (not value == 'None'):
                 value = int(value)
             else:
                 value = None
-            senso_motor_level_dict.append({'id': int(id), 'value': value})
+            phonemic_perception.append({'id': int(id), 'value': value})
 
-    diagnostic['sensoMotorLevel']['phonemicPerception']['values'] = senso_motor_level_dict
+    if senso_motor_level.sound_pronunciation:
+        for item in senso_motor_level.sound_pronunciation.split('&'):
+            id, value = item.split(':')
+            if (value is not None) and (not value == 'None'):
+                value = int(value)
+            else:
+                value = None
+            sound_pronunciation.append({'id': int(id), 'value': value})
+
+    diagnostic['sensoMotorLevel']['phonemicPerception']['values'] = phonemic_perception
+    diagnostic['sensoMotorLevel']['soundPronunciation']['values'] = sound_pronunciation
     return JsonResponse({'diagnostic': diagnostic})
+    # return JsonResponse({'diagnostic': 'Ok'})
+
 
 @csrf_exempt
 def load_pictures(request, id):
     path_to_dir = os.path.dirname(os.path.dirname(__file__))
-    path_to_pics = os.path.join(path_to_dir,'static','src','main','img','syllables',id,)
+    path_to_pics = os.path.join(path_to_dir, 'static', 'src', 'main', 'img', 'syllables', id, )
     listOfPictures = os.listdir(path=path_to_pics)
     return JsonResponse({'listOfPictures': sorted(listOfPictures)})
 
 
 @login_required
 @csrf_exempt
-def open_diagnostic_view(request, type):
+def open_diagnostic_view(request, type, id):
     if request.method == 'POST':
         request.session['type'] = type
         req = json.loads(request.body)
@@ -110,9 +123,10 @@ def open_diagnostic_view(request, type):
                 date_of_creation=date_of_creation,
                 current_class=class_now
             )
-            templateStr = "0:None&1:None&2:None&3:None&4:None&5:None&6:None&7:None&8:None&9:None&10:None&11:None&12:None"
             StatesOfFunctions.objects.create(diagnostic_id=diagnostic.id)
-            SensoMotorLevel.objects.create(diagnostic_id=diagnostic.id, phonemic_perception=templateStr)
+            SensoMotorLevel.objects.create(
+                diagnostic_id=diagnostic.id,
+            )
             request.session['diagnostic_id'] = diagnostic.id
             return JsonResponse({'status': 'ok'})
         if type == 'edit':
@@ -146,11 +160,12 @@ def list_diags_view(request):
 
 @login_required
 @csrf_exempt
-def edit_diagnostic_view(request):
-    if request.method == 'POST':
-        id = json.loads(request.body)['id']
-        request.session['diagnostic_id'] = id
-    return JsonResponse({'status': 'ok'})
+def edit_diagnostic_view(request, id):
+    print(id)
+    # if request.method == 'POST':
+    #     id = json.loads(request.body)['id']
+    #     request.session['diagnostic_id'] = id
+    return HttpResponseRedirect('/diagnostic/')
 
 
 @login_required
@@ -166,12 +181,21 @@ def save_diagnostic_view(request):
 
     sensoMotorLevel = SensoMotorLevel.objects.get(diagnostic_id=d_id)
     phonemic_perception = response["sensoMotorLevel"]["phonemicPerception"]["values"]
+    grammar = response["sensoMotorLevel"]["soundPronunciation"]["values"]
 
-    phonemic_perception_date = []
+    phonemic_perception_data = []
+    sound_pronunciation_data = []
     for item in phonemic_perception:
-        phonemic_perception_date.append("{}:{}".format(item['id'], item['value']))
-    phonemic_perception_str = '&'.join(phonemic_perception_date)
+        phonemic_perception_data.append("{}:{}".format(item['id'], item['value']))
+
+    for item in grammar:
+        sound_pronunciation_data.append("{}:{}".format(item['id'], item['value']))
+
+    phonemic_perception_str = '&'.join(phonemic_perception_data)
+    sound_pronunciation_str = '&'.join(sound_pronunciation_data)
+    print(sound_pronunciation_str)
     sensoMotorLevel.phonemic_perception = phonemic_perception_str
+    sensoMotorLevel.sound_pronunciation = sound_pronunciation_str
     sensoMotorLevel.save()
 
     return HttpResponse('Данные успешно сохранены!')
