@@ -110,7 +110,6 @@ class SensoMotorLevel(models.Model):
         blank=True,
         null=True,
         max_length=100,
-        default="0:&1:&2:&3:&4:&5:&6:&7:&8:&9:&10:&11:&12:"
     )
 
     sound_pronunciation = models.CharField(

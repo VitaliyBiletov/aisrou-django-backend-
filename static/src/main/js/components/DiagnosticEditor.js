@@ -44,13 +44,18 @@ export default class DiagnosticEditor extends React.Component {
             console.log('Выберите диагностику')
         }
         else {
-            // axios.post(`/edit/${diagnosticId}/`, {'id': diagnosticId})
-            //     .then(res => {
-            //         console.log(res.data)
-                    window.location = `/edit/${diagnosticId}/`
-                // }
-                // )
-                // .catch(err => console.log(err))
+            const data = new FormData()
+            data.append('pupil_id', this.props.selected_pupil.id)
+            data.append('diagnostic_id', this.state.diagnosticId)
+
+            axios({
+                url: '/edit/',
+                method: 'POST',
+                data: data
+            }, ).then(res => {
+                sessionStorage.setItem('type','edit')
+                window.location = `/diagnostic/`
+            })
         }
     }
 

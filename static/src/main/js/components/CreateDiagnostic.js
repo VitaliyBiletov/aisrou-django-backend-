@@ -1,5 +1,7 @@
 import React from 'react'
 import axios from "axios/index";
+import {PAIRS_OF_SOUNDS} from "./sensoMotorLevel/phonemicPerception/pairsOfSounds";
+import {SYLLABLES} from "./sensoMotorLevel/soundPronunciation/syllables";
 
 export default class CreateDiagnostic extends React.Component {
     constructor(props){
@@ -8,7 +10,6 @@ export default class CreateDiagnostic extends React.Component {
             date: {},
             csrf:'',
         }
-
     }
 
     componentDidMount(){
@@ -36,48 +37,49 @@ export default class CreateDiagnostic extends React.Component {
             this.setState({date:
                     {...date, isInvalid: false}
             })
-            axios.post('/create/',
-            {
-                'type':'create',
-                'selected_pupil_id': this.props.selected_pupil,
-                'date': date,
+            const data = new FormData()
+            data.append('pupil_id', this.props.selected_pupil.id)
+            data.append('date_of_creation', this.state.date.value)
+            data.append('phonemic_perception_count', PAIRS_OF_SOUNDS.length)
+            data.append('syllables_count', SYLLABLES.length)
+            axios({
+                url: '/create/',
+                method: 'POST',
+                data: data
+            }, ).then(res => {
+                sessionStorage.setItem('type','create')
+                window.location = `/diagnostic/`
             })
-            .then((res) => {
-               window.location = '/create/'
             }
-                // ReactDOM.render(<Diagnostic/>, document.getElementById('content'))
-            )
         }
-    }
 
     render(){
-    return (
-        <div className="form-diagnostic">
-            <p className='title'>Создание диагностики</p>
-            <div className="form-container">
-                <div className="form-group">
-                    <label
-                        htmlFor="date_of_creation"
-                        className='col-md-5'>
-                        Дата заполнения:
-                    </label>
-                    <input
-                        id="date_of_creation"
-                        name="date_of_creation"
-                        type="date"
-                        className={ this.state.date.isInvalid ? 'form-control is-invalid': 'form-control'}
-                        onChange={this.handleChangeDate}
-                    />
+        return (
+            <div className="form-diagnostic">
+                <p className='title'>Создание диагностики</p>
+                <div className="form-container">
+                    <div className="form-group">
+                        <label
+                            htmlFor="date_of_creation"
+                            className='col-md-5'>
+                            Дата заполнения:
+                        </label>
+                        <input
+                            id="date_of_creation"
+                            name="date_of_creation"
+                            type="date"
+                            className={ this.state.date.isInvalid ? 'form-control is-invalid': 'form-control'}
+                            onChange={this.handleChangeDate}
+                        />
+                    </div>
+                    <button
+                        className="btn btn-success menu-btn"
+                        onClick={ this.handleClick }
+                        id="create-diag">
+                        Создать
+                    </button>
                 </div>
-                <button
-                    className="btn btn-success menu-btn"
-                    onClick={ this.handleClick }
-                    id="create-diag">
-                    Создать
-                </button>
             </div>
-        </div>
-
-    )
+        )
     }
 }

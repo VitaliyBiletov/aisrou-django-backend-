@@ -1,10 +1,4 @@
 import React from 'react'
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    NavLink
-} from 'react-router-dom'
 import StateOfFunctions from "../stateOfFunctions/StateOfFunctions"
 import SensoMotorLevel from "../sensoMotorLevel/SensoMotorLevel";
 import axios from "axios"
@@ -14,7 +8,6 @@ import {connect} from 'react-redux'
 import {updateInitialState} from "../../redux/actions";
 import {store} from '../App'
 import {Tabs, TabList, TabPanel, Tab} from "react-tabs";
-
 
 const items = [
     {id: 0, link: 'state-of-function', title: 'Состояние функций', component: <StateOfFunctions name='Состояние функций'/> },
@@ -34,15 +27,15 @@ class Diagnostic extends React.Component {
     }
 
     componentDidMount() {
-        if (_.compact(window.location.pathname.split('/'))[0] =='edit'){
+        console.log('type: ',sessionStorage.getItem('type'))
+        if (sessionStorage.getItem('type') =='edit'){
             const {updateInitialState} = this.props
             updateInitialState(store.getState())
         }
     }
 
     handleSaveData = (e) => {
-        console.log(store.getState())
-        axios.post('save', {'data': store.getState()})
+        axios.post('/save', {'data': store.getState()})
             .then(()=>{
                 const successNoty = generatedNoty('success', 'Изменения сохранены!')
                 successNoty.show()
@@ -83,10 +76,6 @@ class Diagnostic extends React.Component {
             </div>
         )
     }
-}
-
-function DiagnosticMain(props) {
-    return (<p>Главная страница</p>)
 }
 
 const mapDispatchToProps = {

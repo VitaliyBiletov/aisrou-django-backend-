@@ -11,18 +11,6 @@ from .forms import StatesOfFunctionsForm
 from datetime import datetime
 import os
 
-TAB_HEADERS = {
-    'state_functions': 'Состояние функций',
-    'senso_motor_level': 'Сенсо-моторный уровень',
-    'grammatical_structure_of_speech': 'Грамматический строй речи',
-    'vocabulary': 'Словарный запас',
-    'coherent_speech': 'Связная речь',
-    'language_analysis': 'Языковой анализ',
-    'word_formation': 'Словообразование',
-    'reading': 'Чтение',
-    'writing': 'Письмо',
-}
-
 
 @login_required
 def index(request):
@@ -49,15 +37,58 @@ class SDLogoutView(LogoutView):
 
 @login_required
 @csrf_exempt
-def diagnostic_view(request, **kwargs):
-    diag = Diagnostics.objects.get(id=kwargs['diag_id'])
-    request.session['diagnostic_id'] = kwargs['diag_id']
-    pupil = Pupil.objects.get(id=diag.pupil_id)
-    pupil_class = current_class(pupil.class_number, pupil.date, diag.date_of_creation)
+def open_diagnostic_view(request):
+    diagnostic = Diagnostics.objects.get(id=request.session['diagnostic_id'])
+    print(diagnostic.pupil_id)
+    return render(request, 'dist/diagnostic.html', { 'diag': diagnostic })
 
-    return render(request, 'dist/diagnostic.html', {
-        'diag': diag,
-        'pupil_class': pupil_class})
+
+@login_required
+@csrf_exempt
+def diagnostic_view(request, **kwargs):
+    if request.method == 'POST':
+        print(kwargs)
+        if kwargs['diag_type'] == 'create':
+            print('create')
+            print(request.POST)
+            pupil = Pupil.objects.get(id=request.POST['pupil_id'])
+            date_of_creation = request.POST['date_of_creation']
+            print(date_of_creation)
+            date_of_creation = datetime.strptime(date_of_creation, "%Y-%m-%d")
+            class_now = current_class(pupil.class_number, pupil.enrollment_date, date_of_creation)
+            # request.session['current_class'] = class_now
+            diagnostic = Diagnostics.objects.create(
+                user_id=request.user.id,
+                pupil_id=pupil.id,
+                date_of_creation=date_of_creation,
+                current_class=class_now
+            )
+            StatesOfFunctions.objects.create(
+                diagnostic_id=diagnostic.id
+            )
+            SensoMotorLevel.objects.create(
+                diagnostic_id=diagnostic.id,
+                phonemic_perception=create_empty_state(int(request.POST['phonemic_perception_count'])),
+                sound_pronunciation=create_empty_state(int(request.POST['syllables_count']))
+            )
+            request.session['diagnostic_id'] = diagnostic.id
+
+            return JsonResponse({'status':'Создано!'})
+
+        if kwargs['diag_type'] == 'edit':
+            print('edit')
+            pupil_id = request.POST['pupil_id']
+            diagnostic_id = request.POST['diagnostic_id']
+            request.session['diagnostic_id'] = diagnostic_id
+            return JsonResponse({'status':'Ok!'})
+
+
+def create_empty_state(count):
+    data = []
+    for i in range(count):
+        data.append('{}:{}'.format(i, None))
+    result = '&'.join(data)
+    return result
 
 
 @csrf_exempt
@@ -93,7 +124,6 @@ def load_data(request):
     diagnostic['sensoMotorLevel']['phonemicPerception']['values'] = phonemic_perception
     diagnostic['sensoMotorLevel']['soundPronunciation']['values'] = sound_pronunciation
     return JsonResponse({'diagnostic': diagnostic})
-    # return JsonResponse({'diagnostic': 'Ok'})
 
 
 @csrf_exempt
@@ -102,38 +132,6 @@ def load_pictures(request, id):
     path_to_pics = os.path.join(path_to_dir, 'static', 'src', 'main', 'img', 'syllables', id, )
     listOfPictures = os.listdir(path=path_to_pics)
     return JsonResponse({'listOfPictures': sorted(listOfPictures)})
-
-
-@login_required
-@csrf_exempt
-def open_diagnostic_view(request, type, id):
-    if request.method == 'POST':
-        request.session['type'] = type
-        req = json.loads(request.body)
-        if type == 'create':
-            selected_pupil_id = req['selected_pupil_id']['id']
-            select_pupil = Pupil.objects.get(pk=selected_pupil_id)
-            date_of_creation = req['date']['value']
-            date_of_creation = datetime.strptime(date_of_creation, "%Y-%m-%d")
-            class_now = current_class(select_pupil.class_number, select_pupil.enrollment_date, date_of_creation)
-            # request.session['current_class'] = class_now
-            diagnostic = Diagnostics.objects.create(
-                user_id=request.user.id,
-                pupil_id=select_pupil.id,
-                date_of_creation=date_of_creation,
-                current_class=class_now
-            )
-            StatesOfFunctions.objects.create(diagnostic_id=diagnostic.id)
-            SensoMotorLevel.objects.create(
-                diagnostic_id=diagnostic.id,
-            )
-            request.session['diagnostic_id'] = diagnostic.id
-            return JsonResponse({'status': 'ok'})
-        if type == 'edit':
-            id = json.loads(request.body)['id']
-            request.session['diagnostic_id'] = id
-            return JsonResponse({})
-    return HttpResponse('req')
 
 
 @csrf_exempt
