@@ -1,7 +1,8 @@
 import React from 'react'
-import axios from "axios/index";
-import {PAIRS_OF_SOUNDS} from "./sensoMotorLevel/phonemicPerception/pairsOfSounds";
-import {SYLLABLES} from "./sensoMotorLevel/soundPronunciation/syllables";
+import axios from "axios/index"
+import Loader from './Loader'
+import {PAIRS_OF_SOUNDS} from "./sensoMotorLevel/phonemicPerception/pairsOfSounds"
+import {SYLLABLES} from "./sensoMotorLevel/soundPronunciation/syllables"
 
 export default class CreateDiagnostic extends React.Component {
     constructor(props){
@@ -9,16 +10,21 @@ export default class CreateDiagnostic extends React.Component {
         this.state = {
             date: {},
             csrf:'',
+            loading: true
         }
     }
 
     componentDidMount(){
         axios.post('/list_pupils/')
         .then((response) => {
-            this.setState({
-                date:{value:'', isInvalid: false},
-                csrf: response.data['csrf'],
-            })
+            setTimeout(()=>{
+                this.setState({
+                    date:{value:'', isInvalid: false},
+                    csrf: response.data['csrf'],
+                    loading: false
+                })
+            },1000)
+
         })
     }
 
@@ -55,31 +61,34 @@ export default class CreateDiagnostic extends React.Component {
 
     render(){
         return (
-            <div className="form-diagnostic">
-                <p className='title'>Создание диагностики</p>
-                <div className="form-container">
-                    <div className="form-group">
-                        <label
-                            htmlFor="date_of_creation"
-                            className='col-md-5'>
-                            Дата заполнения:
-                        </label>
-                        <input
-                            id="date_of_creation"
-                            name="date_of_creation"
-                            type="date"
-                            className={ this.state.date.isInvalid ? 'form-control is-invalid': 'form-control'}
-                            onChange={this.handleChangeDate}
-                        />
+            <React.Fragment>
+                {!this.state.loading ? (
+                <div className="form-diagnostic">
+                    <p className='title'>Создание диагностики</p>
+                    <div className="form-container">
+                        <div className="form-group">
+                            <label
+                                htmlFor="date_of_creation"
+                                className='col-md-5'>
+                                Дата заполнения:
+                            </label>
+                            <input
+                                id="date_of_creation"
+                                name="date_of_creation"
+                                type="date"
+                                className={ this.state.date.isInvalid ? 'form-control is-invalid': 'form-control'}
+                                onChange={this.handleChangeDate}
+                            />
+                        </div>
+                        <button
+                            className="btn btn-success menu-btn"
+                            onClick={ this.handleClick }
+                            id="create-diag">
+                            Создать
+                        </button>
                     </div>
-                    <button
-                        className="btn btn-success menu-btn"
-                        onClick={ this.handleClick }
-                        id="create-diag">
-                        Создать
-                    </button>
-                </div>
-            </div>
+                </div>) : null}
+            </React.Fragment>
         )
     }
 }

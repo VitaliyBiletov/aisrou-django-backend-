@@ -33,7 +33,10 @@ export default class DiagnosticEditor extends React.Component {
                 if (data.list_of_diagnostics.length == 1) {
 
                 }
-                this.setState({listOfDiagnostics: data.list_of_diagnostics, loading: false})
+                setTimeout(()=>{
+                    this.setState({listOfDiagnostics: data.list_of_diagnostics, loading: false})
+                },2000)
+
             })
             .catch(err => console.log(err))
     }
