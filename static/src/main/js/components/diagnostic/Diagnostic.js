@@ -29,6 +29,7 @@ class Diagnostic extends React.Component {
     componentDidMount() {
         console.log('type: ',sessionStorage.getItem('type'))
         if (sessionStorage.getItem('type') =='edit'){
+            console.log('Загружаем данные')
             const {updateInitialState} = this.props
             updateInitialState(store.getState())
         }

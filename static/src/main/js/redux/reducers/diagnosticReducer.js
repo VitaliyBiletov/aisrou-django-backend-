@@ -23,33 +23,34 @@ const initialState = {
     sensoMotorLevel:{
         phonemicPerception:{
             name: 'phonemicPerception',
-            values: PAIRS_OF_SOUNDS.map(pair => ({id: pair.id, value: null})),
+            values: PAIRS_OF_SOUNDS.map(pair => ({id: pair.id, value: ''})),
             activeIndex: 0, },
         soundPronunciation: {
             name: 'soundPronunciation',
-            values: SYLLABLES.map(syllable => ({id: syllable.id, value: null})),
+            values: SYLLABLES.map(syllable => ({id: syllable.id, value: ''})),
             activeIndex: 0,
         }
     }
 }
 
 export const diagnosticReducer = (state = initialState, action) => {
+    let stateCopy={}
     switch (action.type){
         case STATE_OF_FUNCTIONS_INPUT_VALUE:
             return {...state, stateOfFunctions: {...state.stateOfFunctions, [action.payload.name]:action.payload.value}}
         case UPDATE_INITIAL_STATE:
             return {...state, ...action.payload}
         case SET_ACTIVE_INDEX:
-            let copyState = Object.assign({},state)
-            _.set(copyState, `sensoMotorLevel.${action.payload.name}.activeIndex`, action.payload.index)
-            return copyState
+            stateCopy = Object.assign({},state)
+            _.set(stateCopy, `sensoMotorLevel.${action.payload.name}.activeIndex`, action.payload.index)
+            return stateCopy
         case SET_VALUE_TO_STATE:
-            let copyState2 = Object.assign({},state)
-            const index = _.get(copyState2, `sensoMotorLevel.${action.payload.name}.activeIndex`)
-            _.set(copyState2, `sensoMotorLevel.${action.payload.name}.values[${index}].value`, action.payload.value)
-            _.set(copyState2, `sensoMotorLevel.${action.payload.name}.activeIndex`,
+            stateCopy = Object.assign({},state)
+            const index = _.get(stateCopy, `sensoMotorLevel.${action.payload.name}.activeIndex`)
+            _.set(stateCopy, `sensoMotorLevel.${action.payload.name}.values[${index}].value`, action.payload.value)
+            _.set(stateCopy, `sensoMotorLevel.${action.payload.name}.activeIndex`,
                 index + 1 == _.get(state, `sensoMotorLevel.${action.payload.name}.values`).length ? 0 : index + 1)
-            return copyState2
+            return stateCopy
         default:
             return state
     }
