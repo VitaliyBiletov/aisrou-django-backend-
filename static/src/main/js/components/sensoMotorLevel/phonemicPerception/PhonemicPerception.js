@@ -43,6 +43,7 @@ class PhonemicPerception extends React.Component {
                     <div className="subsection-heading">{ this.props.title }</div>
                     <div onClick={this.openHelp} className='help-icon'>?</div>
                     <div className='subsection-container'>
+                        <p><b>Инструкция: </b>Слушай внимательно и повторяй за мной слоги как можно точнее</p>
                         <StatusBar
                             dataFromState={this.props.values}
                             data={PAIRS_OF_SOUNDS}
