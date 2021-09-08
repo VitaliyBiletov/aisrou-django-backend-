@@ -24,14 +24,20 @@ const items = [
 class Diagnostic extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            loading: true
+        }
     }
 
     componentDidMount() {
         console.log('type: ',sessionStorage.getItem('type'))
         if (sessionStorage.getItem('type') =='edit'){
-            console.log('Загружаем данные')
-            const {updateInitialState} = this.props
-            updateInitialState(store.getState())
+            setTimeout(()=>{
+                const {updateInitialState} = this.props
+                updateInitialState(store.getState())
+                this.setState({loading: false})
+            }, 3000)
+
         }
     }
 
@@ -61,11 +67,13 @@ class Diagnostic extends React.Component {
                                 ))
                             }
                         </TabList>
-                    {items.map(item => (
-                        <TabPanel key={item.id}>
-                            {item.component}
-                        </TabPanel>
-                    ))}
+                    {this.state.loading ? <Loader/> :
+                        items.map(item => (
+                            <TabPanel key={item.id}>
+                                {item.component}
+                            </TabPanel>
+                        ))
+                    }
                 </Tabs>
 
                 <div className='fixed-bottom bar-bottom'>
