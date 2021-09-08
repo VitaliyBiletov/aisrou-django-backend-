@@ -67,7 +67,8 @@ def diagnostic_view(request, **kwargs):
             SensoMotorLevel.objects.create(
                 diagnostic_id=diagnostic.id,
                 phonemic_perception=create_template_for_state(int(request.POST['phonemic_perception_count'])),
-                sound_pronunciation=create_template_for_state(int(request.POST['syllables_count']))
+                sound_pronunciation=create_template_for_state(int(request.POST['syllables_count'])),
+                articulatory_motor=create_template_for_state(int(request.POST['exercises_count']))
             )
             request.session['diagnostic_id'] = diagnostic.id
 
@@ -92,9 +93,11 @@ def load_data(request):
     senso_motor_level = SensoMotorLevel.objects.get(diagnostic_id=diagnostic_id)
     phonemic_perception = senso_motor_level.phonemic_perception
     sound_pronunciation = senso_motor_level.sound_pronunciation
+    articulatory_motor = senso_motor_level.articulatory_motor
 
     diagnostic['sensoMotorLevel']['phonemicPerception']['values'] = str_to_array_of_dict(phonemic_perception, '&', ':')
     diagnostic['sensoMotorLevel']['soundPronunciation']['values'] = str_to_array_of_dict(sound_pronunciation, '&', ':')
+    diagnostic['sensoMotorLevel']['articulatoryMotor']['values'] = str_to_array_of_dict(articulatory_motor, '&', ':')
     return JsonResponse({'diagnostic': diagnostic})
 
 
@@ -142,9 +145,11 @@ def save_diagnostic_view(request):
     sensoMotorLevel = SensoMotorLevel.objects.get(diagnostic_id=d_id)
     phonemic_perception = response["sensoMotorLevel"]["phonemicPerception"]["values"]
     sound_pronunciation = response["sensoMotorLevel"]["soundPronunciation"]["values"]
+    articulatory_motor = response["sensoMotorLevel"]["articulatoryMotor"]["values"]
 
     sensoMotorLevel.phonemic_perception = create_str_to_state(phonemic_perception)
     sensoMotorLevel.sound_pronunciation = create_str_to_state(sound_pronunciation)
+    sensoMotorLevel.articulatory_motor = create_str_to_state(articulatory_motor)
     sensoMotorLevel.save()
 
     return HttpResponse('Данные успешно сохранены!')

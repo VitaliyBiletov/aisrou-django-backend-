@@ -7,6 +7,7 @@ import {
 } from "../types";
 import {PAIRS_OF_SOUNDS} from '../../components/sensoMotorLevel/phonemicPerception/pairsOfSounds'
 import {SYLLABLES} from "../../components/sensoMotorLevel/soundPronunciation/syllables";
+import {EXERCISES} from "../../components/sensoMotorLevel/articulatoryMotor/exercises";
 import {sensoMotorLevelInputValue} from "../actions";
 
 const initialState = {
@@ -28,6 +29,11 @@ const initialState = {
         soundPronunciation: {
             name: 'soundPronunciation',
             values: SYLLABLES.map(syllable => ({id: syllable.id, value: ''})),
+            activeIndex: 0,
+        },
+        articulatoryMotor:{
+            name: 'articulatoryMotor',
+            values: EXERCISES.map(exersise => ({id: exersise.id, value:''})),
             activeIndex: 0,
         }
     }

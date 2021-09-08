@@ -37,7 +37,7 @@ class SoundPronunciation extends React.Component {
     render(){
         return (
             <div className='diagnostic-subsection sound-pronunciation'>
-                <div className="subsection-heading">{this.props.name}</div>
+                <div className="subsection-heading">{this.props.title}</div>
                 <div onClick={this.openHelp} className='help-icon'>?</div>
                 <div className='subsection-container'>
                     <p><b>Инструкция: </b>Называй слова по картинкам</p>

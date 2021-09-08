@@ -26,5 +26,6 @@ class SensoMotorLevelAdmin(admin.ModelAdmin):
         'id',
         'phonemic_perception',
         'sound_pronunciation',
+        'articulatory_motor',
         'sound_syllable_structure',
     )

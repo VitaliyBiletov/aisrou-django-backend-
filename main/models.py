@@ -119,6 +119,13 @@ class SensoMotorLevel(models.Model):
         max_length=350,
     )
 
+    articulatory_motor = models.CharField(
+        verbose_name='Артикуляционная моторика',
+        blank=True,
+        null=True,
+        max_length=100,
+    )
+
     sound_syllable_structure = models.CharField(
         verbose_name='Звуко-слоговая структура',
         blank=True,

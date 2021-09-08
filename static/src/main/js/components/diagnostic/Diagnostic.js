@@ -25,18 +25,19 @@ class Diagnostic extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            loading: true
+            loading: false,
+            activeTab: sessionStorage.getItem('activeTab') || 0
         }
     }
 
     componentDidMount() {
-        console.log('type: ',sessionStorage.getItem('type'))
+        // console.log('type: ',sessionStorage.getItem('type'))
         if (sessionStorage.getItem('type') =='edit'){
-            setTimeout(()=>{
+            // setTimeout(()=>{
                 const {updateInitialState} = this.props
                 updateInitialState(store.getState())
                 this.setState({loading: false})
-            }, 3000)
+            // }, 3000)
 
         }
     }
@@ -60,13 +61,13 @@ class Diagnostic extends React.Component {
     render() {
         return (
             <div className="diagnostic">
-                <Tabs onSelect={index => console.log(index)}>
-                        <TabList>
-                            {items.map(item => (
-                                <Tab className='link' key={item.id}>{item.title}</Tab>
-                                ))
-                            }
-                        </TabList>
+                <Tabs onSelect={(index) => sessionStorage.setItem('activeTab', index)} defaultIndex={Number(this.state.activeTab)}>
+                    <TabList>
+                        {items.map(item => (
+                            <Tab className='link' key={item.id}>{item.title}</Tab>
+                            ))
+                        }
+                    </TabList>
                     {this.state.loading ? <Loader/> :
                         items.map(item => (
                             <TabPanel key={item.id}>

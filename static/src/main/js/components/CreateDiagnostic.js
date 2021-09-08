@@ -3,6 +3,7 @@ import axios from "axios/index"
 import Loader from './Loader'
 import {PAIRS_OF_SOUNDS} from "./sensoMotorLevel/phonemicPerception/pairsOfSounds"
 import {SYLLABLES} from "./sensoMotorLevel/soundPronunciation/syllables"
+import {EXERCISES} from "./sensoMotorLevel/articulatoryMotor/exercises";
 
 export default class CreateDiagnostic extends React.Component {
     constructor(props){
@@ -17,13 +18,13 @@ export default class CreateDiagnostic extends React.Component {
     componentDidMount(){
         axios.post('/list_pupils/')
         .then((response) => {
-            setTimeout(()=>{
+            // setTimeout(()=>{
                 this.setState({
                     date:{value:'', isInvalid: false},
                     csrf: response.data['csrf'],
                     loading: false
                 })
-            },1000)
+            // },1000)
 
         })
     }
@@ -47,7 +48,8 @@ export default class CreateDiagnostic extends React.Component {
             data.append('pupil_id', this.props.selected_pupil.id)
             data.append('date_of_creation', this.state.date.value)
             data.append('phonemic_perception_count', PAIRS_OF_SOUNDS.length)
-            data.append('syllables_count', SYLLABLES.length)
+            data.append('syllables_count', SYLLABLES.length),
+            data.append('exercises_count', EXERCISES.length),
             axios({
                 url: '/create/',
                 method: 'POST',
