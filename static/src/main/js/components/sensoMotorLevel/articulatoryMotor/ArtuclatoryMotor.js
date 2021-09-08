@@ -45,7 +45,7 @@ class ArticulatoryMotor extends React.Component {
                         activeIndex={this.props.activeIndex}
                     />
                     <div className="face mt-3">
-                        <img className={classes} src={`/static/src/main/img/faces/${this.props.activeIndex}.jpg`}/>
+                        <img src={`/static/src/main/img/faces/${this.props.activeIndex}.jpg`}/>
                     </div>
                     <Buttons
                             name='articulatoryMotor'/>

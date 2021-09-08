@@ -26,6 +26,7 @@ class Diagnostic extends React.Component {
         super(props);
         this.state = {
             loading: false,
+            loadingSave: false,
             activeTab: sessionStorage.getItem('activeTab') || 0
         }
     }
@@ -43,10 +44,14 @@ class Diagnostic extends React.Component {
     }
 
     handleSaveData = (e) => {
+        this.setState({loadingSave: true})
         axios.post('/save', {'data': store.getState()})
             .then(()=>{
-                const successNoty = generatedNoty('success', 'Изменения сохранены!')
-                successNoty.show()
+                setTimeout(()=>{
+                    const successNoty = generatedNoty('success', 'Изменения сохранены!')
+                    successNoty.show()
+                    this.setState({loadingSave: false})
+                }, 1000)
             })
             .catch(err => {
                 const errNoty = generatedNoty('error', err.message)
@@ -61,6 +66,7 @@ class Diagnostic extends React.Component {
     render() {
         return (
             <div className="diagnostic">
+                {this.state.loading ? <Loader/> : (
                 <Tabs onSelect={(index) => sessionStorage.setItem('activeTab', index)} defaultIndex={Number(this.state.activeTab)}>
                     <TabList>
                         {items.map(item => (
@@ -68,18 +74,19 @@ class Diagnostic extends React.Component {
                             ))
                         }
                     </TabList>
-                    {this.state.loading ? <Loader/> :
-                        items.map(item => (
-                            <TabPanel key={item.id}>
-                                {item.component}
-                            </TabPanel>
-                        ))
+
+                    {items.map(item => (
+                        <TabPanel key={item.id}>
+                            {item.component}
+                        </TabPanel>
+                    ))
                     }
                 </Tabs>
-
+                )
+                }
                 <div className='fixed-bottom bar-bottom'>
                     <div className='container'>
-                        <button className='btn btn-success m-2' onClick={this.handleSaveData}>Сохранить</button>
+                        <button className='btn btn-success m-2' onClick={this.handleSaveData}>{ this.state.loadingSave ? 'Идёт сохранение...' : 'Сохранить'}</button>
                         <button className='btn btn-primary m-2' onClick={this.handleClickBack}>Назад</button>
                     </div>
                 </div>
