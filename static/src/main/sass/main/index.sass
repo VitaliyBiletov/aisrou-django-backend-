@@ -2,68 +2,78 @@
 @import ../spinner
 
 
-$heightPhonemic : 300px
+$heightPhonemic: 300px
 $minWidth: 1200px
+$sectionsContainerWidth: 500px
+$buttonMargin: 10px
 
 body
   min-width: $minWidth
 
-#list-diagnostics
-  overflow-y: auto
-
-#form-list-diagnostics > select
-  &:focus
-    box-shadow: none
-
-  > option
-    &:hover
-      background-color: #DCDCDC
-      border-radius: 3px
-
-    &:checked
-      background-color: #C0C0C0
-      border-radius: 3px
-
-#save-diag
-  &:focus
-    box-shadow: none
-/*------------
-
-.form
-  width: 600px
-  margin: 0 auto
-
-.form-group
-  display: flex
-  flex-direction: row
-  label
-    flex: none
-    width: 250px
-  textarea
-    border: 1px solid #000
-    height: 4em
-    transition: height 150ms
-    &:focus
-      outline: none
-      border: none
-      height: 6em
-      box-shadow: 0px 0px 5px 1px #945050
-
-//form-create-diag
-.form-diagnostic
-  width: 500px
+.sections-container
+  width: $sectionsContainerWidth
   margin: 20px auto
-  border: 1px solid gray
-  border-radius: 10px
-  .title
+  .section-content
+    width: 500px
+    margin: 20px auto
+    border: 1px solid gray
+    border-radius: 10px
+  .heading
     padding: 5px 10px
+    text-align: center
     background-color: #424950
     color: #fff
     border-top-left-radius: 10px
     border-top-right-radius: 10px
+  .buttons-container
+    border-bottom-right-radius: 10px
+    border-bottom-left-radius: 10px
+    background: whitesmoke
+    button
+      margin: 10px
 
-.form-container
-  margin: 30px
+.student-selection-section
+  .student-choice-container
+    display: flex
+    flex-direction: column
+    align-items: center
+
+.section-creating-diagnostic
+  .date-field
+    display: flex
+    flex-direction: row
+    padding: 20px 0
+    label
+      white-space: nowrap
+      margin: auto 10px
+    input
+      margin-right: 10px
+
+.section-list-of-diagnostics
+  table
+    margin: 0
+  .list-of-diagnostics-container
+    tr
+      text-align: center
+      cursor: pointer
+      user-select: none
+    thead
+      tr
+        background-color: #818E9C
+        color: #fff
+        th
+          padding: 0.5rem
+    tbody
+      tr
+        &:hover
+          background: #ffa19f
+          color: #fff
+        &:active
+          background-color: #F08181
+          opacity: 1
+      .active-row
+        background-color: #F08181
+        color: #fff
 
 
 

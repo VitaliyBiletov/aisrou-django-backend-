@@ -35,9 +35,11 @@ class ArticulatoryMotor extends React.Component {
         return(
             <div className='diagnostic-subsection articulatory-motor'>
                 <div className="subsection-heading">{ this.props.title }</div>
+                <div className="subsection-instruction">
+                    <p><b>Инструкция: </b>Посмотри на картинки и попробуй повторить упражнения для тренировки губ и языка так же</p>
+                </div>
                 <div onClick={this.openHelp} className='help-icon'>?</div>
                 <div className='subsection-container'>
-                    <p><b>Инструкция: </b>Посмотри на картинки и попробуй повторить упражнения для тренировки губ и языка так же</p>
                     <StatusBar
                         dataFromState={this.props.values}
                         data={EXERCISES}
@@ -47,9 +49,8 @@ class ArticulatoryMotor extends React.Component {
                     <div className="face mt-3">
                         <img src={`/static/src/main/img/faces/${this.props.activeIndex}.jpg`}/>
                     </div>
-                    <Buttons
-                            name='articulatoryMotor'/>
                 </div>
+                <Buttons name='articulatoryMotor'/>
                 {this.state.helpVisible && (
                     <Help
                         isVisible={this.state.helpVisible}

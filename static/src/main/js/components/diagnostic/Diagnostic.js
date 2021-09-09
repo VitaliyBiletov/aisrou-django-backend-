@@ -3,11 +3,11 @@ import StateOfFunctions from "../stateOfFunctions/StateOfFunctions"
 import SensoMotorLevel from "../sensoMotorLevel/SensoMotorLevel";
 import axios from "axios"
 import Loader from "../Loader"
-import Noty from 'noty'
 import {connect} from 'react-redux'
 import {updateInitialState} from "../../redux/actions";
 import {store} from '../App'
 import {Tabs, TabList, TabPanel, Tab} from "react-tabs";
+import {generatedNoty} from '../../functions'
 
 const items = [
     {id: 0, link: 'state-of-function', title: 'Состояние функций', component: <StateOfFunctions name='Состояние функций'/> },
@@ -47,11 +47,11 @@ class Diagnostic extends React.Component {
         this.setState({loadingSave: true})
         axios.post('/save', {'data': store.getState()})
             .then(()=>{
-                setTimeout(()=>{
+                // setTimeout(()=>{
                     const successNoty = generatedNoty('success', 'Изменения сохранены!')
                     successNoty.show()
                     this.setState({loadingSave: false})
-                }, 1000)
+                // }, 1000)
             })
             .catch(err => {
                 const errNoty = generatedNoty('error', err.message)
@@ -98,20 +98,5 @@ class Diagnostic extends React.Component {
 const mapDispatchToProps = {
     updateInitialState
 };
-
-function generatedNoty(type, text) {
-    return new Noty({
-            layout:'topCenter',
-            theme:'bootstrap-v3',
-            type: type,
-            text: text,
-            progressBar: false,
-            animation:{
-                open: 'animate__animated animate__fadeInDown',
-                close: 'animate__animated animate__fadeOutUp'
-            },
-            timeout: 1000,
-        })
-}
 
 export default connect(null, mapDispatchToProps)(Diagnostic)

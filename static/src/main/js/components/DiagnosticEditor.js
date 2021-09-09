@@ -8,7 +8,7 @@ export default class DiagnosticEditor extends React.Component {
         super(props)
         this.state = {
             listOfDiagnostics: [],
-            diagnosticId: undefined,
+            diagnosticId: null,
             loading: true
         }
     }
@@ -16,6 +16,14 @@ export default class DiagnosticEditor extends React.Component {
     componentDidMount() {
         const {selected_pupil} = this.props
         this.getListOfDiagnostics(selected_pupil)
+        $(document).mouseup((e) => {
+            if (this.state.diagnosticId !== null){
+                const div = $('.section-list-of-diagnostics')
+                if (!div.is(e.target) && div.has(e.target).length === 0){
+                    this.setState({diagnosticId: null})
+                }
+            }
+        })
     }
 
     componentDidUpdate(prevProps) {
@@ -42,24 +50,18 @@ export default class DiagnosticEditor extends React.Component {
     }
 
     handleEditDiagnostic = e => {
-        const {diagnosticId} = this.state
-        if (!diagnosticId) {
-            console.log('Выберите диагностику')
-        }
-        else {
-            const data = new FormData()
-            data.append('pupil_id', this.props.selected_pupil.id)
-            data.append('diagnostic_id', this.state.diagnosticId)
+        const data = new FormData()
+        data.append('pupil_id', this.props.selected_pupil.id)
+        data.append('diagnostic_id', this.state.diagnosticId)
 
-            axios({
-                url: '/edit/',
-                method: 'POST',
-                data: data
-            }, ).then(res => {
-                sessionStorage.setItem('type','edit')
-                window.location = `/diagnostic/`
-            })
-        }
+        axios({
+            url: '/edit/',
+            method: 'POST',
+            data: data
+        }, ).then(res => {
+            sessionStorage.setItem('type','edit')
+            window.location = `/diagnostic/`
+        })
     }
 
     handleDeleteDiagnostic = e => {
@@ -80,6 +82,7 @@ export default class DiagnosticEditor extends React.Component {
                         const {data} = res
                         this.setState({
                             listOfDiagnostics: data.diagnostics_list,
+                            diagnosticId: null,
                         })
                     })
             }
@@ -98,13 +101,14 @@ export default class DiagnosticEditor extends React.Component {
 
     render() {
         const {listOfDiagnostics, diagnosticId} = this.state;
+        console.log(diagnosticId)
         return (
-            <React.Fragment>
-                { this.state.loading && <Loader /> }
-                { this.state.listOfDiagnostics.length ? (
-                <div className="form-diagnostic diagnostic-editor">
-                    <p className='title'>Список обследований</p>
-                    <div className="form-container d-flex flex-column ">
+            <div className='section-list-of-diagnostics'>
+                {this.state.loading && <Loader />}
+                {this.state.listOfDiagnostics.length ? (
+                <div className="section-content">
+                    <div className='heading'>Список обследований</div>
+                    <div className="list-of-diagnostics-container">
                         <ListOfDiagnostics
                             list = { listOfDiagnostics }
                             handleChangeDiagnostic = { this.handleChangeDiagnostic }
@@ -113,18 +117,18 @@ export default class DiagnosticEditor extends React.Component {
                             handleDoubleClickTr={ this.handleDoubleClickTr }
                             value = { diagnosticId }
                         />
-                        <div className="d-flex flex-row btns mt-3">
-                            <button
-                                className='btn btn-primary mr-2'
-                                disabled={ listOfDiagnostics.length <= 0 }
-                                onClick={this.handleEditDiagnostic}
-                            >Изменить</button>
-                            <button
-                                className='btn btn-danger'
-                                disabled={ listOfDiagnostics.length <= 0 }
-                                onClick={this.handleDeleteDiagnostic}
-                            >Удалить</button>
-                        </div>
+                    </div>
+                    <div className="buttons-container">
+                        <button
+                            className='btn btn-primary'
+                            disabled={this.state.diagnosticId == null}
+                            onClick={this.handleEditDiagnostic}
+                        >Изменить</button>
+                        <button
+                            className='btn btn-danger'
+                            disabled={this.state.diagnosticId == null}
+                            onClick={this.handleDeleteDiagnostic}
+                        >Удалить</button>
                     </div>
                 </div>) : ( this.state.loading ? null : <div
                     className="mx-auto text-center alert alert-warning"
@@ -132,7 +136,7 @@ export default class DiagnosticEditor extends React.Component {
                     style={{width: '500px'}}>
                     Список обследований пуст!
                 </div>)}
-            </React.Fragment>
+            </div>
         )
     }
 }
@@ -140,7 +144,7 @@ export default class DiagnosticEditor extends React.Component {
 function ListOfDiagnostics(props){
     const { list, value } = props
         return (
-            <table className="table table-sm">
+            <table className="table table-bordered">
                 <thead>
                     <tr>
                      <th>№</th>
@@ -155,8 +159,7 @@ function ListOfDiagnostics(props){
                             onClick={props.handleClickTr}
                             data-value={id}
                             key={id}
-                            style={{cursor: 'pointer', userSelect: 'none' }}
-                            className={`diagnostic-editor-tr ${id == value ? 'table-primary': null}`}>
+                            className={`${id == value ? 'active-row': null}`}>
                             <th>{ index }</th>
                             <td>{ id }</td>
                             <td>{ date }</td>

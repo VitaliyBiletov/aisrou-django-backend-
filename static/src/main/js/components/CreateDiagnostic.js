@@ -9,23 +9,30 @@ export default class CreateDiagnostic extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            date: {},
+            date: { value: null, isInvalid: false},
             csrf:'',
-            loading: true
+            loading: false
         }
     }
 
     componentDidMount(){
-        axios.post('/list_pupils/')
-        .then((response) => {
-            // setTimeout(()=>{
-                this.setState({
-                    date:{value:'', isInvalid: false},
-                    csrf: response.data['csrf'],
-                    loading: false
-                })
-            // },1000)
-
+        // axios.post('/list_pupils/')
+        // .then((response) => {
+        //     // setTimeout(()=>{
+        //         this.setState({
+        //             date:{value:'', isInvalid: false},
+        //             csrf: response.data['csrf'],
+        //             loading: false
+        //         })
+        //     // },1000)
+        // })
+        $(document).mouseup((e) => {
+            if (this.state.date.isInvalid){
+                const div = $('.section-creating-diagnostic')
+                if (!div.is(e.target) && div.has(e.target).length === 0){
+                    this.setState({date: {...this.state.date, isInvalid: false}})
+                }
+            }
         })
     }
 
@@ -62,35 +69,35 @@ export default class CreateDiagnostic extends React.Component {
         }
 
     render(){
+        console.log(this.state)
         return (
-            <React.Fragment>
+            <div className='section-creating-diagnostic'>
                 {!this.state.loading ? (
-                <div className="form-diagnostic">
-                    <p className='title'>Создание диагностики</p>
-                    <div className="form-container">
-                        <div className="form-group">
-                            <label
-                                htmlFor="date_of_creation"
-                                className='col-md-5'>
-                                Дата заполнения:
-                            </label>
-                            <input
-                                id="date_of_creation"
-                                name="date_of_creation"
-                                type="date"
-                                className={ this.state.date.isInvalid ? 'form-control is-invalid': 'form-control'}
-                                onChange={this.handleChangeDate}
-                            />
-                        </div>
+                <div className="section-content">
+                    <div className='heading'>Создание диагностики</div>
+                    <div className="date-field">
+                        <label
+                            htmlFor="date_of_creation"
+                        >
+                            Дата заполнения:
+                        </label>
+                        <input
+                            name="date_of_creation"
+                            type="date"
+                            className={ this.state.date.isInvalid ? 'form-control is-invalid': 'form-control'}
+                            onChange={this.handleChangeDate}
+                        />
+                    </div>
+                    <div className="buttons-container">
                         <button
-                            className="btn btn-success menu-btn"
+                            className="btn btn-success"
                             onClick={ this.handleClick }
                             id="create-diag">
                             Создать
                         </button>
                     </div>
                 </div>) : null}
-            </React.Fragment>
+            </div>
         )
     }
 }

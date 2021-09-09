@@ -13,8 +13,11 @@ export default class SensoMotorLevel extends React.Component {
             <div className="senso-motor-level">
                 <p className='diagnostic-section-heading'>{this.props.name}</p>
                 <PhonemicPerception title='Фонематическое восприятие'/>
+                <hr/>
                 <SoundPronunciation title='Звукопроизношение'/>
+                <hr/>
                 <ArtuclatoryMotor title='Артикуляционная моторика'/>
+                <hr/>
             </div>
         )
     }

@@ -3,7 +3,7 @@ import {setActiveIndex, setValueToState} from "../../redux/actions";
 import {connect} from 'react-redux'
 
 
-const buttons = ['red', 'yellow', 'blue', 'green']
+const colors = ['red', 'yellow', 'blue', 'green']
 
 class Buttons extends React.Component {
     constructor(props) {
@@ -16,15 +16,15 @@ class Buttons extends React.Component {
 
     render() {
         return (
-            <div className="row justify-content-center mt-3">
-                <div className='score-buttons-container col-auto col-sm-auto col-md-auto'>
-                    {buttons.map((button, index) => (
+            <div className="scores-buttons">
+                <div className='score-buttons-container'>
+                    {colors.map((button, index) => (
                         <button
                             key={index}
-                            className={`${buttons[index]} mx-2`}
+                            className={`${colors[index]}`}
                             value={index}
                             onClick={this.handleClick}
-                        >{index}</button>
+                        /> //{index}
                     ))}
                 </div>
             </div>

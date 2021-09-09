@@ -142,6 +142,13 @@ $border-radius-td: 20px
     text-align: center
 
 //------------------------------------------//
+.subsection-instruction
+  padding: 15px 30px
+  background-color: aliceblue
+  border-bottom: 1px solid darkgray
+  p
+    margin: auto
+
 
 .text-container
   width: max-content
@@ -160,24 +167,29 @@ $border-radius-td: 20px
     font-weight: bold
     user-select: none
 
-.score-buttons-container
-  margin: 5px
-  button
-    font-size: 16pt
-    opacity: 0.9
-    margin-top: 0px
-    width: 4em
-    text-shadow: 1px 1px 2px black
-    box-shadow: 1px 1px 1px black
-    color: #fff
-    border: none
-    border-radius: 10px
-    outline: none !important
-    transition: 300ms
-    &:hover
-      opacity: 1
-    &:active
-      transform: scale(0.9)
+.scores-buttons
+  background: whitesmoke
+  border-top: 1px solid darkgray
+  .score-buttons-container
+    width: max-content
+    margin: 0 auto
+    button
+      margin: 10px
+      font-size: 16pt
+      opacity: 0.9
+      width: 4em
+      height: 2em
+      text-shadow: 1px 1px 2px black
+      box-shadow: 1px 1px 1px black
+      color: #fff
+      border: none
+      border-radius: 10px
+      outline: none !important
+      transition: 50ms
+      &:hover
+        opacity: 1
+      &:active
+        transform: scale(0.95)
 
 .red
   background-color: #ff4040 !important

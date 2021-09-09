@@ -38,9 +38,12 @@ class SoundPronunciation extends React.Component {
         return (
             <div className='diagnostic-subsection sound-pronunciation'>
                 <div className="subsection-heading">{this.props.title}</div>
+                <div className="subsection-instruction">
+                    <p><b>Инструкция: </b>Называй слова по картинкам</p>
+                </div>
                 <div onClick={this.openHelp} className='help-icon'>?</div>
                 <div className='subsection-container'>
-                    <p><b>Инструкция: </b>Называй слова по картинкам</p>
+
                     <StatusBar
                         dataFromState={this.props.values}
                         activeIndex={this.props.activeIndex}
@@ -51,8 +54,8 @@ class SoundPronunciation extends React.Component {
                     <Images
                         listOfPictures={this.state.listOfPictures}
                         activeIndex={this.props.activeIndex}/>
-                    <Buttons name='soundPronunciation'/>
                 </div>
+                <Buttons name='soundPronunciation'/>
                 {this.state.helpVisible && (
                     <Help
                         isVisible={this.state.helpVisible}

@@ -34,31 +34,29 @@ class MainMenu extends React.Component {
 
     render() {
         return (
-                <React.Fragment>
-                    <div className="form-container">
-                    <div className="form text-center col-md-6">
-                    <label
-                        htmlFor="list_pupils">Выберите учащегося:
-                    </label>
-                    <select
-                        name="pupil_id"
-                        id="list_pupils"
-                        className='form-control'
-                        value={this.state.selected_pupil.id || 'default'}
-                        onChange={this.handleChange}
-                    >
-                        <option value="default" disabled={true} hidden={true}>-------</option>
-                        {this.state.listPupils.map(pupil => <option key={pupil.id} value={pupil.id}>{pupil.name}</option>
+                <div className='sections-container'>
+                    <div className='student-selection-section'>
+                        <div className='student-choice-container'>
+                            <label
+                                htmlFor="list_pupils">Выберите учащегося:
+                            </label>
+                            <select
+                                name="pupil_id"
+                                id="list_pupils"
+                                className='form-control'
+                                value={this.state.selected_pupil.id || 'default'}
+                                onChange={this.handleChange}
+                            >
+                                <option value="default" disabled={true} hidden={true}>-------</option>
+                                {this.state.listPupils.map(pupil => <option key={pupil.id} value={pupil.id}>{pupil.name}</option>
 
-                        )}
-                    </select>
+                                )}
+                            </select>
+                        </div>
                     </div>
+                    {!$.isEmptyObject(this.state.selected_pupil) ? <CreateDiagnostic selected_pupil={this.state.selected_pupil}/> : null}
+                    {!$.isEmptyObject(this.state.selected_pupil) ? <DiagnosticEditor csrf={this.state.csrf} selected_pupil={this.state.selected_pupil}/> : null}
                 </div>
-                <div className='form-create-diag'>
-                    { !$.isEmptyObject(this.state.selected_pupil) ? <CreateDiagnostic selected_pupil={this.state.selected_pupil}/> : null}
-                    { !$.isEmptyObject(this.state.selected_pupil) ? <DiagnosticEditor csrf={this.state.csrf} selected_pupil={this.state.selected_pupil}/> : null}
-                </div>
-                </React.Fragment>
         )
     }
 }

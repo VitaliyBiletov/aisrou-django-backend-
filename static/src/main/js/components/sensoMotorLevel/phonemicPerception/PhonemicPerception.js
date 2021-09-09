@@ -41,9 +41,11 @@ class PhonemicPerception extends React.Component {
         return (
                 <div className='diagnostic-subsection phonemic-perception'>
                     <div className="subsection-heading">{ this.props.title }</div>
+                    <div className="subsection-instruction">
+                        <p><b>Инструкция: </b>Слушай внимательно и повторяй за мной слоги как можно точнее</p>
+                    </div>
                     <div onClick={this.openHelp} className='help-icon'>?</div>
                     <div className='subsection-container'>
-                        <p><b>Инструкция: </b>Слушай внимательно и повторяй за мной слоги как можно точнее</p>
                         <StatusBar
                             dataFromState={this.props.values}
                             data={PAIRS_OF_SOUNDS}
@@ -55,9 +57,8 @@ class PhonemicPerception extends React.Component {
                             activeIndex={this.props.activeIndex}
                             data={PAIRS_OF_SOUNDS}
                         />
-                        <Buttons
-                            name='phonemicPerception'/>
                     </div>
+                    <Buttons name='phonemicPerception'/>
                     {this.state.helpVisible && (
                         <Help
                             isVisible={this.state.helpVisible}
