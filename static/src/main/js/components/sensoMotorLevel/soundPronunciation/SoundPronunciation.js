@@ -21,6 +21,7 @@ class SoundPronunciation extends React.Component {
             helpVisible: false,
             isClose: false,
             listOfPictures:['1.jpg','2.jpg','3.jpg'],
+            instruction: 'Называй слова по картинкам'
         }
     }
 
@@ -39,7 +40,7 @@ class SoundPronunciation extends React.Component {
             <div className='diagnostic-subsection sound-pronunciation'>
                 <div className="subsection-heading">{this.props.title}</div>
                 <div className="subsection-instruction">
-                    <p><b>Инструкция: </b>Называй слова по картинкам</p>
+                    <p><b>Инструкция: </b>{this.state.instruction}</p>
                 </div>
                 <div onClick={this.openHelp} className='help-icon'>?</div>
                 <div className='subsection-container'>

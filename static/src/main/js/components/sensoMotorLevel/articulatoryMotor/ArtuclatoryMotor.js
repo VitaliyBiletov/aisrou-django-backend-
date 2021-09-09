@@ -18,6 +18,7 @@ class ArticulatoryMotor extends React.Component {
         super(props)
         this.state = {
             helpVisible: false,
+            instruction: 'Посмотри на картинки и попробуй повторить упражнения для тренировки губ и языка так же'
         }
     }
 
@@ -36,7 +37,7 @@ class ArticulatoryMotor extends React.Component {
             <div className='diagnostic-subsection articulatory-motor'>
                 <div className="subsection-heading">{ this.props.title }</div>
                 <div className="subsection-instruction">
-                    <p><b>Инструкция: </b>Посмотри на картинки и попробуй повторить упражнения для тренировки губ и языка так же</p>
+                    <p><b>Инструкция: </b>{this.state.instruction}</p>
                 </div>
                 <div onClick={this.openHelp} className='help-icon'>?</div>
                 <div className='subsection-container'>

@@ -24,6 +24,7 @@ class PhonemicPerception extends React.Component {
         super(props)
         this.state = {
             helpVisible: false,
+            instruction: 'Слушай внимательно и повторяй за мной слоги как можно точнее'
         }
     }
 
@@ -42,7 +43,7 @@ class PhonemicPerception extends React.Component {
                 <div className='diagnostic-subsection phonemic-perception'>
                     <div className="subsection-heading">{ this.props.title }</div>
                     <div className="subsection-instruction">
-                        <p><b>Инструкция: </b>Слушай внимательно и повторяй за мной слоги как можно точнее</p>
+                        <p><b>Инструкция: </b>{this.state.instruction}</p>
                     </div>
                     <div onClick={this.openHelp} className='help-icon'>?</div>
                     <div className='subsection-container'>
