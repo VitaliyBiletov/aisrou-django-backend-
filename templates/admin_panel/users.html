@@ -51,13 +51,13 @@
                   <td>{{ user.first_name }}</td>
                   <td>{{ user.patronymic|default_if_none:'' }}</td>
                   {% if user.is_staff %}
-                  <td class="text-center"><img src="{% static 'admin_panel/icons/yes.ico' %}" width="15" alt=""></td>
+                  <td class="text-center"><img src="{% static 'src/admin_panel/icons/yes.ico' %}" width="15" alt=""></td>
                   {% else %}
-                  <td class="text-center"><img src="{% static 'admin_panel/icons/no.ico' %}" width="15" alt=""></td>
+                  <td class="text-center"><img src="{% static 'src/admin_panel/icons/no.ico' %}" width="15" alt=""></td>
                   {% endif %}
                   <td>{{ user.date_joined}}</td>
                   <td class="text-center"><a href="{% url 'admin_panel:user_change' user.id%}"><img alt="Изменить" width="15" src="https://img.icons8.com/cotton/64/000000/create-new--v2.png"/></a></td>
-                  <td class="text-center"><a href="{% url 'admin_panel:user_set_password' user.id %}"><img alt="Изменить пароль" width="15" src={% static 'admin_panel/icons/change_password.ico' %}/></a></td>
+                  <td class="text-center"><a href="{% url 'admin_panel:user_set_password' user.id %}"><img alt="Изменить пароль" width="15" src={% static 'src/admin_panel/icons/change_password.ico' %}/></a></td>
                   <td class="text-center"><a href="{% url 'admin_panel:user_delete' user.id %}"><img alt="Удалить" width="15" src="https://img.icons8.com/cotton/64/000000/delete.png"/></a></td>
                 </tr>
 {#                {% endif %}#}

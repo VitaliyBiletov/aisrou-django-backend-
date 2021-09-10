@@ -103,6 +103,7 @@ def load_data(request):
 
 @csrf_exempt
 def load_pictures(request, id):
+    print(id)
     path_to_dir = os.path.dirname(os.path.dirname(__file__))
     path_to_pics = os.path.join(path_to_dir, 'static', 'src', 'main', 'img', 'syllables', id, )
     list_of_pictures = os.listdir(path=path_to_pics)

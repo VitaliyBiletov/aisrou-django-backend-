@@ -14,7 +14,7 @@ urlpatterns = [
     path('list_pupils/', list_pupils_view, name='list-pupils'),
     path('list_diags/', list_diags_view, name='list-diags'),
     url(r'^diagnostic/$', open_diagnostic_view, name='diagnostic'),
-    url(r'^diagnostic/load-pictures/(?P<id>[0-9]+)/$', load_pictures),
+    url(r'^load-pictures/(?P<id>[0-9]+)/$', load_pictures),
     url(r'^diagnostic/load-data$', load_data),
     url(r'^save$', save_diagnostic_view, name='save_diagnostic'),
     url(r'^diagnostic/delete$', delete_diagnostic_view, name='delete_diagnostic'),
