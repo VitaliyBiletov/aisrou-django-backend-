@@ -59,7 +59,7 @@ export default class SensoMotorLevel extends React.Component {
 
     render() {
         return (
-            <div className="senso-motor-level">
+            <div className="diagnostic-section senso-motor-level">
                 <p className='diagnostic-section-heading'>{this.props.name}</p>
 
                 {SUBSECTIONS.map(({name, nameOfClass, title, data, instruction, hints, component}, index) => (

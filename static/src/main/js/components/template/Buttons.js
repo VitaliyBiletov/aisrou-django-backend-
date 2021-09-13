@@ -11,7 +11,14 @@ class Buttons extends React.Component {
     }
 
     handleClick = e => {
-        this.props.setValueToState(+e.target.value, this.props.name)
+        const {index, name, values, setIndex, setValueToState} = this.props
+        setValueToState(+e.target.value, name, index)
+        if (Number(index) + 1 < values.length){
+            console.log(Number(index) + 1)
+            setIndex(Number(index) + 1)
+        } else {
+            setIndex(0)
+        }
     }
 
     render() {
@@ -33,7 +40,13 @@ class Buttons extends React.Component {
 }
 
 const mapDispatchToProps = {
-    setValueToState, setActiveIndex,
+    setValueToState,
 }
 
-export default connect(null, mapDispatchToProps)(Buttons)
+const mapStateToProps = (state, ownProps) => {
+    const {values} = state.diagnostic.sensoMotorLevel[ownProps.name]
+    return {values}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Buttons)
+

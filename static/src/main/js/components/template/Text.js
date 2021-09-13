@@ -1,6 +1,5 @@
 import React from 'react'
 import 'animate.css/animate.css'
-import {connect} from 'react-redux'
 
 export default class Text extends React.Component {
     constructor(props) {
@@ -10,7 +9,7 @@ export default class Text extends React.Component {
     render() {
         return (
               <div className='text-container'>
-                <p>{this.props.data[this.props.activeIndex].text}</p>
+                <p>{this.props.data[this.props.index].text}</p>
               </div>
         )
     }

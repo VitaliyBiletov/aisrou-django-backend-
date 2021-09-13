@@ -14,7 +14,7 @@ const StateOfFunctions = ({stateOfFunctions, stateOfFunctionsInputValue, name}) 
 
     return (
         <React.Fragment>
-            <div className='state-of-functions'>
+            <div className='diagnostic-section state-of-functions'>
                 <p className='diagnostic-section-heading'>{name}</p>
                 <div className='form mt-4'>
                     {FIELDS.map((item, index) => {

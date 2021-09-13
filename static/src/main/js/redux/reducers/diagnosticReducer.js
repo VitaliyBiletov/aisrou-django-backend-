@@ -1,7 +1,6 @@
 import {
     STATE_OF_FUNCTIONS_INPUT_VALUE,
     UPDATE_INITIAL_STATE,
-    SET_ACTIVE_INDEX,
     SET_VALUE_TO_STATE,
 } from "../types";
 import {PAIRS_OF_SOUNDS} from '../../components/sensoMotorLevel/phonemicPerception/pairsOfSounds'
@@ -24,17 +23,14 @@ const initialState = {
         phonemicPerception:{
             name: 'phonemicPerception',
             values: PAIRS_OF_SOUNDS.map(pair => ({id: pair.id, value: ''})),
-            activeIndex: 0,
         },
         soundPronunciation: {
             name: 'soundPronunciation',
             values: SYLLABLES.map(syllable => ({id: syllable.id, value: ''})),
-            activeIndex: 0,
         },
         articulatoryMotor:{
             name: 'articulatoryMotor',
             values: EXERCISES.map(exersise => ({id: exersise.id, value:''})),
-            activeIndex: 0,
         }
     }
 }
@@ -46,16 +42,9 @@ export const diagnosticReducer = (state = initialState, action) => {
             return {...state, stateOfFunctions: {...state.stateOfFunctions, [action.payload.name]:action.payload.value}}
         case UPDATE_INITIAL_STATE:
             return {...state, ...action.payload}
-        case SET_ACTIVE_INDEX:
-            stateCopy = Object.assign({},state)
-            _.set(stateCopy, `sensoMotorLevel.${action.payload.name}.activeIndex`, action.payload.index)
-            return stateCopy
         case SET_VALUE_TO_STATE:
             stateCopy = Object.assign({},state)
-            const index = _.get(stateCopy, `sensoMotorLevel.${action.payload.name}.activeIndex`)
-            _.set(stateCopy, `sensoMotorLevel.${action.payload.name}.values[${index}].value`, action.payload.value)
-            _.set(stateCopy, `sensoMotorLevel.${action.payload.name}.activeIndex`,
-                index + 1 == _.get(state, `sensoMotorLevel.${action.payload.name}.values`).length ? 0 : index + 1)
+            _.set(stateCopy, `sensoMotorLevel.${action.payload.name}.values[${action.payload.index}].value`, action.payload.value)
             return stateCopy
         default:
             return state

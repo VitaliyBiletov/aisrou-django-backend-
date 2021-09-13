@@ -9,6 +9,7 @@ class Subsection extends React.Component{
         super(props)
         this.state = {
             helpVisible: false,
+            index: 0,
         }
     }
 
@@ -22,10 +23,14 @@ class Subsection extends React.Component{
         this.setState({helpVisible: false})
     }
 
+    setIndex = (index) => {
+        this.setState({index: index})
+    }
+
     render(){
         return(
             <React.Fragment>
-                <div className="subsection-heading">{this.props.title}</div>
+                <div className="subsection-heading">&#9660;{this.props.title}</div>
                 <div className="subsection-instruction">
                     <p><b>Инструкция: </b>{this.props.instruction}</p>
                 </div>
@@ -35,11 +40,12 @@ class Subsection extends React.Component{
                     dataFromState={this.props.values}
                     data={this.props.data}
                     name={this.props.name}
-                    activeIndex={this.props.activeIndex}
+                    setIndex={this.setIndex}
+                    index={this.state.index}
                 />
-                {this.props.children}
+                {React.cloneElement(this.props.children, {index: this.state.index})}
                 </div>
-                <Buttons name={this.props.name}/>
+                <Buttons name={this.props.name} index={this.state.index} setIndex={this.setIndex}/>
                 {this.state.helpVisible && (
                     <Help
                         isVisible={this.state.helpVisible}
