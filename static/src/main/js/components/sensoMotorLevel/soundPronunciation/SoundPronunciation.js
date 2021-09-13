@@ -9,7 +9,7 @@ export default class SoundPronunciation extends React.Component {
         super(props);
         this.state = {
             pathes:[],
-            isLoading: true,
+            isLoading: false,
         }
     }
 
@@ -19,21 +19,21 @@ export default class SoundPronunciation extends React.Component {
         axios.post(`/load-pictures/${this.props.index}/`)
             .then((res)=>{
                 const pathes = res.data.listOfPictures.map(pic => `/static/src/main/img/syllables/${this.props.index}/${pic}`)
-                this.setState({pathes: pathes, isLoading: false})
+                this.setState({isLoading: false, pathes: pathes})
             })
         // }, 1000)
 
     }
 
-    componentWillUpdate(nextProps){
-        if (nextProps.index !== this.props.index){
-            console.log('Внутри условия')
+    componentDidUpdate(prevProps){
+        if (prevProps.index !== this.props.index){
             this.setState({isLoading: true})
             // setTimeout(()=>{
-            axios.post(`/load-pictures/${nextProps.index}/`)
+            axios.post(`/load-pictures/${this.props.index}/`)
             .then((res)=>{
+
                 const pathes = res.data.listOfPictures.map(pic => `/static/src/main/img/syllables/${this.props.index}/${pic}`)
-                this.setState({pathes: pathes, isLoading: false})
+                this.setState({isLoading: false, pathes: pathes})
             })
             // },1000)
 
@@ -42,14 +42,13 @@ export default class SoundPronunciation extends React.Component {
     }
 
     render(){
-        console.log('render:', this.state.isLoading)
         return(
             <div className='subsection-container'>
-                <div style={{height:'250px'}} className="sound-pronunciation-images mt-3">
-                    {this.state.isLoading ? <Loader/> : this.state.pathes.map((path, index) => (
-                        <div key={index} className="sound-pronunciation-image animate__animated animate__fadeIn">
+                <div className="sound-pronunciation-images mt-3">
+                    {this.state.isLoading ? null : this.state.pathes.map((path, index) => (
+                        <div key={index} className="sound-pronunciation-image">
                             <p>{soundLocation[parseInt(path.match(/\d+\./))]}</p>
-                            <img src={path} onError={(e) => console.log(e)}/>
+                            <img src={path}/>
                         </div>))
                     }
                 </div>

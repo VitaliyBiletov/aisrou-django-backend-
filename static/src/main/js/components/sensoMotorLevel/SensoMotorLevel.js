@@ -55,12 +55,35 @@ const SUBSECTIONS = [
 export default class SensoMotorLevel extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            isOpenAll: true,
+            countIsOpen: SUBSECTIONS.length
+        }
     }
+
+    handleClick = (e) => {
+        const {isOpenAll} = this.state
+        this.setState({isOpenAll: !isOpenAll, countIsOpen: isOpenAll ? 0 : SUBSECTIONS.length})
+    }
+
+    handleIsOpenAll = (status) => {
+        let counter = this.state.countIsOpen
+        counter = status ? counter + 1 : counter - 1
+        if (counter == SUBSECTIONS.length){
+            this.setState({isOpenAll: true})
+        }
+        if (counter == 0){
+            this.setState({isOpenAll: false})
+        }
+        this.setState({countIsOpen: counter})
+    }
+
 
     render() {
         return (
             <div className="diagnostic-section senso-motor-level">
-                <p className='diagnostic-section-heading'>{this.props.name}</p>
+                <p className='diagnostic-section-heading'><span className={`visibility-switch ${this.state.isOpenAll ? 'active' : ''}`} onClick={this.handleClick}>{this.state.isOpenAll ? "\u25B2" : "\u25BC"}</span>
+                    {this.props.name}</p>
 
                 {SUBSECTIONS.map(({name, nameOfClass, title, data, instruction, hints, component}, index) => (
                     <React.Fragment key={index}>
@@ -72,6 +95,8 @@ export default class SensoMotorLevel extends React.Component {
                                 title={title}
                                 instruction={instruction}
                                 hints={hints}
+                                isOpen={this.state.isOpenAll}
+                                isOpenAll={this.handleIsOpenAll}
                             >{component}</Subsection>
                         </div>
                         <hr/>

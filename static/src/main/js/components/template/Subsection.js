@@ -9,7 +9,18 @@ class Subsection extends React.Component{
         super(props)
         this.state = {
             helpVisible: false,
+            isOpen: null,
             index: 0,
+        }
+    }
+
+    componentDidMount(){
+        this.setState({isOpen: this.props.isOpen})
+    }
+
+    componentDidUpdate(prevProps){
+        if (prevProps.isOpen !== this.props.isOpen){
+            this.setState({isOpen: this.props.isOpen})
         }
     }
 
@@ -27,15 +38,23 @@ class Subsection extends React.Component{
         this.setState({index: index})
     }
 
+    handleClick = (e) => {
+        this.props.isOpenAll(!this.state.isOpen)
+        this.setState({isOpen: !this.state.isOpen})
+    }
+
     render(){
         return(
-            <React.Fragment>
-                <div className="subsection-heading">&#9660;{this.props.title}</div>
+            <div className='subsection animate__animated animate__fadeIn'>
+                <div className="subsection-heading">
+                    <span className={`visibility-switch ${this.state.isOpen ? 'active' : ''}`} onClick={this.handleClick}>{this.state.isOpen ? "\u25B2" : "\u25BC"}</span>{this.props.title}
+                </div>
+                {this.state.isOpen ? (<div className='animate__animated animate__fadeIn'>
                 <div className="subsection-instruction">
                     <p><b>Инструкция: </b>{this.props.instruction}</p>
                 </div>
                 <div onClick={this.openHelp} className='help-icon'>?</div>
-                <div className='subsection-container'>
+                <div className='subsection-content'>
                 <StatusBar
                     dataFromState={this.props.values}
                     data={this.props.data}
@@ -53,7 +72,8 @@ class Subsection extends React.Component{
                         closeHelp={this.closeHelp}
                     />
                 )}
-            </React.Fragment>
+                </div>) : null}
+            </div>
             )
     }
 }
