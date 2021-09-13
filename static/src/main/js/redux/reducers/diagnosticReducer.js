@@ -3,12 +3,11 @@ import {
     UPDATE_INITIAL_STATE,
     SET_ACTIVE_INDEX,
     SET_VALUE_TO_STATE,
-    // SET_LIST_OF_PICTURES
 } from "../types";
 import {PAIRS_OF_SOUNDS} from '../../components/sensoMotorLevel/phonemicPerception/pairsOfSounds'
 import {SYLLABLES} from "../../components/sensoMotorLevel/soundPronunciation/syllables";
 import {EXERCISES} from "../../components/sensoMotorLevel/articulatoryMotor/exercises";
-import {sensoMotorLevelInputValue} from "../actions";
+import _ from 'lodash'
 
 const initialState = {
     stateOfFunctions: {
@@ -25,7 +24,8 @@ const initialState = {
         phonemicPerception:{
             name: 'phonemicPerception',
             values: PAIRS_OF_SOUNDS.map(pair => ({id: pair.id, value: ''})),
-            activeIndex: 0, },
+            activeIndex: 0,
+        },
         soundPronunciation: {
             name: 'soundPronunciation',
             values: SYLLABLES.map(syllable => ({id: syllable.id, value: ''})),

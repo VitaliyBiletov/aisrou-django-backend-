@@ -18,25 +18,23 @@ class StatusBar extends React.Component {
 
     render() {
         return (
-            <React.Fragment>
-                <div className="state-table-container">
-                    <table className='state-table'>
-                        <tbody>
-                        <tr>
-                            {this.props.dataFromState.map((item, index) => {
-                                return (
-                                    <td onClick={this.handleClick}
-                                        key={index}
-                                        data-tooltip={this.props.data[item.id].text}
-                                        data-index={index}
-                                        className={`${colors[item.value] || ''} ${ this.props.activeIndex == index ? 'active-cell' : ''}`}>
-                                    </td>)
-                            })}
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </React.Fragment>
+            <div className="state-table-container">
+                <table className='state-table'>
+                    <tbody>
+                    <tr>
+                        {this.props.dataFromState.map((item, index) => {
+                            return (
+                                <td onClick={this.handleClick}
+                                    key={index}
+                                    data-tooltip={this.props.data[index].text}
+                                    data-index={index}
+                                    className={`${colors[item.value] || ''} ${ this.props.activeIndex == index ? 'active-cell' : ''}`}>
+                                </td>)
+                        })}
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         )
     }
 }

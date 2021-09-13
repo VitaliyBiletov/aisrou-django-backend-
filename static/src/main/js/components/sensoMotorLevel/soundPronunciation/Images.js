@@ -1,20 +1,27 @@
 import React from 'react'
 import axios from 'axios/index'
+import {connect} from 'react-redux'
 
-const soundLocation = ['Начало','Середина','Конец']
+const soundLocation = {1:'Начало',2:'Середина',3:'Конец'}
 
-export default class Images extends React.Component {
+class Images extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            pictures: []
+            pathes:[],
         }
     }
 
     componentDidMount(){
+        console.log('mount')
         axios.post(`/load-pictures/${this.props.activeIndex}/`)
             .then((res) => {
-                this.setState({pictures: res.data.listOfPictures})
+                const pathes = res.data.listOfPictures.map(path =>
+                    ({
+                        positionNumber: parseInt(path.match(/\d+/)),
+                        to: `/static/src/main/img/syllables/${this.props.activeIndex}/${path}`
+                    }))
+                this.setState({pathes: pathes})
         })
     }
 
@@ -22,22 +29,37 @@ export default class Images extends React.Component {
         if (prevProps.activeIndex != this.props.activeIndex){
          axios.post(`/load-pictures/${this.props.activeIndex}/`)
             .then((res) => {
-                this.setState({pictures: res.data.listOfPictures})
+                const pathes = res.data.listOfPictures.map(path =>
+                    ({
+                        positionNumber: parseInt(path.match(/\d+/)),
+                        to: `/static/src/main/img/syllables/${this.props.activeIndex}/${path}`
+                    }))
+                this.setState({pathes: pathes})
         })
         }
 
     }
 
     render(){
+        console.log(this.state)
         return(
             <div className="sound-pronunciation-images mt-3">
-                {this.state.pictures.map((pic, index) => (
+                {this.state.pathes.map((path, index) => (
                     <div key={index} className="sound-pronunciation-image">
-                        <p>{soundLocation[+pic[0]-1]}</p>
-                        <img src={`/static/src/main/img/syllables/${this.props.activeIndex}/${pic}`}/>
+                        <p>{soundLocation[path.positionNumber]}</p>
+                        <img src={path.to}/>
                     </div>
                 ))}
             </div>
         )
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        activeIndex: state.diagnostic.sensoMotorLevel.soundPronunciation.activeIndex
+    }
+}
+
+
+export default connect(mapStateToProps, null)(Images)
