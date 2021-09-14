@@ -147,6 +147,24 @@ $border-radius-td: 20px
     user-select: none
 
 //------------------------------------------//
+
+//---SOUND_SYLLABLES-STRUCTURE component---//
+.sound-syllable-structure
+  @extend .sound-pronunciation
+  $width-active-cell: 200px
+  td
+    width: 70px
+    &:hover
+      width: $width-active-cell
+  .card
+    margin: 20px auto
+    p
+      text-align: center
+      margin: 0
+      background-color: gainsboro
+      font-size: 17pt
+
+//------------------------------------------//
 .subsection-instruction
   padding: 15px 30px
   background-color: aliceblue

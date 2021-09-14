@@ -7,6 +7,7 @@ import {PAIRS_OF_SOUNDS} from '../../components/sensoMotorLevel/phonemicPercepti
 import {SYLLABLES} from "../../components/sensoMotorLevel/soundPronunciation/syllables";
 import {EXERCISES} from "../../components/sensoMotorLevel/articulatoryMotor/exercises";
 import _ from 'lodash'
+import {SOUND_SYLLABLES} from "../../components/sensoMotorLevel/soundSyllableStructure/soundSyllables";
 
 const initialState = {
     stateOfFunctions: {
@@ -31,6 +32,10 @@ const initialState = {
         articulatoryMotor:{
             name: 'articulatoryMotor',
             values: EXERCISES.map(exersise => ({id: exersise.id, value:''})),
+        },
+        soundSyllableStructure:{
+            name: 'soundSyllableStructure',
+            values: SOUND_SYLLABLES.map(item => ({id: item.id, value:''})),
         }
     }
 }

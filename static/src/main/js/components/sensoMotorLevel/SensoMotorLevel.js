@@ -2,10 +2,12 @@ import React from 'react'
 import PhonemicPerception from "./phonemicPerception/PhonemicPerception"
 import SoundPronunciation from "./soundPronunciation/SoundPronunciation"
 import ArtuclatoryMotor from "./articulatoryMotor/ArtuclatoryMotor";
+import SoundSyllableStructure from "./soundSyllableStructure/SoundSyllableStructure";
 import Subsection from '../template/Subsection'
 import {PAIRS_OF_SOUNDS} from "./phonemicPerception/pairsOfSounds";
 import {SYLLABLES} from "./soundPronunciation/syllables";
 import {EXERCISES} from "./articulatoryMotor/exercises";
+import {SOUND_SYLLABLES} from "./soundSyllableStructure/soundSyllables";
 
 const SUBSECTIONS = [
     {
@@ -49,6 +51,20 @@ const SUBSECTIONS = [
             {id:3, text:'Правильное выполнение с точным соответствием всех характеристик'},
         ],
         component: <ArtuclatoryMotor/>
+    },
+    {
+        name: 'soundSyllableStructure',
+        nameOfClass: 'sound-syllable-structure',
+        title: 'Звуко-слоговая структура',
+        data: SOUND_SYLLABLES,
+        instruction: 'Повторяй за мной слова',
+        hints:[
+            {id:0, text:'Невозможность воспроизведения'},
+            {id:1, text:'Искажение звуко-слоговой структуры'},
+            {id:2, text:'Замедленное послоговое воспроизведение'},
+            {id:3, text:'Правильное и точное воспроизведение'},
+        ],
+        component: <SoundSyllableStructure/>
     }
 ]
 

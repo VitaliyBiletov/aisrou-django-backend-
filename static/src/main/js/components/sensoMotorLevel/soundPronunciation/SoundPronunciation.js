@@ -45,7 +45,7 @@ export default class SoundPronunciation extends React.Component {
         return(
             <div className='subsection-container'>
                 <div className="sound-pronunciation-images mt-3">
-                    {this.state.isLoading ? null : this.state.pathes.map((path, index) => (
+                    {this.state.isLoading ? <Loader/> : this.state.pathes.map((path, index) => (
                         <div key={index} className="sound-pronunciation-image">
                             <p>{soundLocation[parseInt(path.match(/\d+\./))]}</p>
                             <img src={path}/>

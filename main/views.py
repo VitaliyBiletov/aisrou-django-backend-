@@ -68,7 +68,8 @@ def diagnostic_view(request, **kwargs):
                 diagnostic_id=diagnostic.id,
                 phonemic_perception=create_template_for_state(int(request.POST['phonemic_perception_count'])),
                 sound_pronunciation=create_template_for_state(int(request.POST['syllables_count'])),
-                articulatory_motor=create_template_for_state(int(request.POST['exercises_count']))
+                articulatory_motor=create_template_for_state(int(request.POST['exercises_count'])),
+                sound_syllable_structure=create_template_for_state(int(request.POST['sound_syllable_count'])),
             )
             request.session['diagnostic_id'] = diagnostic.id
 

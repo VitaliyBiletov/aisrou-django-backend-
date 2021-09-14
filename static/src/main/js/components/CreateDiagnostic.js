@@ -4,6 +4,7 @@ import Loader from './Loader'
 import {PAIRS_OF_SOUNDS} from "./sensoMotorLevel/phonemicPerception/pairsOfSounds"
 import {SYLLABLES} from "./sensoMotorLevel/soundPronunciation/syllables"
 import {EXERCISES} from "./sensoMotorLevel/articulatoryMotor/exercises";
+import {SOUND_SYLLABLES} from "./sensoMotorLevel/soundSyllableStructure/soundSyllables";
 
 export default class CreateDiagnostic extends React.Component {
     constructor(props){
@@ -57,6 +58,7 @@ export default class CreateDiagnostic extends React.Component {
             data.append('phonemic_perception_count', PAIRS_OF_SOUNDS.length)
             data.append('syllables_count', SYLLABLES.length),
             data.append('exercises_count', EXERCISES.length),
+            data.append('sound_syllable_count', SOUND_SYLLABLES.length),
             axios({
                 url: '/create/',
                 method: 'POST',
