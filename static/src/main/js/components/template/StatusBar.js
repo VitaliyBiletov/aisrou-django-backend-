@@ -21,7 +21,7 @@ export default class StatusBar extends React.Component {
     render() {
         return (
             <div className="state-table-container">
-                <table className='state-table'>
+                <table className=''>
                     <tbody>
                     <tr>
                         {this.props.dataFromState.map((item, index) => {
@@ -31,13 +31,12 @@ export default class StatusBar extends React.Component {
                                     data-tooltip={this.props.data[index].text}
                                     data-index={index}
                                     className={`${colors[item.value] || ''} ${ this.props.index == index ? 'active-cell' : ''}`}>
-                                </td>)
+                                    </td>)
                         })}
                     </tr>
                     </tbody>
                 </table>
             </div>
-        )
-    }
+        )   }
 }
 

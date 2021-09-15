@@ -8,7 +8,7 @@ export default class ArticulatoryMotor extends React.Component {
 
     render(){
         return(
-            <div className="face mt-3">
+            <div className="face">
                 <img src={`/static/src/main/img/faces/${this.props.index}.jpg`}/>
             </div>
         )

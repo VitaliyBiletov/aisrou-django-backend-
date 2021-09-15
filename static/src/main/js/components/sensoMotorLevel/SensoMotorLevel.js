@@ -22,7 +22,7 @@ const SUBSECTIONS = [
             {id:2, text:'Первый член воспроизводится правильно, второй уподобляется первому (ба-па-ба-па)'},
             {id:3, text:'Точное и правильное воспроизведение в темпе предъявления'},
         ],
-        component: <PhonemicPerception/>
+        // component: <PhonemicPerception/>
     },
     {
         name: 'soundPronunciation',
@@ -113,7 +113,7 @@ export default class SensoMotorLevel extends React.Component {
                                 hints={hints}
                                 isOpen={this.state.isOpenAll}
                                 isOpenAll={this.handleIsOpenAll}
-                            >{component}</Subsection>
+                            >{component || null}</Subsection>
                         </div>
                         <hr/>
                     </React.Fragment>

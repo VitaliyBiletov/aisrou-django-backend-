@@ -3,6 +3,7 @@ import Buttons from '../template/Buttons'
 import Help from '../template/Help'
 import StatusBar from '../template/StatusBar'
 import {connect} from 'react-redux'
+import Text from "./Text";
 
 class Subsection extends React.Component{
     constructor(props){
@@ -54,7 +55,6 @@ class Subsection extends React.Component{
                     <p><b>Инструкция: </b>{this.props.instruction}</p>
                 </div>
                 <div onClick={this.openHelp} className='help-icon'>?</div>
-                <div className='subsection-content'>
                 <StatusBar
                     dataFromState={this.props.values}
                     data={this.props.data}
@@ -62,7 +62,10 @@ class Subsection extends React.Component{
                     setIndex={this.setIndex}
                     index={this.state.index}
                 />
-                {React.cloneElement(this.props.children, {index: this.state.index})}
+                <div className='subsection-content'>
+                    {console.log(this.props.data[this.state.index].text)}
+                <Text text={this.props.data[this.state.index].text}/>
+                {this.props.children ? React.cloneElement(this.props.children, {index: this.state.index}) : null}
                 </div>
                 <Buttons name={this.props.name} index={this.state.index} setIndex={this.setIndex}/>
                 {this.state.helpVisible && (
