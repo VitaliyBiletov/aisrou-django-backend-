@@ -46,7 +46,7 @@ class Subsection extends React.Component{
 
     render(){
         return(
-            <div className='subsection animate__animated animate__fadeIn'>
+            <div className='subsection'>
                 <div className="subsection-heading">
                     <span className={`visibility-switch ${this.state.isOpen ? 'active' : ''}`} onClick={this.handleClick}>{this.state.isOpen ? "\u25B2" : "\u25BC"}</span>{this.props.title}
                 </div>

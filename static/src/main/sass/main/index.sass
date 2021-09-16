@@ -7,6 +7,9 @@ $minWidth: 1200px
 $sectionsContainerWidth: 500px
 $buttonMargin: 10px
 
+@mixin text-shadow
+  text-shadow: 1px 1px rgb(0 0 0 / 30%)
+
 body
   min-width: $minWidth
 
@@ -21,6 +24,7 @@ body
   .heading
     padding: 5px 10px
     text-align: center
+    @include text-shadow
     background-color: #424950
     color: #fff
     border-top-left-radius: 10px
@@ -30,6 +34,7 @@ body
     border-bottom-left-radius: 10px
     background: whitesmoke
     button
+      @include text-shadow
       margin: 10px
 
 .student-selection-section
@@ -52,27 +57,30 @@ body
 .section-list-of-diagnostics
   table
     margin: 0
+    td, th
+      padding: 0
   .list-of-diagnostics-container
     tr
       text-align: center
-      cursor: pointer
       user-select: none
     thead
       tr
         background-color: #818E9C
         color: #fff
-        th
-          padding: 0.5rem
+        @include text-shadow
     tbody
       tr
         &:hover
-          background: #ffa19f
+          background: #945050
           color: #fff
+          cursor: pointer
+          @include text-shadow
         &:active
-          background-color: #F08181
+          background-color: #934545
           opacity: 1
       .active-row
-        background-color: #F08181
+        background-color: #934545
+        @include text-shadow
         color: #fff
 
 
