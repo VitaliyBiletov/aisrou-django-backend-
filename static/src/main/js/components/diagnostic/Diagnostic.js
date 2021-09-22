@@ -33,14 +33,14 @@ class Diagnostic extends React.Component {
 
     componentDidMount() {
         // console.log('type: ',sessionStorage.getItem('type'))
-        if (sessionStorage.getItem('type') =='edit'){
+        // if (sessionStorage.getItem('type') =='edit'){
             // setTimeout(()=>{
                 const {updateInitialState} = this.props
                 updateInitialState(store.getState())
                 this.setState({loading: false})
             // }, 3000)
 
-        }
+        // }
     }
 
     handleSaveData = (e) => {

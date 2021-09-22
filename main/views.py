@@ -49,7 +49,7 @@ def open_diagnostic_view(request):
 def diagnostic_view(request, **kwargs):
     if request.method == 'POST':
         print(kwargs)
-        if kwargs['diag_type'] == 'create':
+        if kwargs['type'] == 'create':
             print('create')
             pupil = Pupil.objects.get(id=request.POST['pupil_id'])
             date_of_creation = request.POST['date_of_creation']
@@ -75,7 +75,7 @@ def diagnostic_view(request, **kwargs):
 
             return JsonResponse({'status':'Создано!'})
 
-        if kwargs['diag_type'] == 'edit':
+        if kwargs['type'] == 'edit':
             print('edit')
             diagnostic_id = request.POST['diagnostic_id']
             request.session['diagnostic_id'] = diagnostic_id

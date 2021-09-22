@@ -17,16 +17,6 @@ export default class CreateDiagnostic extends React.Component {
     }
 
     componentDidMount(){
-        // axios.post('/list_pupils/')
-        // .then((response) => {
-        //     // setTimeout(()=>{
-        //         this.setState({
-        //             date:{value:'', isInvalid: false},
-        //             csrf: response.data['csrf'],
-        //             loading: false
-        //         })
-        //     // },1000)
-        // })
         $(document).mouseup((e) => {
             if (this.state.date.isInvalid){
                 const div = $('.section-creating-diagnostic')
