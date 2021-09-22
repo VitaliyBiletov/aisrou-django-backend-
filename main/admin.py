@@ -24,8 +24,8 @@ class StatesOfFunctionsAdmin(admin.ModelAdmin):
 class SensoMotorLevelAdmin(admin.ModelAdmin):
     list_display = (
         'id',
-        'phonemic_perception',
-        'sound_pronunciation',
-        'articulatory_motor',
-        'sound_syllable_structure',
+        'phonemicPerception',
+        'soundPronunciation',
+        'articulatoryMotor',
+        'soundSyllableStructure',
     )

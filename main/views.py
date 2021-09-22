@@ -66,10 +66,10 @@ def diagnostic_view(request, **kwargs):
             )
             SensoMotorLevel.objects.create(
                 diagnostic_id=diagnostic.id,
-                phonemic_perception=create_template_for_state(int(request.POST['phonemic_perception_count'])),
-                sound_pronunciation=create_template_for_state(int(request.POST['syllables_count'])),
-                articulatory_motor=create_template_for_state(int(request.POST['exercises_count'])),
-                sound_syllable_structure=create_template_for_state(int(request.POST['sound_syllable_count'])),
+                phonemicPerception=create_template_for_state(int(request.POST['phonemic_perception_count'])),
+                soundPronunciation=create_template_for_state(int(request.POST['syllables_count'])),
+                articulatoryMotor=create_template_for_state(int(request.POST['exercises_count'])),
+                soundSyllableStructure=create_template_for_state(int(request.POST['sound_syllable_count'])),
             )
             request.session['diagnostic_id'] = diagnostic.id
 
@@ -92,13 +92,10 @@ def load_data(request):
         diagnostic['stateOfFunctions'].update({item: state_of_functions_dict[item]})
 
     senso_motor_level = SensoMotorLevel.objects.get(diagnostic_id=diagnostic_id)
-    phonemic_perception = senso_motor_level.phonemic_perception
-    sound_pronunciation = senso_motor_level.sound_pronunciation
-    articulatory_motor = senso_motor_level.articulatory_motor
 
-    diagnostic['sensoMotorLevel']['phonemicPerception']['values'] = str_to_array_of_dict(phonemic_perception, '&', ':')
-    diagnostic['sensoMotorLevel']['soundPronunciation']['values'] = str_to_array_of_dict(sound_pronunciation, '&', ':')
-    diagnostic['sensoMotorLevel']['articulatoryMotor']['values'] = str_to_array_of_dict(articulatory_motor, '&', ':')
+    for section in diagnostic['sensoMotorLevel']:
+        diagnostic['sensoMotorLevel']['{}'.format(section)]['values'] = str_to_array_of_dict(senso_motor_level.__dict__['{}'.format(section)], '&', ':')
+
     return JsonResponse({'diagnostic': diagnostic})
 
 
@@ -136,6 +133,7 @@ def list_diags_view(request):
 @login_required
 @csrf_exempt
 def save_diagnostic_view(request):
+    property_names = ['ab', 'cd', 'ef', 'other', 'gh', 'ij']
     response = json.loads(request.body)['data']['diagnostic']
     d_id = request.session['diagnostic_id']
 
@@ -145,13 +143,10 @@ def save_diagnostic_view(request):
     stateOfFunctions.save()
 
     sensoMotorLevel = SensoMotorLevel.objects.get(diagnostic_id=d_id)
-    phonemic_perception = response["sensoMotorLevel"]["phonemicPerception"]["values"]
-    sound_pronunciation = response["sensoMotorLevel"]["soundPronunciation"]["values"]
-    articulatory_motor = response["sensoMotorLevel"]["articulatoryMotor"]["values"]
 
-    sensoMotorLevel.phonemic_perception = create_str_to_state(phonemic_perception)
-    sensoMotorLevel.sound_pronunciation = create_str_to_state(sound_pronunciation)
-    sensoMotorLevel.articulatory_motor = create_str_to_state(articulatory_motor)
+    for section in response['sensoMotorLevel']:
+        sensoMotorLevel.__setattr__(section, create_str_to_state(response["sensoMotorLevel"][section]["values"]))
+
     sensoMotorLevel.save()
 
     return HttpResponse('Данные успешно сохранены!')

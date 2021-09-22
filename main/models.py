@@ -105,28 +105,28 @@ class SensoMotorLevel(models.Model):
         on_delete=models.CASCADE,
     )
 
-    phonemic_perception = models.CharField(
+    phonemicPerception = models.CharField(
         verbose_name='Фонематическое воспритятие',
         blank=True,
         null=True,
         max_length=100,
     )
 
-    sound_pronunciation = models.CharField(
+    soundPronunciation = models.CharField(
         verbose_name='Звукопроизношение',
         blank=True,
         null=True,
         max_length=350,
     )
 
-    articulatory_motor = models.CharField(
+    articulatoryMotor = models.CharField(
         verbose_name='Артикуляционная моторика',
         blank=True,
         null=True,
         max_length=100,
     )
 
-    sound_syllable_structure = models.CharField(
+    soundSyllableStructure = models.CharField(
         verbose_name='Звуко-слоговая структура',
         blank=True,
         null=True,
