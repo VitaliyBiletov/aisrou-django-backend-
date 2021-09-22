@@ -54,7 +54,6 @@ export default class CreateDiagnostic extends React.Component {
                 method: 'POST',
                 data: data
             }, ).then(res => {
-                sessionStorage.setItem('type','create')
                 window.location = `/diagnostic/`
             })
             }

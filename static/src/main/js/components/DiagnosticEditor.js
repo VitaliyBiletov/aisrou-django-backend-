@@ -59,7 +59,6 @@ export default class DiagnosticEditor extends React.Component {
             method: 'POST',
             data: data
         }, ).then(res => {
-            sessionStorage.setItem('type','edit')
             window.location = `/diagnostic/`
         })
     }
