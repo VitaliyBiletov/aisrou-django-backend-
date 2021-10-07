@@ -3,11 +3,11 @@ import {
     UPDATE_INITIAL_STATE,
     SET_VALUE_TO_STATE,
 } from "../types";
-import {PAIRS_OF_SOUNDS} from '../../components/sensoMotorLevel/phonemicPerception/pairsOfSounds'
-import {SYLLABLES} from "../../components/sensoMotorLevel/soundPronunciation/syllables";
-import {EXERCISES} from "../../components/sensoMotorLevel/articulatoryMotor/exercises";
+import {PAIRS_OF_SOUNDS} from '../../components/diagnostic/sensoMotorLevel/phonemicPerception/pairsOfSounds'
+import {SYLLABLES} from "../../components/diagnostic/sensoMotorLevel/soundPronunciation/syllables";
+import {EXERCISES} from "../../components/diagnostic/sensoMotorLevel/articulatoryMotor/exercises";
 import _ from 'lodash'
-import {SOUND_SYLLABLES} from "../../components/sensoMotorLevel/soundSyllableStructure/soundSyllables";
+import {SOUND_SYLLABLES} from "../../components/diagnostic/sensoMotorLevel/soundSyllableStructure/soundSyllables";
 
 const initialState = {
     stateOfFunctions: {

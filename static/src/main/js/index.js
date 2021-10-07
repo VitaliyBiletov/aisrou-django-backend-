@@ -1,3 +1,3 @@
 import '../sass/main/index.sass'
-import './components/MainMenu'
+import './components/mainMenu/MainMenu'
 

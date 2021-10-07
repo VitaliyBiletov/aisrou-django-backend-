@@ -1,6 +1,6 @@
 import React from 'react'
-import StateOfFunctions from "../stateOfFunctions/StateOfFunctions"
-import SensoMotorLevel from "../sensoMotorLevel/SensoMotorLevel";
+import StateOfFunctions from "../diagnostic/stateOfFunctions/StateOfFunctions"
+import SensoMotorLevel from "../diagnostic/sensoMotorLevel/SensoMotorLevel";
 import axios from "axios"
 import Loader from "../Loader"
 import {connect} from 'react-redux'
@@ -25,22 +25,15 @@ class Diagnostic extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            loading: false,
-            loadingSave: false,
+            loading: true,
             activeTab: sessionStorage.getItem('activeTab') || 0
         }
     }
 
     componentDidMount() {
-        // console.log('type: ',sessionStorage.getItem('type'))
-        // if (sessionStorage.getItem('type') =='edit'){
-            // setTimeout(()=>{
-                const {updateInitialState} = this.props
-                updateInitialState(store.getState())
-                this.setState({loading: false})
-            // }, 3000)
-
-        // }
+        const {updateInitialState} = this.props
+        updateInitialState(store.getState())
+        this.setState({loading: false})
     }
 
     handleSaveData = (e) => {
@@ -86,7 +79,7 @@ class Diagnostic extends React.Component {
                 }
                 <div className='fixed-bottom bar-bottom'>
                     <div className='container'>
-                        <button className='btn btn-success m-2' onClick={this.handleSaveData}>{ this.state.loadingSave ? 'Идёт сохранение...' : 'Сохранить'}</button>
+                        <button className='btn btn-success m-2' onClick={this.handleSaveData}>Сохранить</button>
                         <button className='btn btn-primary m-2' onClick={this.handleClickBack}>Назад</button>
                     </div>
                 </div>
